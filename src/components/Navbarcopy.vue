@@ -1,23 +1,20 @@
 <template>
   <MDBNavbar expand="lg" light bg="light" container>
-    <MDBNavbarBrand  href="#">
-      <img
+    <MDBNavbarBrand href="#"
+      ><img
         src="https://i.ibb.co/cC5hgZ0/Logo-removebg-preview-Copy.png"
         height="50"
         alt=""
         loading="lazy"
-      />
-    </MDBNavbarBrand>
+    /></MDBNavbarBrand>
     <MDBNavbarToggler
       @click="collapse1 = !collapse1"
       target="#navbarSupportedContent"
     ></MDBNavbarToggler>
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
-      <MDBNavbarNav class="mb-2 mb-lg-0 logo" collapse="navbarNav">
-        <MDBNavbarItem to="#" active> Explore </MDBNavbarItem>
-        <MDBNavbarItem to="#"> Planner </MDBNavbarItem>
-        <MDBNavbarItem to="#"> About Us </MDBNavbarItem>
-        <!-- <MDBNavbarItem href="#"> Link </MDBNavbarItem> -->
+      <MDBNavbarNav class="mb-2 mb-lg-0">
+        <MDBNavbarItem to="#" active> Home </MDBNavbarItem>
+        <MDBNavbarItem href="#"> Link </MDBNavbarItem>
       </MDBNavbarNav>
     </MDBCollapse>
     <!-- Notification dropdown -->
@@ -33,7 +30,7 @@
     </MDBNavbarItem>
     <!-- Notification dropdown -->
     <!-- Avatar -->
-    <MDBDropdown class="nav-item dropdown" v-model="dropdown6">
+    <MDBDropdown class="nav-item" v-model="dropdown6">
       <MDBDropdownToggle
         tag="a"
         class="nav-link"
@@ -53,7 +50,6 @@
     </MDBDropdown>
   </MDBNavbar>
 </template>
-
 <script>
 import {
   MDBIcon,
@@ -88,14 +84,10 @@ export default {
   },
   setup() {
     const collapse1 = ref(false);
-    // const dropdown1 = ref(false);
-    // const dropdown4 = ref(false);
     const dropdown6 = ref(false);
 
     return {
       collapse1,
-      // dropdown1,
-      // dropdown4,
       dropdown6,
     };
   },
@@ -107,11 +99,5 @@ li {
 }
 * {
   font-family: "Montserrat", sans-serif;
-}
-.dropdown {
-  padding-right: 100px;
-}
-.logo {
-  padding-left: 100px;
 }
 </style>

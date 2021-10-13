@@ -17,7 +17,7 @@
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
       <div class="col-md-3">
-        <div class="card bagud">
+        <!-- <div class="card bagud">
           <img
             class="card-img-top"
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -34,7 +34,21 @@
               quo similique. Ad.
             </p>
           </div>
-        </div>
+        </div> -->
+        <MDBCard>
+          <MDBCardImg
+            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+            top
+            alt="..."
+          />
+          <MDBCardBody>
+            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+            <MDBCardText>
+              Candi Borobudur adalah candi Buddha terbesar di dunia. 
+            </MDBCardText>
+            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
       </div>
       <div class="col-md-3">
         <MDBCard>
@@ -91,24 +105,20 @@
       <h5>Lihat Diskusi Mengenai Tempat Wisata</h5>
       <p>Temukan pendapat orang yang pernah ke destinasi wisata yang akan anda kunjungi</p>
       <div class="col-md-3">
-        <div class="card bagud">
-          <img
-            class="card-img-top"
+        <MDBCard>
+          <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            alt="Card image cap"
+            top
+            alt="..."
           />
-          <div class="card-body">
-            <a href="#" class="btn btn-primary">See Details</a>
-          </div>
-          <div class="card-isi">
-            <p>Candi Borobudur</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium corporis aut aliquid quasi a voluptatibus nihil iusto
-              quo similique. Ad.
-            </p>
-          </div>
-        </div>
+          <MDBCardBody>
+            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+            <MDBCardText>
+              Candi Borobudur adalah candi Buddha terbesar di dunia. 
+            </MDBCardText>
+            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
       </div>
       <div class="col-md-3">
         <MDBCard>
@@ -165,24 +175,20 @@
       <h5>Lihat Moment Mengenai Tempat Wisata</h5>
       <p>Temukan moment terbaik dari tempat wisata yang akan anda kunjungi</p>
       <div class="col-md-3">
-        <div class="card bagud">
-          <img
-            class="card-img-top"
+        <MDBCard>
+          <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            alt="Card image cap"
+            top
+            alt="..."
           />
-          <div class="card-body">
-            <a href="#" class="btn btn-primary">See Details</a>
-          </div>
-          <div class="card-isi">
-            <p>Candi Borobudur</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium corporis aut aliquid quasi a voluptatibus nihil iusto
-              quo similique. Ad.
-            </p>
-          </div>
-        </div>
+          <MDBCardBody>
+            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+            <MDBCardText>
+              Candi Borobudur adalah candi Buddha terbesar di dunia. 
+            </MDBCardText>
+            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
       </div>
       <div class="col-md-3">
         <MDBCard>
@@ -344,7 +350,7 @@ export default {
   font-weight: 700;
   text-align: center;
 }
-.bagud {
+/* .bagud {
   position: relative;
 }
 .card-isi {
@@ -364,7 +370,7 @@ export default {
   top: 330px;
   left: 50%;
   transform: translateX(-50%);
-}
+} */
 * {
   font-family: "Montserrat", sans-serif;
 }

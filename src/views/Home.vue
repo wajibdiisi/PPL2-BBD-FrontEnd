@@ -1,9 +1,5 @@
 <template>
   <Navbar />
-<<<<<<< HEAD
-  <Wisatadetails />
-=======
->>>>>>> 64351db7a836d40c2c23da020b72bf86a5f877a9
 </template>
 
 <script>

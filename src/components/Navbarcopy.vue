@@ -1,8 +1,8 @@
 <template>
-  <MDBNavbar expand="lg" light bg="light" container>
+  <MDBNavbar expand="lg" light bg="light" position="sticky" transparent scrolling container>
     <MDBNavbarBrand href="#"
       ><img
-        src="https://i.ibb.co/cC5hgZ0/Logo-removebg-preview-Copy.png"
+        src="https://i.ibb.co/T8wDGBV/Logo-removebg-preview-Copy-removebg-preview.png"
         height="50"
         alt=""
         loading="lazy"
@@ -32,7 +32,7 @@
     </MDBNavbarItem>
     <!-- Notification dropdown -->
     <!-- Avatar -->
-    <MDBDropdown class="nav-item" v-model="dropdown6">
+    <MDBDropdown class="nav-item" dropstart v-model="dropdown6">
       <MDBDropdownToggle
         tag="a"
         class="nav-link"

@@ -17,7 +17,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: () => import('../views/Daftar.vue')
-  }
+  },
+  {
+    path: '/wisata',
+    name: 'Wisata',
+    component: () => import('../views/Wisata.vue')
+  },
 ]
 
 const router = createRouter({

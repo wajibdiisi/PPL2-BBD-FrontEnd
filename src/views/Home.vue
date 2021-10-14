@@ -247,7 +247,7 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Navbar from "../components/Navbarcopy.vue";
-import Footer from "../components/Footer.vue";
+import Footer from "../components/Footer copy.vue";
 //import Wisatadetails from "../components/Wisatadetails.vue";
 // import { ref } from "vue";
 import {

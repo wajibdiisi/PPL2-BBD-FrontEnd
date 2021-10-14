@@ -9,7 +9,7 @@
     />
     <div class="search-box">
       <!-- <p class="search-text">Cari Wisata</p> -->
-      <input class="form-control" type="text" placeholder="Cari Wisata" />
+      <input class="form-control" type="text" placeholder="Cari Tempat - Tempat Wisata di Indonesia" />
     </div>
   </div>
   <!-- <div>
@@ -34,7 +34,7 @@
       <MDBCol>
         <MDBCard class="h-100">
           <MDBCardImg
-            src="https://mdbootstrap.com/img/new/standard/city/041.jpg"
+            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
             top
             alt="..."
           />
@@ -56,7 +56,7 @@
       <MDBCol>
         <MDBCard class="h-100">
           <MDBCardImg
-            src="https://mdbootstrap.com/img/new/standard/city/042.jpg"
+            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
             top
             alt="..."
           />
@@ -118,7 +118,60 @@
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
+      <MDBCol>
+        <MDBCard class="h-100">
+          <MDBCardImg
+            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+            top
+            alt="..."
+          />
+          <MDBCardBody>
+            <MDBCardTitle>Card title</MDBCardTitle>
+            <MDBCardText>
+              This is a longer card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </MDBCardText>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                >See Details
+              </MDBBtn>
+            </div>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol>
+        <MDBCard class="h-100">
+          <MDBCardImg
+            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+            top
+            alt="..."
+          />
+          <MDBCardBody>
+            <MDBCardTitle>Card title</MDBCardTitle>
+            <MDBCardText>
+              This is a longer card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </MDBCardText>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                >See Details
+              </MDBBtn>
+            </div>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
     </MDBRow>
+    <nav aria-label="Page navigation example" style="margin-top: 5vh">
+      <MDBPagination class="justify-content-end">
+        <MDBPageNav prev></MDBPageNav>
+        <MDBPageItem href="#">1</MDBPageItem>
+        <MDBPageItem href="#">2</MDBPageItem>
+        <MDBPageItem href="#">3</MDBPageItem>
+        <MDBPageNav next></MDBPageNav>
+      </MDBPagination>
+    </nav>
   </div>
   <Footer />
 </template>
@@ -143,6 +196,9 @@ import {
   MDBCardText,
   MDBCardImg,
   MDBBtn,
+  MDBPagination,
+  MDBPageNav,
+  MDBPageItem,
 } from "mdb-vue-ui-kit";
 
 export default {
@@ -162,6 +218,9 @@ export default {
     MDBCardText,
     MDBCardImg,
     MDBBtn,
+    MDBPagination,
+    MDBPageNav,
+    MDBPageItem,
     // MDBInput,
   },
   // setup() {

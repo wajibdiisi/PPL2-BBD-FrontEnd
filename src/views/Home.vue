@@ -176,13 +176,13 @@
       <h5>Lihat Moment Mengenai Tempat Wisata</h5>
       <p>Temukan moment terbaik dari tempat wisata yang akan anda kunjungi</p>
       <div class="col-md-4">
-        <MDBCarousel v-model="carousel6" :items="items6" :indicators="false" />
+        <MDBCarousel class="img-thumbnail" v-model="carousel6" :items="items6" :indicators="false" />
       </div>
       <div class="col-md-4">
-        <MDBCarousel v-model="carousel7" :items="items7" :indicators="false" />
+        <MDBCarousel class="img-thumbnail" v-model="carousel7" :items="items7" :indicators="false" />
       </div>
       <div class="col-md-4">
-        <MDBCarousel v-model="carousel8" :items="items8" :indicators="false" />
+        <MDBCarousel class="img-thumbnail" v-model="carousel8" :items="items8" :indicators="false" />
       </div>
     </div>
   </div>

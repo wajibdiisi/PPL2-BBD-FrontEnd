@@ -32,6 +32,11 @@ const routes = [
     name: 'WisataDetails',
     component: () => import('../views/Wisatadetails.vue')
   },
+  {
+    path: '/404',
+    name: '404NotFound',
+    component: () => import('../views/404.vue')
+  },
 ]
 
 const router = createRouter({

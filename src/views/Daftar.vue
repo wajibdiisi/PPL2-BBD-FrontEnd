@@ -12,6 +12,7 @@
         </MDBCol>
         <MDBCol class="my-4">
           <MDBInput
+            v-model="name"
             label="Name"
             class="my-4"
             type="text"
@@ -21,6 +22,7 @@
         </MDBCol>
         <MDBCol class="my-4">
           <MDBInput
+            v-model="email"
             label="Email"
             class="my-4"
             type="email"
@@ -30,6 +32,7 @@
         </MDBCol>
         <MDBCol class="my-4">
           <MDBInput
+            v-model="password"
             label="Password"
             class="my-4"
             type="password"
@@ -37,6 +40,17 @@
             required
           />
         </MDBCol>
+         <MDBCol class="my-4">
+          <MDBInput
+            v-model="confirm_password"
+            label="Confirm Password"
+            class="my-4"
+            type="password"
+            invalidFeedback="Please input your password"
+            required
+          />
+        </MDBCol>
+        
         <MDBCol class="my-4 d-flex justify-content-between">
           <MDBCheckbox
             label="I agree to the Terms and Conditions"
@@ -52,6 +66,7 @@
             size="lg"
             style="background-color: rgb(50, 224, 196)"
             type="submit"
+            @click="register()"
           >
             Sign Up
           </MDBBtn>
@@ -63,6 +78,7 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue";
+import Swal from 'sweetalert2'
 import {
   MDBCol,
   //MDBRow,
@@ -74,6 +90,13 @@ import {
   MDBCardBody,
 } from "mdb-vue-ui-kit";
 export default {
+  data:() => ({
+    name :"",
+    email : "",
+    password : "",
+    confirm_password : "",
+
+  }),
   components: {
     Navbar,
     MDBCol,
@@ -85,6 +108,28 @@ export default {
     MDBCard,
     MDBCardBody,
   },
+methods :{
+  register: function () {
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        confirm_password : this.confirm_password,
+      };
+      this.$store
+        .dispatch("register", data)
+        .then(() => 
+        Swal.fire({
+            title: 'Registrasi Berhasil',
+            text:   "Registrasi berhasil",
+            icon: 'success',
+          
+        }),
+        this.$router.push("/login?msg=register_success"))
+        .catch((err) => (this.errors = err.response.data));
+    },
+  
+}
 };
 </script>
 

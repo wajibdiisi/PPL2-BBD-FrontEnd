@@ -15,6 +15,7 @@
             label="Email"
             class="my-4"
             type="email"
+            v-model="email"
             invalidFeedback="Please input your email"
             required
           />
@@ -24,6 +25,7 @@
             label="Password"
             class="my-4"
             type="password"
+            v-model="password"
             invalidFeedback="Please input your password"
             required
           />
@@ -42,9 +44,11 @@
             size="lg"
             style="background-color: rgb(50, 224, 196)"
             type="submit"
+            @click="login()"
           >
             Login
           </MDBBtn>
+          <router-link to="/register">
           <MDBBtn
             class="text.nowrap text.black"
             style="border: 1px rgb(50, 224, 196)"
@@ -54,6 +58,7 @@
           >
             Register
           </MDBBtn>
+          </router-link>
         </MDBCol>
       </MDBCardBody>
     </MDBCard>
@@ -72,7 +77,33 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-vue-ui-kit";
+import Swal from 'sweetalert2'
 export default {
+  methods :{
+    login : function(){
+      let email = this.email;
+      let password = this.password;
+      this.$store
+        .dispatch("login", { email, password })
+        .then((response) => {
+          console.log(response.data);
+          this.$router.push("/");
+           Swal.fire({
+            title: 'Login Successful',
+            text:   "Welcome back",
+            icon: 'success',
+          
+        });
+        })
+        .catch((error) => (this.errors = error.response.data.message));
+    }
+  },
+  data(){
+    return{
+      email: "",
+      password: "",
+    }
+  },
   components: {
     Navbar,
     MDBCol,

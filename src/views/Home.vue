@@ -16,6 +16,7 @@
     <div class="row">
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
+      
       <div class="col-md-4">
         <!-- <div class="card bagud">
           <img
@@ -35,6 +36,7 @@
             </p>
           </div>
         </div> -->
+        
         <MDBCard class="h-100">
           <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -43,6 +45,7 @@
           />
           <MDBCardBody>
             <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+            
             <MDBCardText>
               Candi Borobudur adalah candi Buddha terbesar di dunia.
             </MDBCardText>
@@ -221,6 +224,17 @@ export default {
     MDBCardImg,
     MDBBtn,
     // MDBInput,
+  },
+  data(){
+    return{
+      email: "",
+    }
+  },
+  methods :{
+    notification:function(){
+      this.$store.dispatch('notificationMessage',this.email);
+    }
+
   },
   setup() {
     const items6 = [

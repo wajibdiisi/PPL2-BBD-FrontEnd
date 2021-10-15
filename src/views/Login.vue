@@ -1,7 +1,10 @@
 <template>
   <Navbar />
-  <MDBContainer class="d-flex justify-content-center" style="margin: 17vh auto">
-    <MDBCard class="w-50 p-3" style="border: 1px solid black">
+  <MDBContainer xl class="d-flex justify-content-center" style="margin: 17vh auto">
+  <MDBRow start>
+  <MDBCol sm="12" md="12">
+  <MDBCol md="10">
+    <MDBCard class="w-100 p-3" style="border: 1px solid black;height : 520px">
       <MDBCardBody>
         <MDBCol class="d-flex justify-content-center">
           <img
@@ -10,17 +13,18 @@
             class="w-50"
           />
         </MDBCol>
-        <MDBCol class="my-4">
+        <MDBCol class="mt-5">
+        <div class="my-5"></div>
           <MDBInput
             label="Email"
-            class="my-4"
+            class="my-1"
             type="email"
             v-model="email"
             invalidFeedback="Please input your email"
             required
           />
         </MDBCol>
-        <MDBCol class="my-4">
+        <MDBCol class="my-2">
           <MDBInput
             label="Password"
             class="my-4"
@@ -62,6 +66,9 @@
         </MDBCol>
       </MDBCardBody>
     </MDBCard>
+    </MDBCol>
+    </MDBCol>
+    </MDBrow>
   </MDBContainer>
 </template>
 

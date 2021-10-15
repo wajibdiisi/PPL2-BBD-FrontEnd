@@ -4,7 +4,6 @@
     expand="lg"
     light
     bg="light"
-    position="sticky"
     transparent
     scrolling
     container
@@ -23,10 +22,10 @@
     ></MDBNavbarToggler>
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
       <MDBNavbarNav class="mb-2 mb-lg-0">
-        <MDBNavbarItem to="/" active></MDBNavbarItem>
-        <MDBNavbarItem href="#"> Explore </MDBNavbarItem>
-        <MDBNavbarItem href="#"> Planner </MDBNavbarItem>
-        <MDBNavbarItem href="#"> About Us </MDBNavbarItem>
+        <MDBNavbarItem to="/" active>Home</MDBNavbarItem>
+        <MDBNavbarItem to="/Wisata"> Explore </MDBNavbarItem>
+        <MDBNavbarItem to="#"> Planner </MDBNavbarItem>
+        <MDBNavbarItem to="#"> About Us </MDBNavbarItem>
       </MDBNavbarNav>
     </MDBCollapse>
     <!-- Notification dropdown -->

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import {store} from '../store'
+import { store } from '../store'
 
 
 const routes = [
@@ -13,8 +13,8 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    meta :{
-      guest : true
+    meta: {
+      guest: true
     }
   },
   {
@@ -27,13 +27,18 @@ const routes = [
     name: 'Wisata',
     component: () => import('../views/Wisata.vue')
   },
+  {
+    path: '/test',
+    name: 'WisataDetails',
+    component: () => import('../views/Wisatadetails.vue')
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
 })
-router.beforeEach((to, from, next) => { 
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn && store.getters.user) {
       next()
@@ -42,7 +47,7 @@ router.beforeEach((to, from, next) => {
     console.log(store.getters.user)
     next('/login')
   }
- 
+
 
   if (to.matched.some(record => record.meta.guest)) {
     if (!store.getters.isLoggedIn) {

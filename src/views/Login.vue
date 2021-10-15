@@ -49,15 +49,15 @@
             Login
           </MDBBtn>
           <router-link to="/register">
-          <MDBBtn
-            class="text.nowrap text.black"
-            style="border: 1px rgb(50, 224, 196)"
-            rounded
-            size="lg"
-            type="button"
-          >
-            Register
-          </MDBBtn>
+            <MDBBtn
+              class="text.nowrap text.black"
+              style="border: 1px rgb(50, 224, 196)"
+              rounded
+              size="lg"
+              type="button"
+            >
+              Register
+            </MDBBtn>
           </router-link>
         </MDBCol>
       </MDBCardBody>
@@ -77,10 +77,10 @@ import {
   MDBCard,
   MDBCardBody,
 } from "mdb-vue-ui-kit";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 export default {
-  methods :{
-    login : function(){
+  methods: {
+    login: function () {
       let email = this.email;
       let password = this.password;
       this.$store
@@ -88,21 +88,20 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$router.push("/");
-           Swal.fire({
-            title: 'Login Successful',
-            text:   "Welcome back",
-            icon: 'success',
-          
-        });
+          Swal.fire({
+            title: "Login Successful",
+            text: "Welcome back",
+            icon: "success",
+          });
         })
         .catch((error) => (this.errors = error.response.data.message));
-    }
+    },
   },
-  data(){
-    return{
+  data() {
+    return {
       email: "",
       password: "",
-    }
+    };
   },
   components: {
     Navbar,

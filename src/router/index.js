@@ -37,6 +37,11 @@ const routes = [
     name: '404NotFound',
     component: () => import('../views/404.vue')
   },
+  {
+    path: '/Profile',
+    name: 'Profile',
+    component: () => import('../views/Profile.vue')
+  },
 ]
 
 const router = createRouter({

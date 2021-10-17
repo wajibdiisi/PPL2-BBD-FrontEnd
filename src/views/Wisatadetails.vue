@@ -174,8 +174,8 @@
         </MDBCol>
       </MDBCol>
     </MDBRow>
-    <Footer />
   </MDBContainer>
+  <Footer />
 </template>
 
 <script>

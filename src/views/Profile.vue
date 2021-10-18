@@ -32,14 +32,10 @@
     <MDBCard>
       <MDBCardBody>
         <MDBCardTitle class="text-uppercase">notification</MDBCardTitle>
+        <MDBCardText class="text-uppercase fs-6 fw-light text-end">
+          Clear all notification
+        </MDBCardText>
         <MDBRow>
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
-            integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc="
-            crossorigin="anonymous"
-          />
-
           <div class="container">
             <div class="row">
               <div>
@@ -65,8 +61,8 @@
                           alt=""
                         />
                       </div>
-                      <div class="font-weight-bold mr-3">
-                        <div class="text-truncate">
+                      <div class="mr-3">
+                        <div class="font-weight-bold text-truncate">
                           DAILY RUNDOWN: WEDNESDAY
                         </div>
                         <div class="small">
@@ -74,7 +70,28 @@
                           and other top news for you
                         </div>
                       </div>
-                      <span class="ml-auto mb-auto">
+                      <!-- Default dropstart button -->
+                      <div class="justify-content-md-end">
+                        <MDBDropdown btnGroup dropstart v-model="dropdown21">
+                          <MDBDropdownToggle @click="dropdown21 = !dropdown21">
+                            <MDBIcon icon="ellipsis-v" iconStyle="fas" />
+                          </MDBDropdownToggle>
+                          <MDBDropdownMenu>
+                            <MDBDropdownItem href="#">Delete</MDBDropdownItem>
+                            <!-- <MDBDropdownItem href="#"
+                            >Another Action</MDBDropdownItem
+                          >
+                          <MDBDropdownItem href="#"
+                            >Something else here</MDBDropdownItem
+                          >
+                          <MDBDropdownItem divider />
+                          <MDBDropdownItem href="#"
+                            >Separated link</MDBDropdownItem
+                          > -->
+                          </MDBDropdownMenu>
+                        </MDBDropdown>
+                      </div>
+                      <!-- <span class="ml-auto mb-auto">
                         <div class="btn-group">
                           <button
                             type="button"
@@ -96,7 +113,7 @@
                         </div>
                         <br />
                         <div class="text-right text-muted pt-1">3d</div>
-                      </span>
+                      </span> -->
                     </div>
                   </div>
                 </div>
@@ -433,23 +450,44 @@
           <MDBCardBody>
             <MDBCardTitle class="fs-3">Plan</MDBCardTitle>
             <MDBRow>
-              <div class="col-md-12" style="margin: 2vh auto">
+              <div
+                class="col-md d-flex align-items-center"
+                style="margin: 1vh auto"
+              >
                 <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
-                <div class="d-grid mx-auto justify-content-md-end">
-                  <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                    >Details
-                  </MDBBtn>
-                </div>
+              </div>
+              <div class="col-md d-flex justify-content-end">
+                <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                  >Details
+                </MDBBtn>
+              </div>
+              <div
+                class="d-flex justify-content-between"
+                style="margin: 1vh auto"
+              >
+                <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
+                <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                  >Details
+                </MDBBtn>
+              </div>
+              <div
+                class="d-flex justify-content-between"
+                style="margin: 1vh auto"
+              >
+                <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
+                <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                  >Details
+                </MDBBtn>
               </div>
             </MDBRow>
-            <MDBCardText class="fs-5">
+            <!-- <MDBCardText class="fs-5">
               Plan 1
               <div class="d-grid mx-auto justify-content-md-end">
                 <MDBBtn tag="a" href="#!" color="link" outline="primary"
                   >Details
                 </MDBBtn>
               </div>
-            </MDBCardText>
+            </MDBCardText> -->
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
@@ -516,6 +554,7 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
+import { ref } from "vue";
 import {
   MDBCol,
   MDBRow,
@@ -526,6 +565,11 @@ import {
   MDBCardText,
   MDBCardImg,
   MDBContainer,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
+  MDBIcon,
 } from "mdb-vue-ui-kit";
 export default {
   components: {
@@ -540,6 +584,18 @@ export default {
     MDBCardText,
     MDBCardImg,
     MDBContainer,
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem,
+    MDBIcon,
+  },
+  setup() {
+    const dropdown21 = ref(false);
+
+    return {
+      dropdown21,
+    };
   },
 };
 </script>
@@ -548,7 +604,6 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 body {
-  margin-top: 20px;
   background-color: #f0f2f5;
 }
 .dropdown-list-image {

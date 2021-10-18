@@ -42,6 +42,11 @@ const routes = [
     name: 'Profile',
     component: () => import('../views/Profile.vue')
   },
+  {
+    path: '/UpMoment',
+    name: 'UpMoment',
+    component: () => import('../views/UpMoment.vue')
+  },
 ]
 
 const router = createRouter({

@@ -6,7 +6,7 @@
         <MDBCard class="upload-box text-white" text="center">
           <MDBCardBody>
             <MDBCardTitle class="fs-1"
-              >You can upload up to X images
+              >You can only upload 1 images
             </MDBCardTitle>
             <MDBCardTitle class="fs-1">Select your images here </MDBCardTitle>
             <MDBCol col="6" class="photo-box" style="margin: 3vh auto">
@@ -30,7 +30,7 @@
           <MDBCardBody>
             <MDBContainer>
               <MDBContainer>
-                <MDBCardText class="fs-4"> Moment Title </MDBCardText>
+                <MDBCardText class="fs-4"> Email </MDBCardText>
                 <MDBInput
                   label="Email"
                   class="my-1"
@@ -39,7 +39,16 @@
                   invalidFeedback="Please input your email"
                   required
                 />
-                <MDBCardText class="fs-4"> Moment Description </MDBCardText>
+                <MDBCardText class="fs-4"> Password </MDBCardText>
+                <MDBInput
+                  label="Email"
+                  class="my-1"
+                  type="email"
+                  v-model="email"
+                  invalidFeedback="Please input your email"
+                  required
+                />
+                <MDBCardText class="fs-4"> Name </MDBCardText>
                 <MDBInput
                   label="Email"
                   class="my-1"
@@ -57,7 +66,7 @@
                   invalidFeedback="Please input your email"
                   required
                 />
-                <MDBCardText class="fs-4"> Date and Time </MDBCardText>
+                <MDBCardText class="fs-4"> Birth </MDBCardText>
                 <MDBInput
                   label="Email"
                   class="my-1"

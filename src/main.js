@@ -2,7 +2,7 @@ import 'mdb-vue-ui-kit/css/mdb.min.css'
 import http from './http-common';
 import { store } from './store';
 import Vuex from 'vuex';
-
+import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 
 import { createApp } from 'vue'
@@ -11,7 +11,10 @@ import router from './router'
 
 const app = createApp(App).use(router)
 app.use(store)
-
+app.use(VueGoogleMaps, {
+    load: {
+        key: 'AIzaSyCUoE4KTUN7wRzSI-3WfsinoHDtgb6SAR0',
+    },})
 app.config.globalProperties.$http = http;
 app.use(Vuex);
 

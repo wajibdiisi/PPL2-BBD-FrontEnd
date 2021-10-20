@@ -16,7 +16,7 @@
     <div class="row">
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
-      
+
       <div class="col-md-4">
         <!-- <div class="card bagud">
           <img
@@ -36,7 +36,7 @@
             </p>
           </div>
         </div> -->
-        
+
         <MDBCard class="h-100">
           <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -45,7 +45,7 @@
           />
           <MDBCardBody>
             <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-            
+
             <MDBCardText>
               Candi Borobudur adalah candi Buddha terbesar di dunia.
             </MDBCardText>
@@ -176,13 +176,28 @@
       <h5>Lihat Moment Mengenai Tempat Wisata</h5>
       <p>Temukan moment terbaik dari tempat wisata yang akan anda kunjungi</p>
       <div class="col-md-4">
-        <MDBCarousel class="img-thumbnail" v-model="carousel6" :items="items6" :indicators="false" />
+        <MDBCarousel
+          class="img-thumbnail"
+          v-model="carousel6"
+          :items="items6"
+          :indicators="false"
+        />
       </div>
       <div class="col-md-4">
-        <MDBCarousel class="img-thumbnail" v-model="carousel7" :items="items7" :indicators="false" />
+        <MDBCarousel
+          class="img-thumbnail"
+          v-model="carousel7"
+          :items="items7"
+          :indicators="false"
+        />
       </div>
       <div class="col-md-4">
-        <MDBCarousel class="img-thumbnail" v-model="carousel8" :items="items8" :indicators="false" />
+        <MDBCarousel
+          class="img-thumbnail"
+          v-model="carousel8"
+          :items="items8"
+          :indicators="false"
+        />
       </div>
     </div>
   </div>
@@ -225,16 +240,15 @@ export default {
     MDBBtn,
     // MDBInput,
   },
-  data(){
-    return{
+  data() {
+    return {
       email: "",
-    }
+    };
   },
-  methods :{
-    notification:function(){
-      this.$store.dispatch('notificationMessage',this.email);
-    }
-
+  methods: {
+    notification: function () {
+      this.$store.dispatch("notificationMessage", this.email);
+    },
   },
   setup() {
     const items6 = [

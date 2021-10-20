@@ -16,11 +16,37 @@
               <MDBCol md="8"><h1 class="display-6">
               {{data_wisata['nama']}}</h1></MDBCol>
               <MDBCol md="4" class="d-flex justify-content-end">
-                <MDBBtn
-                  style="background-color: rgb(50, 224, 196); color: white"
+                <div
+                  color="#0E5020"
+                  height="4.6rem"
+                  width="3.0rem"
+                  font-size="17px"
+                  class="sc-1q7bklc-10 rating"
                 >
-                  bintang
-                </MDBBtn>
+                  <div class="sc-1q7bklc-6 liCXOR">
+                    <div class="sc-1q7bklc-5 kHxpSk">
+                      <div class="sc-1q7bklc-1 cILgox">4.8</div>
+                      <div class="sc-1q7bklc-2 pxJGx">
+                        <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                          ><svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="#FFFFFF"
+                            width="1rem"
+                            height="1rem"
+                            viewBox="0 0 20 20"
+                            aria-labelledby="icon-svg-title- icon-svg-desc-"
+                            role="img"
+                            class="sc-rbbb40-0 ffadyU"
+                          >
+                            <title>star-fill</title>
+                            <path
+                              d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                            ></path></svg
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </MDBCol>
             </MDBRow>
           </MDBCol>
@@ -165,7 +191,110 @@
                 </MDBCol>
                 
               </MDBTabPane>
-              <MDBTabPane tabId="ex1-2">Content #2</MDBTabPane>
+              <MDBTabPane tabId="ex1-2">
+                <MDBRow class="d-flex align-content-center">
+                  <MDBCol md="12" class="text-center">
+                    <h5 style="font-weight: 500">
+                      Rate Your Travel Experience
+                    </h5>
+                  </MDBCol>
+                  <MDBCol
+                    class="d-grid gap-1 d-md-flex justify-content-md-center"
+                  >
+                    <MDBBtn
+                      style="background-color: rgb(50, 224, 196); color: white"
+                    >
+                      1 <MDBIcon icon="star" iconStyle="fas" />
+                    </MDBBtn>
+                    <MDBBtn
+                      style="background-color: rgb(50, 224, 196); color: white"
+                    >
+                      2 <MDBIcon icon="star" iconStyle="fas" />
+                    </MDBBtn>
+                    <MDBBtn
+                      style="background-color: rgb(50, 224, 196); color: white"
+                    >
+                      3 <MDBIcon icon="star" iconStyle="fas" />
+                    </MDBBtn>
+                    <MDBBtn
+                      style="background-color: rgb(50, 224, 196); color: white"
+                    >
+                      4 <MDBIcon icon="star" iconStyle="fas" />
+                    </MDBBtn>
+                    <MDBBtn
+                      style="background-color: rgb(50, 224, 196); color: white"
+                    >
+                      5 <MDBIcon icon="star" iconStyle="fas" />
+                    </MDBBtn>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBCol>
+                    <h6>Candi Borobudur Review</h6>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow class="d-flex justify-content-between">
+                  <MDBCol class="text-start">
+                    <h6>All Review (90)</h6>
+                  </MDBCol>
+                  <MDBCol class="text-end">
+                    <h6>Newest First</h6>
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                  <MDBRow>
+                    <MDBCol md="12" class="d-flex align-items-center mb-3">
+                      <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                        alt="avatar"
+                        width="60"
+                        height="60"
+                      />
+                      <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow>
+                    <MDBCol md="1">
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1.3rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">4</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBCol md="8">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </MDBCol>
+                </MDBRow>
+              </MDBTabPane>
               <MDBTabPane tabId="ex1-3">Content #3</MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->
@@ -259,3 +388,67 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.rating {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: rgb(50, 224, 196);
+  color: rgb(255, 255, 255);
+  height: 2.6rem;
+  min-width: 3rem;
+  padding: 0px 0.4rem;
+  font-size: 17px;
+  border-radius: 0.6rem;
+  border: 1px solid rgb(50, 224, 196);
+}
+.liCXOR {
+  display: block;
+  font-size: inherit;
+}
+.kHxpSk {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: inherit;
+  cursor: unset;
+}
+.cILgox {
+  margin-right: 0.2rem;
+  font-weight: 500;
+  font-size: inherit;
+  padding-bottom: 0.1rem;
+}
+.pxJGx {
+  margin-left: 0px;
+}
+.iFnyeo {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  cursor: inherit;
+}
+.ffadyU {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+.kgIEjH {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: rgb(50, 224, 196);
+  color: rgb(255, 255, 255);
+  height: 2rem;
+  min-width: 2.6rem;
+  padding: 0px 0.4rem;
+  font-size: 1.3rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgb(50, 224, 196);
+}
+</style>

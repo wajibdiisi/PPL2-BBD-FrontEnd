@@ -28,7 +28,7 @@ const routes = [
     component: () => import('../views/Wisata.vue')
   },
   {
-    path: '/test',
+    path: '/wisata/:slug',
     name: 'WisataDetails',
     component: () => import('../views/Wisatadetails.vue')
   },

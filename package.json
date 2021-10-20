@@ -10,12 +10,15 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.4",
+    "@googlemaps/js-api-loader": "^1.12.6",
     "axios": "^0.23.0",
     "core-js": "^3.6.5",
     "mdb-vue-ui-kit": "file:mdb/mdb-vue-ui-kit-1.0.0.tgz",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vue-sweetalert2": "^5.0.2",
+    "vue3-google-map": "^0.8.2",
     "vuelidate": "^0.7.6",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"

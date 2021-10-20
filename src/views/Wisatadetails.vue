@@ -13,8 +13,11 @@
           </MDBCol>
           <MDBCol md="12" class="mt-3">
             <MDBRow>
-              <MDBCol md="8"><h1 class="display-6">
-              {{data_wisata['nama']}}</h1></MDBCol>
+              <MDBCol md="8"
+                ><h1 class="display-6">
+                  {{ data_wisata["nama"] }}
+                </h1></MDBCol
+              >
               <MDBCol md="4" class="d-flex justify-content-end">
                 <div
                   color="#0E5020"
@@ -51,7 +54,7 @@
             </MDBRow>
           </MDBCol>
           <MDBCol md="12">
-            <h6>{{data_wisata['kota']}}, {{data_wisata['provinsi']}}</h6>
+            <h6>{{ data_wisata["kota"] }}, {{ data_wisata["provinsi"] }}</h6>
           </MDBCol>
           <MDBCol md="12" class="mb-3">
             <MDBRow class="d-flex flex-column">
@@ -67,7 +70,14 @@
                     color: black;
                     border: 1px solid black;
                   "
-                  @click="redirect('https://www.google.com/maps/dir/?api=1&destination=' + center['lat'] +',' + center['lng'])"
+                  @click="
+                    redirect(
+                      'https://www.google.com/maps/dir/?api=1&destination=' +
+                        center['lat'] +
+                        ',' +
+                        center['lng']
+                    )
+                  "
                 >
                   <MDBIcon
                     icon="directions"
@@ -123,28 +133,28 @@
                 <MDBCol md="10">
                   <h6>About This Place</h6>
                   <p>
-                    {{data_wisata['description']}}
+                    {{ data_wisata["description"] }}
                   </p>
                 </MDBCol>
                 <MDBCol md="10">
                   <h6>Average Cost</h6>
                   <p>
-                    {{data_wisata['avg_cost']}}
+                    {{ data_wisata["avg_cost"] }}
                   </p>
                 </MDBCol>
                 <MDBCol md="10" class="d-flex flex-column">
                   <h6>Google Maps Location</h6>
                   <MDBRow class="d-flex">
-                   <div v-if="mapLoaded === true">
-  <GoogleMap
-  api-key="AIzaSyCUoE4KTUN7wRzSI-3WfsinoHDtgb6SAR0"
-  style="width: 100%; height: 500px"
-  :center="center"
-  :zoom="15"
-  >
-    <Marker :options="{ position: center }" />
-  </GoogleMap>
-  </div>
+                    <div v-if="mapLoaded === true">
+                      <GoogleMap
+                        api-key="AIzaSyCUoE4KTUN7wRzSI-3WfsinoHDtgb6SAR0"
+                        style="width: 100%; height: 500px"
+                        :center="center"
+                        :zoom="15"
+                      >
+                        <Marker :options="{ position: center }" />
+                      </GoogleMap>
+                    </div>
                   </MDBRow>
                   <MDBRow>
                     <MDBCol>
@@ -189,7 +199,6 @@
                     </MDBRow>
                   </MDBRow>
                 </MDBCol>
-                
               </MDBTabPane>
               <MDBTabPane tabId="ex1-2">
                 <MDBRow class="d-flex align-content-center">
@@ -204,7 +213,8 @@
                     <MDBBtn
                       style="background-color: rgb(50, 224, 196); color: white"
                     >
-                      1 <MDBIcon icon="star" iconStyle="fas" />
+                      <p style="font-weight: 400">1</p>
+                      <MDBIcon icon="star" iconStyle="fas" />
                     </MDBBtn>
                     <MDBBtn
                       style="background-color: rgb(50, 224, 196); color: white"
@@ -301,8 +311,6 @@
           </MDBTabs>
         </MDBCol>
       </MDBCol>
-  
-
     </MDBRow>
   </MDBContainer>
   <Footer />
@@ -310,10 +318,10 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue";
-import { useRoute } from 'vue-router'
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { useRoute } from "vue-router";
+import { GoogleMap, Marker } from "vue3-google-map";
 import Footer from "../components/Footer copy.vue";
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance } from "vue";
 
 import {
   MDBIcon,
@@ -330,19 +338,18 @@ import {
 import { ref } from "vue";
 
 export default {
-  data(){
-    return {
-      
-    }
+  data() {
+    return {};
   },
 
   methods: {
-  redirect: function (link, target = "_blank") {
+    redirect: function (link, target = "_blank") {
       window.open(link, target);
     },
   },
   components: {
-    GoogleMap, Marker,
+    GoogleMap,
+    Marker,
     Navbar,
     Footer,
     MDBIcon,
@@ -358,32 +365,34 @@ export default {
   },
   setup() {
     const data_wisata = ref({
-      'nama' : null,
-      'description' : null,
-      'avg_cost' : null
+      nama: null,
+      description: null,
+      avg_cost: null,
     });
-    const route = useRoute()
-    const mapLoaded = ref(false)
-     const app = getCurrentInstance()
-   const center = { lat: 40.689247, lng: -74.044502 }
-      let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/" + route.params.slug
-      
-      app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
-      data_wisata.value = response.data
-      mapLoaded.value = true
-      center.lat = response.data.coordinate[0]
-      center.lng= response.data.coordinate[1]
-      console.log(center)
-      })
- 
+    const route = useRoute();
+    const mapLoaded = ref(false);
+    const app = getCurrentInstance();
+    const center = { lat: 40.689247, lng: -74.044502 };
+    let uri_wisata =
+      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
+
+    app.appContext.config.globalProperties.$http
+      .get(uri_wisata)
+      .then((response) => {
+        data_wisata.value = response.data;
+        mapLoaded.value = true;
+        center.lat = response.data.coordinate[0];
+        center.lng = response.data.coordinate[1];
+        console.log(center);
+      });
+
     const activeTabId1 = ref("ex1-1");
-    
-    
+
     return {
       mapLoaded,
       activeTabId1,
       center,
-      data_wisata
+      data_wisata,
     };
   },
 };

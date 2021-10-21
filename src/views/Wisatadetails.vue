@@ -14,7 +14,7 @@
           <MDBCol md="12" class="mt-3">
             <MDBRow>
               <MDBCol md="8"><h1 class="display-6">
-              {{data_wisata['nama']}}</h1></MDBCol>
+              {{data_wisata['nama']}}{{isFavourited}}</h1></MDBCol>
               <MDBCol md="4" class="d-flex justify-content-end">
                 <div
                   color="#0E5020"
@@ -56,10 +56,17 @@
           <MDBCol md="12" class="mb-3">
             <MDBRow class="d-flex flex-column">
               <MDBCol class="p-2">
-                <MDBBtn
+                <MDBBtn v-if="isFavourited == false" 
                   style="background-color: rgb(50, 224, 196); color: white"
+                @click="add_favourite(data_wisata['slug'])"
                 >
                   <MDBIcon icon="star" iconStyle="fas" /> Add Favorite
+                </MDBBtn>
+                <MDBBtn v-if="isFavourited == true" 
+                  style="background-color: rgb(50, 224, 196); color: white"
+                @click="remove_favourite(data_wisata['slug'])"
+                >
+                  <MDBIcon icon="star" iconStyle="fas" /> Remove Favorite
                 </MDBBtn>
                 <MDBBtn
                   style="
@@ -314,7 +321,9 @@ import { useRoute } from 'vue-router'
 import { GoogleMap, Marker } from 'vue3-google-map'
 import Footer from "../components/Footer copy.vue";
 import { getCurrentInstance } from 'vue';
-
+import authHeader from '../auth-header';
+import { computed }  from 'vue';
+import { useStore } from 'vuex';
 import {
   MDBIcon,
   MDBBtn,
@@ -339,7 +348,31 @@ export default {
   methods: {
   redirect: function (link, target = "_blank") {
       window.open(link, target);
-    },
+  },
+  add_favourite :function(slug){
+    const config = {
+      headers : authHeader()
+    }
+    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/add_bookmark'
+    this.$http.post(uri_favourite,config, config).then((response) => {
+      console.log(response.data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
+  },
+  remove_favourite :function(slug){
+  const config = {
+      headers : authHeader()
+    }
+    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/remove_bookmark'
+    this.$http.post(uri_favourite,config, config).then((response) => {
+      console.log(response.data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
+
+  }
+
   },
   components: {
     GoogleMap, Marker,
@@ -360,12 +393,16 @@ export default {
     const data_wisata = ref({
       'nama' : null,
       'description' : null,
-      'avg_cost' : null
-    });
+      'avg_cost' : null,
+      'slug' : null,
+     });
     const route = useRoute()
+    const app = getCurrentInstance()
     const mapLoaded = ref(false)
-     const app = getCurrentInstance()
-   const center = { lat: 40.689247, lng: -74.044502 }
+    const bookmark_list = []
+    const center = { lat: 40.689247, lng: -74.044502 }
+    const store = useStore();
+    const user = computed(() => store.getters.user);
       let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/" + route.params.slug
       
       app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
@@ -373,14 +410,18 @@ export default {
       mapLoaded.value = true
       center.lat = response.data.coordinate[0]
       center.lng= response.data.coordinate[1]
-      console.log(center)
+      bookmark_list.value = data_wisata.value.bookmark_id_user
+      console.log(JSON.parse(JSON.stringify(user.value.user._id)))
       })
  
     const activeTabId1 = ref("ex1-1");
     
     
+    const isFavourited = computed(() => bookmark_list.includes('6168e318052173336a6bdbfe'))
     return {
       mapLoaded,
+      user,
+      isFavourited,
       activeTabId1,
       center,
       data_wisata

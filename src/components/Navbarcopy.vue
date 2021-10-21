@@ -1,5 +1,5 @@
 <template>
-
+  {{user}}
   <MDBNavbar
     expand="lg"
     light
@@ -153,6 +153,7 @@ export default {
     const store = useStore();
     const collapse1 = ref(false);
     const dropdown6 = ref(false);
+    const user = computed(() => store.getters.user);
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
     const toast1 = ref(computed(() => store.getters.set_notification));
     const toastMsg = computed(() => store.getters.notificationData);
@@ -162,6 +163,7 @@ export default {
       collapse1,
       toastMsg,
       dropdown6,
+      user
     };
   },
 };

@@ -15,7 +15,7 @@
             <MDBRow>
               <MDBCol md="8"
                 ><h1 class="display-6">
-                  {{ data_wisata["nama"] }}
+                  {{ data_wisata["nama"] }}{{ isFavourited }}
                 </h1></MDBCol
               >
               <MDBCol md="4" class="d-flex justify-content-end">
@@ -60,9 +60,18 @@
             <MDBRow class="d-flex flex-column">
               <MDBCol class="p-2">
                 <MDBBtn
+                  v-if="isFavourited == false"
                   style="background-color: rgb(50, 224, 196); color: white"
+                  @click="add_favourite(data_wisata['slug'])"
                 >
                   <MDBIcon icon="star" iconStyle="fas" /> Add Favorite
+                </MDBBtn>
+                <MDBBtn
+                  v-if="isFavourited == true"
+                  style="background-color: rgb(50, 224, 196); color: white"
+                  @click="remove_favourite(data_wisata['slug'])"
+                >
+                  <MDBIcon icon="star" iconStyle="fas" /> Remove Favorite
                 </MDBBtn>
                 <MDBBtn
                   style="
@@ -643,7 +652,9 @@ import { useRoute } from "vue-router";
 import { GoogleMap, Marker } from "vue3-google-map";
 import Footer from "../components/Footer copy.vue";
 import { getCurrentInstance } from "vue";
-
+import authHeader from "../auth-header";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import {
   MDBIcon,
   MDBBtn,
@@ -672,6 +683,29 @@ export default {
     redirect: function (link, target = "_blank") {
       window.open(link, target);
     },
+    /*add_favourite :function(slug){
+    const config = {
+      headers : authHeader()
+    }
+    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/add_bookmark'
+    this.$http.post(uri_favourite,config, config).then((response) => {
+      console.log(response.data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
+  },*/
+    /*remove_favourite :function(slug){
+  const config = {
+      headers : authHeader()
+    }
+    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/remove_bookmark'
+    this.$http.post(uri_favourite,config, config).then((response) => {
+      console.log(response.data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
+
+  }*/
   },
   components: {
     GoogleMap,
@@ -699,11 +733,16 @@ export default {
       nama: null,
       description: null,
       avg_cost: null,
+      slug: null,
     });
     const route = useRoute();
-    const mapLoaded = ref(false);
     const app = getCurrentInstance();
+    const mapLoaded = ref(false);
+    const bookmark_list = [];
     const center = { lat: 40.689247, lng: -74.044502 };
+    const store = useStore();
+    const user = computed(() => store.getters.user);
+    const isFavourited = ref(false);
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
 
@@ -714,18 +753,57 @@ export default {
         mapLoaded.value = true;
         center.lat = response.data.coordinate[0];
         center.lng = response.data.coordinate[1];
-        console.log(center);
+        bookmark_list.value = data_wisata.value.bookmark_id_user;
+        isFavourited.value = response.data.bookmark_id_user.includes(
+          JSON.parse(JSON.stringify(user.value.user._id))
+        );
       });
 
     const activeTabId1 = ref("ex1-1");
-    const AddReview = ref(false);
+
+    function add_favourite(slug) {
+      const config = {
+        headers: authHeader(),
+      };
+      let uri_favourite =
+        process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/add_bookmark";
+      app.appContext.config.globalProperties.$http
+        .post(uri_favourite, config, config)
+        .then((response) => {
+          console.log(response.data);
+          isFavourited.value = true;
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
+
+    function remove_favourite(slug) {
+      const config = {
+        headers: authHeader(),
+      };
+      let uri_favourite =
+        process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/remove_bookmark";
+      app.appContext.config.globalProperties.$http
+        .post(uri_favourite, config, config)
+        .then((response) => {
+          isFavourited.value = false;
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
 
     return {
       mapLoaded,
+      user,
+      isFavourited,
       activeTabId1,
+      remove_favourite,
       center,
+      add_favourite,
       data_wisata,
-      AddReview,
     };
   },
 };

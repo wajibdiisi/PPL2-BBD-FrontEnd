@@ -48,6 +48,13 @@
 
             <MDBCardText>
               Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia.
             </MDBCardText>
             <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
           </MDBCardBody>

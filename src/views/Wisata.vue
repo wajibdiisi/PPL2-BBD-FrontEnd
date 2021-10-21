@@ -31,7 +31,8 @@
   </div> -->
   <div class="container" style="margin-bottom: 10vh">
     <MDBRow :cols="['1', 'md-3']" class="g-4">
-      <MDBCol>
+    
+      <MDBCol v-for="wisata in wisata_list" :key="wisata._id">
         <MDBCard class="h-100">
           <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -39,129 +40,22 @@
             alt="..."
           />
           <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
+            <MDBCardTitle>{{wisata.nama}}</MDBCardTitle>
             <MDBCardText>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+             {{wisata.description}}
             </MDBCardText>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
+              <router-link :to="{name : 'WisataDetails', params : { slug : wisata.slug}}">
+              <MDBBtn tag="a" color="link" outline="primary"
                 >See Details
               </MDBBtn>
+              </router-link>
             </div>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
-      <MDBCol>
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText
-              >This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </MDBCardText>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                >See Details
-              </MDBBtn>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      <MDBCol>
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://mdbootstrap.com/img/new/standard/city/043.jpg"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content.
-            </MDBCardText>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                >See Details
-              </MDBBtn>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      <MDBCol>
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://mdbootstrap.com/img/new/standard/city/044.jpg"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </MDBCardText>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                >See Details
-              </MDBBtn>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      <MDBCol>
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </MDBCardText>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                >See Details
-              </MDBBtn>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      <MDBCol>
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </MDBCardText>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                >See Details
-              </MDBBtn>
-            </div>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
+   
+      
     </MDBRow>
     <nav aria-label="Page navigation example" style="margin-top: 5vh">
       <MDBPagination class="justify-content-end">
@@ -181,8 +75,9 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
+import { getCurrentInstance } from 'vue';
 //import Wisatadetails from "../components/Wisatadetails.vue";
-// import { ref } from "vue";
+import { ref } from "vue";
 import {
   // MDBCarousel,
   MDBContainer,
@@ -223,6 +118,20 @@ export default {
     MDBPageItem,
     // MDBInput,
   },
+
+  setup(){
+    const app = getCurrentInstance()
+    const wisata_list = ref(null);
+    let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/all"
+    app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
+      wisata_list.value = response.data
+  
+      })
+    return {
+      wisata_list
+    }
+
+  }
   // setup() {
   //   const items1 = [
   //     {

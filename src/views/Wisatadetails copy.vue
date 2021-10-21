@@ -322,7 +322,7 @@ import { GoogleMap, Marker } from 'vue3-google-map'
 import Footer from "../components/Footer copy.vue";
 import { getCurrentInstance } from 'vue';
 import authHeader from '../auth-header';
-import { computed,reactive }  from 'vue';
+import { computed }  from 'vue';
 import { useStore } from 'vuex';
 import {
   MDBIcon,
@@ -399,7 +399,10 @@ export default {
     const route = useRoute()
     const app = getCurrentInstance()
     const mapLoaded = ref(false)
+    const bookmark_list = []
     const center = { lat: 40.689247, lng: -74.044502 }
+    const store = useStore();
+    const user = computed(() => store.getters.user);
       let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/" + route.params.slug
       
       app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
@@ -407,14 +410,14 @@ export default {
       mapLoaded.value = true
       center.lat = response.data.coordinate[0]
       center.lng= response.data.coordinate[1]
-      console.log(center)
+      bookmark_list.value = data_wisata.value.bookmark_id_user
+      console.log(JSON.parse(JSON.stringify(user.value.user._id)))
       })
  
     const activeTabId1 = ref("ex1-1");
-    const store = useStore();
-    const user = computed(() => store.getters.user);
-    const bookmark_user = Array(data_wisata.value.bookmark_id_user)
-    const isFavourited = reactive(computed(() => bookmark_user.includes(user.value._id)) )
+    
+    
+    const isFavourited = computed(() => bookmark_list.includes('6168e318052173336a6bdbfe'))
     return {
       mapLoaded,
       user,

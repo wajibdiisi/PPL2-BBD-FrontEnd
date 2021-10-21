@@ -201,6 +201,198 @@
                 </MDBCol>
               </MDBTabPane>
               <MDBTabPane tabId="ex1-2">
+                <MDBBtn
+                  color="primary"
+                  aria-controls="AddReview"
+                  @click="AddReview = true"
+                >
+                  Test Button
+                </MDBBtn>
+
+                <MDBModal
+                  id="AddReview"
+                  tabindex="-1"
+                  labelledby="AddReviewTitle"
+                  v-model="AddReview"
+                  centered
+                  scrollable
+                  size="lg"
+                >
+                  <MDBModalHeader>
+                    <MDBModalTitle id="AddReviewTitle">
+                      Add Review
+                    </MDBModalTitle>
+                  </MDBModalHeader>
+                  <MDBModalBody>
+                    <MDBCol class="d-flex p-2 justify-content-center">
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">1</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">2</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">3</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">4</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1rem"
+                        class="sc-1q7bklc-10 kgIEjH"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">5</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </MDBCol>
+                    <MDBCol>What did you love?</MDBCol>
+                    <MDBCol>
+                      <MDBTextarea
+                        label="Write Your Review"
+                        rows="10"
+                        class="my-1"
+                        v-model="textareaValue"
+                      />
+                    </MDBCol>
+                  </MDBModalBody>
+                  <MDBBtn color="primary"> Add Review </MDBBtn>
+                </MDBModal>
                 <MDBRow class="d-flex align-content-center">
                   <MDBCol md="12" class="text-center">
                     <h5 style="font-weight: 500">
@@ -210,32 +402,161 @@
                   <MDBCol
                     class="d-grid gap-1 d-md-flex justify-content-md-center"
                   >
-                    <MDBBtn
-                      style="background-color: rgb(50, 224, 196); color: white"
+                    <div
+                      color="#24963F"
+                      height="2rem"
+                      width="2.6rem"
+                      font-size="1rem"
+                      class="sc-1q7bklc-10 kgIEjH"
                     >
-                      <p style="font-weight: 400">1</p>
-                      <MDBIcon icon="star" iconStyle="fas" />
-                    </MDBBtn>
-                    <MDBBtn
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      <div class="sc-1q7bklc-6 liCXOR">
+                        <div class="sc-1q7bklc-5 kHxpSk">
+                          <div class="sc-1q7bklc-1 cILgox">1</div>
+                          <div class="sc-1q7bklc-2 pxJGx">
+                            <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="#FFFFFF"
+                                width="0.8rem"
+                                height="0.8rem"
+                                viewBox="0 0 20 20"
+                                aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                role="img"
+                                class="sc-rbbb40-0 fauQLv"
+                              >
+                                <title>star-fill</title>
+                                <path
+                                  d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                ></path></svg
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      color="#24963F"
+                      height="2rem"
+                      width="2.6rem"
+                      font-size="1rem"
+                      class="sc-1q7bklc-10 kgIEjH"
                     >
-                      2 <MDBIcon icon="star" iconStyle="fas" />
-                    </MDBBtn>
-                    <MDBBtn
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      <div class="sc-1q7bklc-6 liCXOR">
+                        <div class="sc-1q7bklc-5 kHxpSk">
+                          <div class="sc-1q7bklc-1 cILgox">2</div>
+                          <div class="sc-1q7bklc-2 pxJGx">
+                            <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="#FFFFFF"
+                                width="0.8rem"
+                                height="0.8rem"
+                                viewBox="0 0 20 20"
+                                aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                role="img"
+                                class="sc-rbbb40-0 fauQLv"
+                              >
+                                <title>star-fill</title>
+                                <path
+                                  d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                ></path></svg
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      color="#24963F"
+                      height="2rem"
+                      width="2.6rem"
+                      font-size="1rem"
+                      class="sc-1q7bklc-10 kgIEjH"
                     >
-                      3 <MDBIcon icon="star" iconStyle="fas" />
-                    </MDBBtn>
-                    <MDBBtn
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      <div class="sc-1q7bklc-6 liCXOR">
+                        <div class="sc-1q7bklc-5 kHxpSk">
+                          <div class="sc-1q7bklc-1 cILgox">3</div>
+                          <div class="sc-1q7bklc-2 pxJGx">
+                            <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="#FFFFFF"
+                                width="0.8rem"
+                                height="0.8rem"
+                                viewBox="0 0 20 20"
+                                aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                role="img"
+                                class="sc-rbbb40-0 fauQLv"
+                              >
+                                <title>star-fill</title>
+                                <path
+                                  d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                ></path></svg
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      color="#24963F"
+                      height="2rem"
+                      width="2.6rem"
+                      font-size="1rem"
+                      class="sc-1q7bklc-10 kgIEjH"
                     >
-                      4 <MDBIcon icon="star" iconStyle="fas" />
-                    </MDBBtn>
-                    <MDBBtn
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      <div class="sc-1q7bklc-6 liCXOR">
+                        <div class="sc-1q7bklc-5 kHxpSk">
+                          <div class="sc-1q7bklc-1 cILgox">4</div>
+                          <div class="sc-1q7bklc-2 pxJGx">
+                            <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="#FFFFFF"
+                                width="0.8rem"
+                                height="0.8rem"
+                                viewBox="0 0 20 20"
+                                aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                role="img"
+                                class="sc-rbbb40-0 fauQLv"
+                              >
+                                <title>star-fill</title>
+                                <path
+                                  d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                ></path></svg
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      color="#24963F"
+                      height="2rem"
+                      width="2.6rem"
+                      font-size="1rem"
+                      class="sc-1q7bklc-10 kgIEjH"
                     >
-                      5 <MDBIcon icon="star" iconStyle="fas" />
-                    </MDBBtn>
+                      <div class="sc-1q7bklc-6 liCXOR">
+                        <div class="sc-1q7bklc-5 kHxpSk">
+                          <div class="sc-1q7bklc-1 cILgox">5</div>
+                          <div class="sc-1q7bklc-2 pxJGx">
+                            <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                              ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="#FFFFFF"
+                                width="0.8rem"
+                                height="0.8rem"
+                                viewBox="0 0 20 20"
+                                aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                role="img"
+                                class="sc-rbbb40-0 fauQLv"
+                              >
+                                <title>star-fill</title>
+                                <path
+                                  d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                ></path></svg
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
@@ -334,6 +655,11 @@ import {
   MDBTabContent,
   MDBTabItem,
   MDBTabPane,
+  MDBModal,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBTextarea,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 
@@ -362,6 +688,11 @@ export default {
     MDBTabContent,
     MDBTabItem,
     MDBTabPane,
+    MDBModal,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody,
+    MDBTextarea,
   },
   setup() {
     const data_wisata = ref({
@@ -387,12 +718,14 @@ export default {
       });
 
     const activeTabId1 = ref("ex1-1");
+    const AddReview = ref(false);
 
     return {
       mapLoaded,
       activeTabId1,
       center,
       data_wisata,
+      AddReview,
     };
   },
 };
@@ -413,6 +746,7 @@ export default {
   font-size: 17px;
   border-radius: 0.6rem;
   border: 1px solid rgb(50, 224, 196);
+  cursor: pointer;
 }
 .liCXOR {
   display: block;
@@ -429,7 +763,6 @@ export default {
   margin-right: 0.2rem;
   font-weight: 500;
   font-size: inherit;
-  padding-bottom: 0.1rem;
 }
 .pxJGx {
   margin-left: 0px;
@@ -455,8 +788,8 @@ export default {
   color: rgb(255, 255, 255);
   height: 2rem;
   min-width: 2.6rem;
-  padding: 0px 0.4rem;
-  font-size: 1.3rem;
+  padding: 0px 0;
+  font-size: 1rem;
   border-radius: 0.6rem;
   border: 1px solid rgb(50, 224, 196);
 }

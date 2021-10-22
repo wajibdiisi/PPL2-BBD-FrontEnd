@@ -1,5 +1,5 @@
 <template>
-  {{user}}
+  {{user.user.username}}
   <MDBNavbar
     expand="lg"
     light
@@ -73,7 +73,9 @@
         />
       </MDBDropdownToggle>
       <MDBDropdownMenu>
-        <MDBDropdownItem to="/login">Profile</MDBDropdownItem>
+        <router-link :to="{name : 'Profile', params : { username : user.user.username}}" >
+        <MDBDropdownItem to="">Profile</MDBDropdownItem>
+        </router-link>
         <MDBDropdownItem to="" @click="logout()"> Logout</MDBDropdownItem>
       </MDBDropdownMenu>
     </MDBDropdown>

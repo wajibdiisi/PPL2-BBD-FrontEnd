@@ -13,7 +13,7 @@
             />
           </MDBCol>
           <MDBCardBody>
-            <MDBCardTitle class="fs-1">Gede Bagus Darmagita</MDBCardTitle>
+            <MDBCardTitle class="fs-1">{{userProfile.name}}</MDBCardTitle>
             <MDBCardText class="fs-4">
               Cilegon, 14 - Desember - 2000
             </MDBCardText>
@@ -555,6 +555,10 @@
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
 import { ref } from "vue";
+import { getCurrentInstance } from 'vue';
+import { useRoute } from 'vue-router'
+import { useStore } from 'vuex';
+import { computed }  from 'vue';
 import {
   MDBCol,
   MDBRow,
@@ -592,9 +596,23 @@ export default {
   },
   setup() {
     const dropdown21 = ref(false);
-
+    const route = useRoute()
+    const app = getCurrentInstance()
+    const store = useStore();
+    const user = computed(() => store.getters.user);
+    const userProfile = ref({
+      'name' : null }
+    )
+      let uri_profile =  process.env.VUE_APP_ROOT_API  + "users/profile/" + route.params.username
+      
+      app.appContext.config.globalProperties.$http.get(uri_profile).then((response) => {
+      console.log(response)
+      userProfile.value = response.data
+      })
     return {
       dropdown21,
+      userProfile,
+      user
     };
   },
 };

@@ -30,6 +30,16 @@
             required
           />
         </MDBCol>
+         <MDBCol class="my-4">
+          <MDBInput
+            v-model="username"
+            label="Username"
+            class="my-4"
+            type="text"
+            invalidFeedback="Please input your username (you won't be able to change it later)"
+            required
+          />
+        </MDBCol>
         <MDBCol class="my-4">
           <MDBInput
             v-model="password"
@@ -94,6 +104,7 @@ export default {
     name :"",
     email : "",
     password : "",
+    username : "",
     confirm_password : "",
 
   }),
@@ -114,6 +125,7 @@ methods :{
         name: this.name,
         email: this.email,
         password: this.password,
+        username : this.username,
         confirm_password : this.confirm_password,
       };
       this.$store

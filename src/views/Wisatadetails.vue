@@ -317,13 +317,13 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue";
-import { useRoute } from 'vue-router'
 import { GoogleMap, Marker } from 'vue3-google-map'
 import Footer from "../components/Footer copy.vue";
-import { getCurrentInstance } from 'vue';
 import authHeader from '../auth-header';
-import { computed }  from 'vue';
+import { getCurrentInstance } from 'vue';
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex';
+import { computed }  from 'vue';
 import {
   MDBIcon,
   MDBBtn,
@@ -398,10 +398,10 @@ export default {
      });
     const route = useRoute()
     const app = getCurrentInstance()
+    const store = useStore();
     const mapLoaded = ref(false)
     const bookmark_list = []
     const center = { lat: 40.689247, lng: -74.044502 }
-    const store = useStore();
     const user = computed(() => store.getters.user);
     const isFavourited = ref(false)
       let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/" + route.params.slug

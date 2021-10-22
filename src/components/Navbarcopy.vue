@@ -1,5 +1,4 @@
 <template>
-  {{user.user.username}}
   <MDBNavbar
     expand="lg"
     light

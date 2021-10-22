@@ -64,7 +64,7 @@
                   style="background-color: rgb(50, 224, 196); color: white"
                   @click="add_favourite(data_wisata['slug'])"
                 >
-                  <MDBIcon icon="star" iconStyle="fas" /> Add Favorite
+                  <MDBIcon icon="star" iconStyle="fas" /> Add Review
                 </MDBBtn>
                 <MDBBtn
                   v-if="isFavourited == true"
@@ -211,14 +211,6 @@
                 </MDBCol>
               </MDBTabPane>
               <MDBTabPane tabId="ex1-2">
-                <MDBBtn
-                  color="primary"
-                  aria-controls="AddReview"
-                  @click="AddReview = true"
-                >
-                  Test Button
-                </MDBBtn>
-
                 <MDBModal
                   id="AddReview"
                   tabindex="-1"
@@ -408,7 +400,7 @@
                       width: 175px;
                       height: 45px;
                     "
-                    class="align-self-center"
+                    class="align-self-center my-4"
                   >
                     Add Review
                   </MDBBtn>
@@ -428,6 +420,8 @@
                       width="2.6rem"
                       font-size="1rem"
                       class="sc-1q7bklc-10 kgIEjH"
+                      @click="AddReview = true"
+                      style="cursor: pointer"
                     >
                       <div class="sc-1q7bklc-6 liCXOR">
                         <div class="sc-1q7bklc-5 kHxpSk">
@@ -459,6 +453,8 @@
                       width="2.6rem"
                       font-size="1rem"
                       class="sc-1q7bklc-10 kgIEjH"
+                      @click="AddReview = true"
+                      style="cursor: pointer"
                     >
                       <div class="sc-1q7bklc-6 liCXOR">
                         <div class="sc-1q7bklc-5 kHxpSk">
@@ -490,6 +486,8 @@
                       width="2.6rem"
                       font-size="1rem"
                       class="sc-1q7bklc-10 kgIEjH"
+                      @click="AddReview = true"
+                      style="cursor: pointer"
                     >
                       <div class="sc-1q7bklc-6 liCXOR">
                         <div class="sc-1q7bklc-5 kHxpSk">
@@ -521,6 +519,8 @@
                       width="2.6rem"
                       font-size="1rem"
                       class="sc-1q7bklc-10 kgIEjH"
+                      @click="AddReview = true"
+                      style="cursor: pointer"
                     >
                       <div class="sc-1q7bklc-6 liCXOR">
                         <div class="sc-1q7bklc-5 kHxpSk">
@@ -552,6 +552,8 @@
                       width="2.6rem"
                       font-size="1rem"
                       class="sc-1q7bklc-10 kgIEjH"
+                      @click="AddReview = true"
+                      style="cursor: pointer"
                     >
                       <div class="sc-1q7bklc-6 liCXOR">
                         <div class="sc-1q7bklc-5 kHxpSk">

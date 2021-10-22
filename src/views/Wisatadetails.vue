@@ -233,7 +233,7 @@
                     </MDBModalTitle>
                   </MDBModalHeader>
                   <MDBModalBody>
-                    <MDBCol class="d-flex p-2 justify-content-center">
+                    <MDBCol class="d-flex p-3 justify-content-center">
                       <div
                         color="#24963F"
                         height="2rem"
@@ -276,8 +276,8 @@
                           <div class="sc-1q7bklc-5 kHxpSk">
                             <div class="sc-1q7bklc-1 cILgox">2</div>
                             <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF">
+                                <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="#FFFFFF"
                                   width="0.8rem"
@@ -400,7 +400,17 @@
                       />
                     </MDBCol>
                   </MDBModalBody>
-                  <MDBBtn color="primary"> Add Review </MDBBtn>
+                  <MDBBtn
+                    style="
+                      background-color: rgb(13, 115, 119);
+                      color: white;
+                      width: 175px;
+                      height: 45px;
+                    "
+                    class="align-self-center"
+                  >
+                    Add Review
+                  </MDBBtn>
                 </MDBModal>
                 <MDBRow class="d-flex align-content-center">
                   <MDBCol md="12" class="text-center">
@@ -583,7 +593,7 @@
                 </MDBRow>
                 <MDBRow>
                   <MDBRow>
-                    <MDBCol md="12" class="d-flex align-items-center mb-3">
+                    <MDBCol md="1" class="d-flex align-items-center mb-3">
                       <img
                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
                         alt="avatar"
@@ -594,13 +604,13 @@
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
-                    <MDBCol md="1">
+                    <MDBCol md="1" class="d-flex justify-content-center">
                       <div
                         color="#24963F"
                         height="2rem"
                         width="2.6rem"
                         font-size="1.3rem"
-                        class="sc-1q7bklc-10 kgIEjH"
+                        class="sc-1q7bklc-10 UserStar"
                       >
                         <div class="sc-1q7bklc-6 liCXOR">
                           <div class="sc-1q7bklc-5 kHxpSk">
@@ -743,6 +753,7 @@ export default {
     const store = useStore();
     const user = computed(() => store.getters.user);
     const isFavourited = ref(false);
+    const AddReview = ref(false);
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
 
@@ -804,6 +815,7 @@ export default {
       center,
       add_favourite,
       data_wisata,
+      AddReview,
     };
   },
 };
@@ -866,6 +878,21 @@ export default {
   color: rgb(255, 255, 255);
   height: 2rem;
   min-width: 2.6rem;
+  padding: 0px 0;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgb(50, 224, 196);
+}
+.UserStar {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background-color: rgb(50, 224, 196);
+  color: rgb(255, 255, 255);
+  height: 2rem;
+  width: 3rem;
   padding: 0px 0;
   font-size: 1rem;
   border-radius: 0.6rem;

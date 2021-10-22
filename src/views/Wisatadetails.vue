@@ -808,15 +808,6 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue";
-<<<<<<< HEAD
-import { GoogleMap, Marker } from 'vue3-google-map'
-import Footer from "../components/Footer copy.vue";
-import authHeader from '../auth-header';
-import { getCurrentInstance } from 'vue';
-import { useRoute } from 'vue-router'
-import { useStore } from 'vuex';
-import { computed }  from 'vue';
-=======
 import { useRoute } from "vue-router";
 import { GoogleMap, Marker } from "vue3-google-map";
 import Footer from "../components/Footer copy.vue";
@@ -824,7 +815,6 @@ import { getCurrentInstance } from "vue";
 import authHeader from "../auth-header";
 import { computed } from "vue";
 import { useStore } from "vuex";
->>>>>>> 7778174ccc24b4ccb2765c4562a0a50fb0f38639
 import {
   MDBIcon,
   MDBBtn,
@@ -906,19 +896,6 @@ export default {
   },
   setup() {
     const data_wisata = ref({
-<<<<<<< HEAD
-      'nama' : null,
-      'description' : null,
-      'avg_cost' : null,
-      'slug' : null,
-     });
-    const route = useRoute()
-    const app = getCurrentInstance()
-    const store = useStore();
-    const mapLoaded = ref(false)
-    const bookmark_list = []
-    const center = { lat: 40.689247, lng: -74.044502 }
-=======
       nama: null,
       description: null,
       avg_cost: null,
@@ -930,7 +907,6 @@ export default {
     const bookmark_list = [];
     const center = { lat: 40.689247, lng: -74.044502 };
     const store = useStore();
->>>>>>> 7778174ccc24b4ccb2765c4562a0a50fb0f38639
     const user = computed(() => store.getters.user);
     const isFavourited = ref(false);
     const AddReview = ref(false);

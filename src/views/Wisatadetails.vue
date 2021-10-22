@@ -173,38 +173,39 @@
                       </p>
                     </MDBCol>
                     <MDBRow>
-                      <MDBCol md="2">
-                        <MDBBtn
-                          style="
-                            background-color: white;
-                            color: black;
-                            border: 1px solid black;
-                          "
-                        >
-                          <MDBIcon
-                            icon="copy"
-                            iconStyle="fas"
-                            style="color: rgb(50, 224, 196)"
-                          />
-                          Copy
-                        </MDBBtn>
-                      </MDBCol>
-                      <MDBCol md="2">
-                        <MDBBtn
-                          style="
-                            background-color: white;
-                            color: black;
-                            border: 1px solid black;
-                          "
-                        >
-                          <MDBIcon
-                            icon="directions"
-                            iconStyle="fas"
-                            style="color: rgb(50, 224, 196)"
-                          />
-                          Direction
-                        </MDBBtn>
-                      </MDBCol>
+                      <MDBBtn
+                        style="
+                          background-color: white;
+                          color: black;
+                          border: 1px solid black;
+                          width: 100px;
+                          height: 35px;
+                        "
+                      >
+                        <MDBIcon
+                          icon="copy"
+                          iconStyle="fas"
+                          style="color: rgb(50, 224, 196)"
+                        />
+                        Copy
+                      </MDBBtn>
+
+                      <MDBBtn
+                        style="
+                          background-color: white;
+                          color: black;
+                          border: 1px solid black;
+                          width: 140px;
+                          height: 35px;
+                        "
+                      >
+                        <MDBIcon
+                          icon="directions"
+                          iconStyle="fas"
+                          style="color: rgb(50, 224, 196)"
+                        />
+                        Direction
+                      </MDBBtn>
                     </MDBRow>
                   </MDBRow>
                 </MDBCol>
@@ -591,20 +592,32 @@
                     <h6>Newest First</h6>
                   </MDBCol>
                 </MDBRow>
-                <MDBRow>
+                <MDBCol>
                   <MDBRow>
-                    <MDBCol md="1" class="d-flex align-items-center mb-3">
+                    <MDBCol md="1" class="d-flex justify-content-end mb-3">
                       <img
                         src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
                         alt="avatar"
                         width="60"
                         height="60"
                       />
-                      <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                    </MDBCol>
+                    <MDBCol md="2">
+                      <MDBCol>
+                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                      </MDBCol>
+                      <MDBCol>
+                        <p
+                          class="mb-0 ms-2"
+                          style="font-weight: 400; font-size: small"
+                        >
+                          9 Days ago
+                        </p>
+                      </MDBCol>
                     </MDBCol>
                   </MDBRow>
                   <MDBRow>
-                    <MDBCol md="1" class="d-flex justify-content-center">
+                    <MDBCol md="1" class="d-flex justify-content-center ps-3">
                       <div
                         color="#24963F"
                         height="2rem"
@@ -638,12 +651,149 @@
                       </div>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol md="8">
+                  <MDBCol md="8" class="ps-3">
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     </p>
                   </MDBCol>
-                </MDBRow>
+                </MDBCol>
+                <MDBCol>
+                  <MDBRow>
+                    <MDBCol md="1" class="d-flex justify-content-end mb-3">
+                      <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                        alt="avatar"
+                        width="60"
+                        height="60"
+                      />
+                    </MDBCol>
+                    <MDBCol md="2">
+                      <MDBCol>
+                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                      </MDBCol>
+                      <MDBCol>
+                        <p
+                          class="mb-0 ms-2"
+                          style="font-weight: 400; font-size: small"
+                        >
+                          9 Days ago
+                        </p>
+                      </MDBCol>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow>
+                    <MDBCol md="1" class="d-flex justify-content-center ps-3">
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1.3rem"
+                        class="sc-1q7bklc-10 UserStar"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">4</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBCol md="8" class="ps-3">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </MDBCol>
+                </MDBCol>
+                <MDBCol>
+                  <MDBRow>
+                    <MDBCol md="1" class="d-flex justify-content-end mb-3">
+                      <img
+                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                        alt="avatar"
+                        width="60"
+                        height="60"
+                      />
+                    </MDBCol>
+                    <MDBCol md="2">
+                      <MDBCol>
+                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                      </MDBCol>
+                      <MDBCol>
+                        <p
+                          class="mb-0 ms-2"
+                          style="font-weight: 400; font-size: small"
+                        >
+                          9 Days ago
+                        </p>
+                      </MDBCol>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBRow>
+                    <MDBCol md="1" class="d-flex justify-content-center ps-3">
+                      <div
+                        color="#24963F"
+                        height="2rem"
+                        width="2.6rem"
+                        font-size="1.3rem"
+                        class="sc-1q7bklc-10 UserStar"
+                      >
+                        <div class="sc-1q7bklc-6 liCXOR">
+                          <div class="sc-1q7bklc-5 kHxpSk">
+                            <div class="sc-1q7bklc-1 cILgox">4</div>
+                            <div class="sc-1q7bklc-2 pxJGx">
+                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                ><svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="#FFFFFF"
+                                  width="0.8rem"
+                                  height="0.8rem"
+                                  viewBox="0 0 20 20"
+                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                  role="img"
+                                  class="sc-rbbb40-0 fauQLv"
+                                >
+                                  <title>star-fill</title>
+                                  <path
+                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                  ></path></svg
+                              ></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBCol md="8" class="ps-3">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                  </MDBCol>
+                </MDBCol>
+                <MDBPagination class="justify-content-end" circle>
+                  <MDBPageNav prev></MDBPageNav>
+                  <MDBPageItem active href="#">1</MDBPageItem>
+                  <MDBPageItem href="#">2</MDBPageItem>
+                  <MDBPageItem href="#">3</MDBPageItem>
+                  <MDBPageNav next></MDBPageNav>
+                </MDBPagination>
               </MDBTabPane>
               <MDBTabPane tabId="ex1-3">Content #3</MDBTabPane>
             </MDBTabContent>
@@ -658,14 +808,13 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue";
-
-import { GoogleMap, Marker } from 'vue3-google-map'
+import { useRoute } from "vue-router";
+import { GoogleMap, Marker } from "vue3-google-map";
 import Footer from "../components/Footer copy.vue";
-import authHeader from '../auth-header';
-import { getCurrentInstance } from 'vue';
-import { useRoute } from 'vue-router'
-import { useStore } from 'vuex';
-import { computed }  from 'vue';
+import { getCurrentInstance } from "vue";
+import authHeader from "../auth-header";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import {
   MDBIcon,
   MDBBtn,
@@ -682,6 +831,9 @@ import {
   MDBModalTitle,
   MDBModalBody,
   MDBTextarea,
+  MDBPagination,
+  MDBPageNav,
+  MDBPageItem,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 
@@ -738,20 +890,23 @@ export default {
     MDBModalTitle,
     MDBModalBody,
     MDBTextarea,
+    MDBPagination,
+    MDBPageNav,
+    MDBPageItem,
   },
   setup() {
     const data_wisata = ref({
-      'nama' : null,
-      'description' : null,
-      'avg_cost' : null,
-      'slug' : null,
-     });
-    const route = useRoute()
-    const app = getCurrentInstance()
-    const store = useStore();
-    const mapLoaded = ref(false)
-    const bookmark_list = []
+      nama: null,
+      description: null,
+      avg_cost: null,
+      slug: null,
+    });
+    const route = useRoute();
+    const app = getCurrentInstance();
+    const mapLoaded = ref(false);
+    const bookmark_list = [];
     const center = { lat: 40.689247, lng: -74.044502 };
+    const store = useStore();
     const user = computed(() => store.getters.user);
     const isFavourited = ref(false);
     const AddReview = ref(false);

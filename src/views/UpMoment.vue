@@ -66,6 +66,8 @@
                   invalidFeedback="Please input your email"
                   required
                 />
+                <MDBBtn tag="a" href="#!" color="primary">Upload</MDBBtn>
+                <MDBBtn tag="a" href="#!" color="light">Cancel</MDBBtn>
               </MDBContainer>
             </MDBContainer>
           </MDBCardBody>
@@ -89,6 +91,7 @@ import {
   MDBCardText,
   MDBContainer,
   MDBInput,
+  MDBBtn,
 } from "mdb-vue-ui-kit";
 export default {
   components: {
@@ -103,6 +106,7 @@ export default {
     MDBContainer,
     MDBFile,
     MDBInput,
+    MDBBtn,
   },
   setup() {
     const files2 = ref([]);

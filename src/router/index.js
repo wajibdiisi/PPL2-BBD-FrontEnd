@@ -47,6 +47,11 @@ const routes = [
     name: 'UpMoment',
     component: () => import('../views/UpMoment.vue')
   },
+  {
+    path: '/aboutus',
+    name: 'abousus',
+    component: () => import('../views/aboutus.vue')
+  },
 ]
 
 const router = createRouter({

@@ -797,7 +797,68 @@
                   <MDBPageNav next></MDBPageNav>
                 </MDBPagination>
               </MDBTabPane>
-              <MDBTabPane tabId="ex1-3">Content #3</MDBTabPane>
+              <MDBTabPane tabId="ex1-3">
+                <MDBModal
+                  id="Moment"
+                  tabindex="-1"
+                  labelledby="Moment"
+                  v-model="Moment"
+                  centered
+                  scrollable
+                  size="xl"
+                >
+                  <MDBModalBody>
+                    <MDBRow>
+                      <MDBCol md="8">
+                        <img
+                          src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                          alt="..."
+                          style="width: 100%"
+                        />
+                      </MDBCol>
+                      <MDBCol md="4"> </MDBCol>
+                    </MDBRow>
+                  </MDBModalBody>
+                </MDBModal>
+                <MDBRow>
+                  <MDBCol md="3">
+                    <MDBCard @click="Moment = true" style="cursor: pointer">
+                      <MDBCardImg
+                        top
+                        src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                        alt="..."
+                      />
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol md="3">
+                    <MDBCard>
+                      <MDBCardImg
+                        top
+                        src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                        alt="..."
+                      />
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol md="3">
+                    <MDBCard>
+                      <MDBCardImg
+                        top
+                        src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                        alt="..."
+                      />
+                    </MDBCard>
+                  </MDBCol>
+                  <MDBCol md="3">
+                    <MDBCard>
+                      <MDBCardImg
+                        top
+                        src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                        alt="..."
+                      />
+                    </MDBCard>
+                  </MDBCol>
+                </MDBRow>
+              </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->
           </MDBTabs>
@@ -836,6 +897,7 @@ import {
   MDBPagination,
   MDBPageNav,
   MDBPageItem,
+  MDBCardImg,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 
@@ -895,6 +957,7 @@ export default {
     MDBPagination,
     MDBPageNav,
     MDBPageItem,
+    MDBCardImg,
   },
   setup() {
     const data_wisata = ref({
@@ -912,6 +975,7 @@ export default {
     const user = computed(() => store.getters.user);
     const isFavourited = ref(false);
     const AddReview = ref(false);
+    const Moment = ref(false);
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
 
@@ -974,6 +1038,7 @@ export default {
       add_favourite,
       data_wisata,
       AddReview,
+      Moment,
     };
   },
 };

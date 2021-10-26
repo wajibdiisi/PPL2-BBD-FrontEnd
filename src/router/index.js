@@ -57,6 +57,11 @@ const routes = [
     name: 'Planner',
     component: () => import('../views/planner.vue')
   },
+  {
+    path: '/plannerdetails',
+    name: 'PlannerDetails',
+    component: () => import('../views/plannerdetails.vue')
+  },
 ]
 
 const router = createRouter({

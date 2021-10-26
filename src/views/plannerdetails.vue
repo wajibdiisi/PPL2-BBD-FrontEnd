@@ -7,7 +7,7 @@
           <MDBContainer>
             <MDBContainer>
               <div style="margin: 5vh auto">
-                <MDBCardTitle class="fs-1">List Liburan Anda</MDBCardTitle>
+                <MDBCardTitle class="fs-1">Liburan ke Bali</MDBCardTitle>
                 <MDBInput v-model="search3" />
                 <MDBDatatable
                   :dataset="dataset3"
@@ -23,13 +23,13 @@
                 >
                   <MDBBtn
                     color="primary"
+                    aria-controls="exampleSideModal1"
                     class="text.nowrap"
                     size="lg"
                     style="background-color: rgb(50, 224, 196)"
-                    type="submit"
                     @click="exampleSideModal1 = true"
                   >
-                    Create New Plan
+                    Add Place to Plan
                   </MDBBtn>
                 </div>
               </div>
@@ -38,35 +38,61 @@
         </MDBCard>
       </MDBCol>
     </MDBRow>
-  </MDBContainer>
-  <MDBModal
-    side
-    position="bottom-right"
-    direction="right"
-    id="exampleSideModal1"
-    tabindex="-1"
-    labelledby="exampleSideModalLabel1"
-    v-model="exampleSideModal1"
-  >
-    <MDBModalHeader
-      class="text-white"
-      style="background-color: rgb(50, 224, 196)"
+    <MDBModal
+      side
+      position="bottom-right"
+      direction="right"
+      id="exampleSideModal1"
+      tabindex="-1"
+      labelledby="exampleSideModalLabel1"
+      v-model="exampleSideModal1"
     >
-      <MDBModalTitle id="exampleSideModalLabel1">
-        Menambahkan Plan
-      </MDBModalTitle>
-    </MDBModalHeader>
-    <MDBModalBody>
-      <p class="text-start">Judul Liburan Anda</p>
-      <MDBInput label="Title" type="text" />
-    </MDBModalBody>
-    <MDBModalFooter>
-      <MDBBtn color="info"> Add </MDBBtn>
-      <MDBBtn color="outline-info" @click="exampleSideModal1 = false">
-        Cancel
-      </MDBBtn>
-    </MDBModalFooter>
-  </MDBModal>
+      <MDBModalHeader class="text-white" style="background-color: rgb(50, 224, 196)">
+        <MDBModalTitle id="exampleSideModalLabel1">
+          Pilih Tempat Wisata
+        </MDBModalTitle>
+      </MDBModalHeader>
+      <MDBModalBody>
+        <p class="text-start">Pilih Tempat Wisata</p>
+        <div class="form-control">
+          <!-- <p class="search-text">Cari Wisata</p> -->
+          <MDBAutocomplete
+            v-model="autocompleteTemplate"
+            :filter="filterTemplate"
+            :displayValue="displayValueTemplate"
+            :itemContent="itemTemplate"
+            style="width: 22rem"
+            label="Pilih Tempat Wisata"
+          />
+        </div>
+        <MDBCol class="my-2">
+          <MDBTimepicker
+            label="Pilih Jam"
+            inline
+            v-model="picker1"
+            :hoursFormat="24"
+            :increment="5"
+            placeholder="20:05"
+          />
+        </MDBCol>
+        <MDBCol class="my-2">
+          <MDBDatepicker
+            v-model="picker2"
+            inline
+            label="Pilih Tanggal"
+            format="DD, MMM, YYYY"
+            placeholder="DD, MMM, YYYY"
+          />
+        </MDBCol>
+      </MDBModalBody>
+      <MDBModalFooter>
+        <MDBBtn color="info"> Add </MDBBtn>
+        <MDBBtn color="outline-info" @click="exampleSideModal1 = false">
+          Cancel
+        </MDBBtn>
+      </MDBModalFooter>
+    </MDBModal>
+  </MDBContainer>
   <!-- <Footer /> -->
 </template>
 <script>
@@ -91,6 +117,8 @@ import {
   MDBModalBody,
   MDBModalFooter,
   MDBInput,
+  MDBTimepicker,
+  MDBDatepicker,
 } from "mdb-vue-ui-kit";
 export default {
   components: {
@@ -113,6 +141,8 @@ export default {
     MDBModalBody,
     MDBModalFooter,
     MDBInput,
+    MDBTimepicker,
+    MDBDatepicker,
   },
   setup() {
     const search3 = ref("");
@@ -121,96 +151,34 @@ export default {
     const exampleSideModal1 = ref(false);
     const dataset3 = {
       columns: [
-        // { label: "Date", field: "Date" },
-        { label: "Title", field: "Title" },
-        { label: "Action Button", field: "Action", sort: false },
+        { label: "Place", field: "Title" },
+        { label: "Time", field: "Time" },
+        { label: "Date", field: "Date" },
+        { label: "Action", field: "Action", sort: false },
       ],
       rows: [
         {
-          // Date: "29/10/2020",
+          Date: "29/11/2020",
+          Time: "08.00",
           Title: "Liburan ke Bali",
           email: "tiger.nixon@gmail.com",
         },
         {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
+          Date: "30/10/2020",
+          Time: "08.00",
           Title: "Liburan ke Bali",
           email: "tiger.nixon@gmail.com",
         },
         {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
+          Date: "31/10/2020",
+          Time: "08.00",
           Title: "Liburan ke Bali",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Bali",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          // Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
           email: "tiger.nixon@gmail.com",
         },
       ].map((row) => {
         return {
           ...row,
           Action: `
-              <button class="message-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${row.email}"><i class="fa fa-eye"></i></button>
               <button class="message-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${row.email}"><i class="fa fa-trash"></i></button>`,
         };
       }),

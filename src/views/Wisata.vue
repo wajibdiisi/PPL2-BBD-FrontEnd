@@ -1,7 +1,6 @@
 <template>
   <Navbar />
   <MDBContainer> </MDBContainer>
-  {{search_wisata}}
   <div class="habib">
     <img
       src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -16,7 +15,6 @@
     :displayValue="displayValueTemplate"
     :itemContent="itemTemplate"
     style="width: 22rem"
-    @input="searchFunction"
     label=" label"
   />
      
@@ -188,16 +186,21 @@ export default {
        }
     ))
     }*/
-    if(wisata_list.value != null){
-    search_wisata = computed(() => 
-      wisata_list.value.filter(wisata => {
+    
+    search_wisata = computed(
+      {
+        get : () =>  
+        wisata_list.value?.filter(wisata => {
         if(autocompleteTemplate.value != null){
-          return wisata
+          console.log('test')
+          return wisata.nama.includes(autocompleteTemplate.value)
         }else {
-          return wisata
+          return wisata.nama != null
         }
       })
-    )}
+      }
+     
+    )
 
 
    const autocompleteTemplate = ref("");

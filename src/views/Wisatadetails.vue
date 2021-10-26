@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+
   <MDBContainer>
     <MDBRow start class="mb-6">
       <MDBCol sm="12" md="12">
@@ -227,169 +228,180 @@
                   </MDBModalHeader>
                   <MDBModalBody>
                     <MDBCol class="d-flex p-3 justify-content-center">
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1rem"
-                        class="sc-1q7bklc-10 kgIEjH"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">1</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
+                      <MDBRating v-model="review_content.rating">
+                        <MDBRatingItem title="Bad" :index="1">
+                          <div
+                            color="#24963F"
+                            height="2rem"
+                            width="2.6rem"
+                            font-size="1rem"
+                            class="sc-1q7bklc-10 kgIEjH"
+                          >
+                            <div class="sc-1q7bklc-6 liCXOR">
+                              <div class="sc-1q7bklc-5 kHxpSk">
+                                <div class="sc-1q7bklc-1 cILgox">1</div>
+                                <div class="sc-1q7bklc-2 pxJGx">
+                                  <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                    ><svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="#FFFFFF"
+                                      width="0.8rem"
+                                      height="0.8rem"
+                                      viewBox="0 0 20 20"
+                                      aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                      role="img"
+                                      class="sc-rbbb40-0 fauQLv"
+                                    >
+                                      <title>star-fill</title>
+                                      <path
+                                        d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                      ></path></svg
+                                  ></i>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1rem"
-                        class="sc-1q7bklc-10 kgIEjH"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">2</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
+                        </MDBRatingItem>
+                        <MDBRatingItem title="Poor" :index="2">
+                          <div
+                            color="#24963F"
+                            height="2rem"
+                            width="2.6rem"
+                            font-size="1rem"
+                            class="sc-1q7bklc-10 kgIEjH"
+                          >
+                            <div class="sc-1q7bklc-6 liCXOR">
+                              <div class="sc-1q7bklc-5 kHxpSk">
+                                <div class="sc-1q7bklc-1 cILgox">2</div>
+                                <div class="sc-1q7bklc-2 pxJGx">
+                                  <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="#FFFFFF"
+                                      width="0.8rem"
+                                      height="0.8rem"
+                                      viewBox="0 0 20 20"
+                                      aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                      role="img"
+                                      class="sc-rbbb40-0 fauQLv"
+                                    >
+                                      <title>star-fill</title>
+                                      <path
+                                        d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                      ></path></svg
+                                  ></i>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1rem"
-                        class="sc-1q7bklc-10 kgIEjH"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">3</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
+                        </MDBRatingItem>
+                        <MDBRatingItem title="OK" :index="3">
+                          <div
+                            color="#24963F"
+                            height="2rem"
+                            width="2.6rem"
+                            font-size="1rem"
+                            class="sc-1q7bklc-10 kgIEjH"
+                          >
+                            <div class="sc-1q7bklc-6 liCXOR">
+                              <div class="sc-1q7bklc-5 kHxpSk">
+                                <div class="sc-1q7bklc-1 cILgox">3</div>
+                                <div class="sc-1q7bklc-2 pxJGx">
+                                  <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                    ><svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="#FFFFFF"
+                                      width="0.8rem"
+                                      height="0.8rem"
+                                      viewBox="0 0 20 20"
+                                      aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                      role="img"
+                                      class="sc-rbbb40-0 fauQLv"
+                                    >
+                                      <title>star-fill</title>
+                                      <path
+                                        d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                      ></path></svg
+                                  ></i>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1rem"
-                        class="sc-1q7bklc-10 kgIEjH"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">4</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
+                        </MDBRatingItem>
+                        <MDBRatingItem title="Good" :index="4">
+                          <div
+                            color="#24963F"
+                            height="2rem"
+                            width="2.6rem"
+                            font-size="1rem"
+                            class="sc-1q7bklc-10 kgIEjH"
+                          >
+                            <div class="sc-1q7bklc-6 liCXOR">
+                              <div class="sc-1q7bklc-5 kHxpSk">
+                                <div class="sc-1q7bklc-1 cILgox">4</div>
+                                <div class="sc-1q7bklc-2 pxJGx">
+                                  <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                    ><svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="#FFFFFF"
+                                      width="0.8rem"
+                                      height="0.8rem"
+                                      viewBox="0 0 20 20"
+                                      aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                      role="img"
+                                      class="sc-rbbb40-0 fauQLv"
+                                    >
+                                      <title>star-fill</title>
+                                      <path
+                                        d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                      ></path></svg
+                                  ></i>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1rem"
-                        class="sc-1q7bklc-10 kgIEjH"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">5</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
+                        </MDBRatingItem>
+                        <MDBRatingItem title="Excellent" :index="5">
+                          <div
+                            color="#24963F"
+                            height="2rem"
+                            width="2.6rem"
+                            font-size="1rem"
+                            class="sc-1q7bklc-10 kgIEjH"
+                          >
+                            <div class="sc-1q7bklc-6 liCXOR">
+                              <div class="sc-1q7bklc-5 kHxpSk">
+                                <div class="sc-1q7bklc-1 cILgox">5</div>
+                                <div class="sc-1q7bklc-2 pxJGx">
+                                  <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
+                                    ><svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="#FFFFFF"
+                                      width="0.8rem"
+                                      height="0.8rem"
+                                      viewBox="0 0 20 20"
+                                      aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                      role="img"
+                                      class="sc-rbbb40-0 fauQLv"
+                                    >
+                                      <title>star-fill</title>
+                                      <path
+                                        d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                      ></path></svg
+                                  ></i>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </MDBCol>
+                        </MDBRatingItem> </MDBRating
+                    ></MDBCol>
                     <MDBCol>What did you love?</MDBCol>
                     <MDBCol>
                       <MDBTextarea
                         label="Write Your Review"
                         rows="10"
                         class="my-1"
-                        v-model="textareaValue"
+                        v-model="review_content.content"
                       />
                     </MDBCol>
                   </MDBModalBody>
@@ -401,6 +413,7 @@
                       height: 45px;
                     "
                     class="align-self-center my-4"
+                    @click="add_review(review_content)"
                   >
                     Add Review
                   </MDBBtn>
@@ -588,13 +601,16 @@
                 </MDBRow>
                 <MDBRow class="d-flex justify-content-between">
                   <MDBCol class="text-start">
-                    <h6>All Review (90)</h6>
+                    <h6 v-if="review_list != null">
+                      All Review ({{ review_list.length }})
+                    </h6>
                   </MDBCol>
                   <MDBCol class="text-end">
                     <h6>Newest First</h6>
                   </MDBCol>
                 </MDBRow>
-                <MDBCol>
+
+                <MDBCol v-for="review in review_list" :key="review._id">
                   <MDBRow>
                     <MDBCol md="1" class="d-flex justify-content-end mb-3">
                       <img
@@ -606,14 +622,34 @@
                     </MDBCol>
                     <MDBCol md="2">
                       <MDBCol>
-                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
+                        <p class="mb-0 ms-2" style="font-weight: 500">
+                          {{ review.id_user.name }}
+                        </p>
                       </MDBCol>
                       <MDBCol>
                         <p
                           class="mb-0 ms-2"
                           style="font-weight: 400; font-size: small"
                         >
-                          9 Days ago
+                          {{ moment(review.date).fromNow() }}
+                        </p>
+                      </MDBCol>
+                      <MDBCol>
+                        <p
+                          class="mb-0 ms-2"
+                          style="font-weight: 400; font-size: small"
+                        >
+                          <MDBBtn
+                            v-if="review.id_user._id == user.user._id"
+                            style="
+                              background-color: rgb(50, 224, 196);
+                              color: white;
+                            "
+                            @click="confirm_deletion()"
+                          >
+                            <MDBIcon icon="star" iconStyle="fas" /> Remove
+                            Review
+                          </MDBBtn>
                         </p>
                       </MDBCol>
                     </MDBCol>
@@ -629,7 +665,9 @@
                       >
                         <div class="sc-1q7bklc-6 liCXOR">
                           <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">4</div>
+                            <div class="sc-1q7bklc-1 cILgox">
+                              {{ review.rating }}
+                            </div>
                             <div class="sc-1q7bklc-2 pxJGx">
                               <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
                                 ><svg
@@ -655,140 +693,11 @@
                   </MDBRow>
                   <MDBCol md="8" class="ps-3">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      {{ review.content }}
                     </p>
                   </MDBCol>
                 </MDBCol>
-                <MDBCol>
-                  <MDBRow>
-                    <MDBCol md="1" class="d-flex justify-content-end mb-3">
-                      <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
-                        alt="avatar"
-                        width="60"
-                        height="60"
-                      />
-                    </MDBCol>
-                    <MDBCol md="2">
-                      <MDBCol>
-                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
-                      </MDBCol>
-                      <MDBCol>
-                        <p
-                          class="mb-0 ms-2"
-                          style="font-weight: 400; font-size: small"
-                        >
-                          9 Days ago
-                        </p>
-                      </MDBCol>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow>
-                    <MDBCol md="1" class="d-flex justify-content-center ps-3">
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1.3rem"
-                        class="sc-1q7bklc-10 UserStar"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">4</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBCol md="8" class="ps-3">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                  </MDBCol>
-                </MDBCol>
-                <MDBCol>
-                  <MDBRow>
-                    <MDBCol md="1" class="d-flex justify-content-end mb-3">
-                      <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
-                        alt="avatar"
-                        width="60"
-                        height="60"
-                      />
-                    </MDBCol>
-                    <MDBCol md="2">
-                      <MDBCol>
-                        <p class="mb-0 ms-2" style="font-weight: 500">Bagus</p>
-                      </MDBCol>
-                      <MDBCol>
-                        <p
-                          class="mb-0 ms-2"
-                          style="font-weight: 400; font-size: small"
-                        >
-                          9 Days ago
-                        </p>
-                      </MDBCol>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBRow>
-                    <MDBCol md="1" class="d-flex justify-content-center ps-3">
-                      <div
-                        color="#24963F"
-                        height="2rem"
-                        width="2.6rem"
-                        font-size="1.3rem"
-                        class="sc-1q7bklc-10 UserStar"
-                      >
-                        <div class="sc-1q7bklc-6 liCXOR">
-                          <div class="sc-1q7bklc-5 kHxpSk">
-                            <div class="sc-1q7bklc-1 cILgox">4</div>
-                            <div class="sc-1q7bklc-2 pxJGx">
-                              <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
-                                ><svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  fill="#FFFFFF"
-                                  width="0.8rem"
-                                  height="0.8rem"
-                                  viewBox="0 0 20 20"
-                                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                  role="img"
-                                  class="sc-rbbb40-0 fauQLv"
-                                >
-                                  <title>star-fill</title>
-                                  <path
-                                    d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                  ></path></svg
-                              ></i>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </MDBCol>
-                  </MDBRow>
-                  <MDBCol md="8" class="ps-3">
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                  </MDBCol>
-                </MDBCol>
+
                 <MDBPagination class="justify-content-end" circle>
                   <MDBPageNav prev></MDBPageNav>
                   <MDBPageItem active href="#">1</MDBPageItem>
@@ -878,6 +787,8 @@ import { getCurrentInstance } from "vue";
 import authHeader from "../auth-header";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import moment from "moment";
+import Swal from "sweetalert2";
 import {
   MDBIcon,
   MDBBtn,
@@ -890,6 +801,8 @@ import {
   MDBTabItem,
   MDBTabPane,
   MDBModal,
+  MDBRating,
+  MDBRatingItem,
   MDBModalHeader,
   MDBModalTitle,
   MDBModalBody,
@@ -910,29 +823,6 @@ export default {
     redirect: function (link, target = "_blank") {
       window.open(link, target);
     },
-    /*add_favourite :function(slug){
-    const config = {
-      headers : authHeader()
-    }
-    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/add_bookmark'
-    this.$http.post(uri_favourite,config, config).then((response) => {
-      console.log(response.data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-  },*/
-    /*remove_favourite :function(slug){
-  const config = {
-      headers : authHeader()
-    }
-    let uri_favourite = process.env.VUE_APP_ROOT_API  + "wisata/" + slug + '/remove_bookmark'
-    this.$http.post(uri_favourite,config, config).then((response) => {
-      console.log(response.data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-
-  }*/
   },
   components: {
     GoogleMap,
@@ -950,6 +840,8 @@ export default {
     MDBTabItem,
     MDBTabPane,
     MDBModal,
+    MDBRating,
+    MDBRatingItem,
     MDBModalHeader,
     MDBModalTitle,
     MDBModalBody,
@@ -960,6 +852,10 @@ export default {
     MDBCardImg,
   },
   setup() {
+    const review_content = ref({
+      content: null,
+      rating: null,
+    });
     const data_wisata = ref({
       nama: null,
       description: null,
@@ -976,8 +872,17 @@ export default {
     const isFavourited = ref(false);
     const AddReview = ref(false);
     const Moment = ref(false);
+    const review_list = ref();
+
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
+    let uri_review =
+      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/review";
+    app.appContext.config.globalProperties.$http
+      .get(uri_review)
+      .then((response) => {
+        review_list.value = response.data;
+      });
 
     app.appContext.config.globalProperties.$http
       .get(uri_wisata)
@@ -993,6 +898,14 @@ export default {
       });
 
     const activeTabId1 = ref("ex1-1");
+
+    function get_review(data) {
+      return app.appContext.config.globalProperties.$http
+        .get(uri_review)
+        .then((response) => {
+          data.value = response.data;
+        });
+    }
 
     function add_favourite(slug) {
       const config = {
@@ -1027,18 +940,89 @@ export default {
           console.log(error.message);
         });
     }
+    function add_review(review_content) {
+      if (review_content.rating == null) {
+        Swal.fire({
+          title: "Mohon masukan Rating",
+          text: "Tidak ada rating",
+          icon: "error",
+        });
+      } else {
+        const config = {
+          headers: authHeader(),
+        };
+        let uri_addReview =
+          process.env.VUE_APP_ROOT_API +
+          "wisata/" +
+          route.params.slug +
+          "/review";
+        app.appContext.config.globalProperties.$http
+          .post(uri_addReview, review_content, config)
+          .then(() => {
+            AddReview.value = false;
+            get_review(review_list);
+            console.log(review_list.value);
+            Swal.fire({
+              title: "Review created Successful",
+              text: "Please refresh the page",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            AddReview.value = false;
+            Swal.fire({
+              title: "Review gagal dibuat",
+              text: error.response.data.msg,
+              icon: "error",
+            });
+          });
+      }
+    }
+
+    function confirm_deletion() {
+      Swal.fire({
+        title: "Do you want to delete your review?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
+            headers: authHeader(),
+          };
+          let uri_deleteReview =
+            process.env.VUE_APP_ROOT_API +
+            "wisata/" +
+            route.params.slug +
+            "/review";
+          app.appContext.config.globalProperties.$http
+            .delete(uri_deleteReview, config)
+            .then(() => {
+              Swal.fire("Review Deleted", "", "success");
+            });
+          get_review(review_list);
+        }
+      });
+    }
 
     return {
       mapLoaded,
       user,
+      confirm_deletion,
       isFavourited,
+      get_review,
       activeTabId1,
       remove_favourite,
+      review_content,
+      review_list,
       center,
       add_favourite,
+      add_review,
       data_wisata,
       AddReview,
       Moment,
+      moment: moment,
     };
   },
 };

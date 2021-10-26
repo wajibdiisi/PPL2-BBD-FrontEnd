@@ -89,6 +89,7 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Swal from 'sweetalert2'
+
 import {
   MDBCol,
   //MDBRow,

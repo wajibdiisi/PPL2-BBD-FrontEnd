@@ -725,7 +725,21 @@
                           style="width: 100%"
                         />
                       </MDBCol>
-                      <MDBCol md="4"> </MDBCol>
+                      <MDBCol md="4">
+                        <MDBRow>
+                          <MDBCol md="3" class="">
+                            <img
+                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                              alt="avatar"
+                              width="60"
+                              height="60"
+                            />
+                          </MDBCol>
+                          <MDBCol md="9">
+                            <p>bagus</p>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
                 </MDBModal>

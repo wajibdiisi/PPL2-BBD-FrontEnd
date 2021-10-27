@@ -754,7 +754,7 @@
                         </MDBCol>
                         <hr />
                         <MDBCol>
-                          <MDBIcon icon="star" iconStyle="fas" /> Add Review
+                          <p><MDBIcon icon="share" iconStyle="fas" /> Share</p>
                         </MDBCol>
                       </MDBCol>
                     </MDBRow>

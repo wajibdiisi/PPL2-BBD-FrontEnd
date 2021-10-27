@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  {{dataset3}}
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="12">
@@ -20,7 +21,7 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
-import { ref } from "vue";
+import { ref,onMounted,getCurrentInstance } from "vue";
 import {
   MDBCol,
   MDBRow,
@@ -63,118 +64,38 @@ export default {
     MDBInput,
   },
   setup() {
-    const search3 = ref("");
-    const dataset3 = {
+    const app = getCurrentInstance()
+    const wisata_list = ref()
+    let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/all"
+    const dataset3 = ref({
       columns: [
         { label: "Date", field: "Date" },
         { label: "Title", field: "Title" },
         { label: "Action", field: "Action", sort: false },
       ],
-      rows: [
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Bali",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Bali",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Bali",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Bali",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Jawa",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Kalimantan",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-        {
-          Date: "29/10/2020",
-          Title: "Liburan ke Sumatra",
-          phone: "+48000000000",
-          email: "tiger.nixon@gmail.com",
-        },
-      ].map((row) => {
-        return {
-          ...row,
-          Action: `
-              <button class="message-btn btn ms-2 btn-primary btn-floating btn-sm" data-mdb-email="${row.email}"><i class="fa fa-eye"></i></button>`,
-        };
-      }),
-    };
+      
+    });
+   
+    onMounted(async ()=> {
+      dataset3.value.rows = await []
+      console.log(dataset3)
+      app.appContext.config.globalProperties.$http.get(uri_wisata).then(response => {
+        dataset3.value.rows = response.data.map(wisata => ({
+          ...wisata,
+          Date: `${wisata.slug}`
+        }))
+      })
+      try {
+      const res = await app.appContext.config.globalProperties.$http.get(uri_wisata)
+      wisata_list.value = await res.data
+      
+      } catch (e) {
+        console.log("Error Loading Wisata");
+      }
+    })
+    const search3 = ref("");
+    
+    
     // const setActions = () => {
     //   document.getElementsByClassName("call-btn").forEach((btn) => {
     //     if (btn.getAttribute("click-listener") !== "true") {
@@ -199,7 +120,7 @@ export default {
 
     return {
       search3,
-      dataset3,
+      dataset3
       // setActions,
     };
   },

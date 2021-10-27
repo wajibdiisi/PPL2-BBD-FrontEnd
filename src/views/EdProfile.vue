@@ -30,12 +30,15 @@
           <MDBCardBody>
             <MDBContainer>
               <MDBContainer>
+                 <MDBBtn tag="a" @click="updateProfile()" color="link" outline="primary"
+              >Upload Moment
+            </MDBBtn>
                 <MDBCardText class="fs-4"> Email </MDBCardText>
                 <MDBInput
                   label="Email"
                   class="my-1"
                   type="email"
-                  v-model="email"
+                  v-model="user.user.email"
                   invalidFeedback="Please input your email"
                   required
                 />
@@ -53,7 +56,7 @@
                   label="Email"
                   class="my-1"
                   type="email"
-                  v-model="email"
+                  v-model="user.user.name"
                   invalidFeedback="Please input your email"
                   required
                 />
@@ -88,7 +91,10 @@
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
 import { MDBFile } from "mdb-vue-ui-kit";
-import { ref } from "vue";
+import { computed }  from 'vue';
+import authHeader from "../auth-header";
+import { useStore } from 'vuex';
+import { ref,getCurrentInstance } from "vue";
 import {
   MDBCol,
   MDBRow,
@@ -97,6 +103,7 @@ import {
   MDBCardTitle,
   MDBCardText,
   MDBContainer,
+  MDBBtn,
   MDBInput,
 } from "mdb-vue-ui-kit";
 export default {
@@ -110,15 +117,35 @@ export default {
     MDBCardTitle,
     MDBCardText,
     MDBContainer,
+  MDBBtn,
     MDBFile,
     MDBInput,
   },
   setup() {
+      const store = useStore();
+       const config = {
+        headers: authHeader(),
+      };
+    const user = computed(() => store.getters.user);
+    const userInit = computed(() => store.getters.user);
+    const isLoggedIn = computed(() => store.getters.isLoggedIn);
     const files2 = ref([]);
     const input1 = ref("");
+    const app = getCurrentInstance();
+    function updateProfile(){
+      
+        const uri_profile = process.env.VUE_APP_ROOT_API  + "users/update_profile"
+        app.appContext.config.globalProperties.$http.patch(uri_profile,user.value, config).then(store.dispatch('get_user'))
+      
+    }
 
     return {
       files2,
+      user,
+      updateProfile,
+      userInit,
+      config,
+      isLoggedIn,
       input1,
     };
   },

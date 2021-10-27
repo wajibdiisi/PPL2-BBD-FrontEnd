@@ -10,6 +10,11 @@ const routes = [
     component: Home
   },
   {
+    path:'/editprofile',
+    name: 'EditProfile',
+    component: () => import('../views/EdProfile.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
@@ -50,7 +55,7 @@ const routes = [
   {
     path: '/aboutus',
     name: 'Abousus',
-    component: () => import('../views/Aboutus.vue')
+    component: () => import('../views/aboutus.vue')
   },
   {
     path: '/planner',

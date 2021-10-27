@@ -752,6 +752,10 @@
                             tellus. Vivamus semper tempus mi sed elementum.
                           </p>
                         </MDBCol>
+                        <hr />
+                        <MDBCol>
+                          <MDBIcon icon="star" iconStyle="fas" /> Add Review
+                        </MDBCol>
                       </MDBCol>
                     </MDBRow>
                   </MDBModalBody>

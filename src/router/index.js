@@ -62,6 +62,11 @@ const routes = [
     name: 'Planner',
     component: () => import('../views/planner.vue')
   },
+  {
+    path: '/planner/:id',
+    name: 'PlannerDetails',
+    component: () => import('../views/plannerdetails.vue')
+  },
 ]
 
 const router = createRouter({

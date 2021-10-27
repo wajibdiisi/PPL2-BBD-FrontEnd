@@ -727,7 +727,7 @@
                       </MDBCol>
                       <MDBCol md="4">
                         <MDBRow>
-                          <MDBCol md="3" class="">
+                          <MDBCol md="3" class="d-flex justify-content-center">
                             <img
                               src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
                               alt="avatar"
@@ -736,9 +736,22 @@
                             />
                           </MDBCol>
                           <MDBCol md="9">
-                            <p>bagus</p>
+                            <MDBCol>
+                              <p style="margin-bottom: 4px">Bagus</p>
+                            </MDBCol>
+                            <MDBCol>
+                              <p class="fw-light">2 days ago</p>
+                            </MDBCol>
                           </MDBCol>
                         </MDBRow>
+                        <MDBCol>
+                          <p style="margin-top: 8px">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Vestibulum sit amet dignissim mauris. Nunc eu
+                            orci bibendum, pellentesque ligula vitae, rutrum
+                            tellus. Vivamus semper tempus mi sed elementum.
+                          </p>
+                        </MDBCol>
                       </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
@@ -781,6 +794,9 @@
                     </MDBCard>
                   </MDBCol>
                 </MDBRow>
+              </MDBTabPane>
+              <MDBTabPane tabId="ex1-4">
+                <MDBRow> </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->

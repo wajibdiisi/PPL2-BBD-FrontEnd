@@ -60,13 +60,27 @@ const routes = [
   {
     path: '/planner',
     name: 'Planner',
-    component: () => import('../views/planner.vue')
+    component: () => import('../views/planner.vue'),
+    meta:{
+      requiresAuth : true
+    }
   },
   {
     path: '/planner/:id',
     name: 'PlannerDetails',
-    component: () => import('../views/plannerdetails.vue')
+    component: () => import('../views/plannerdetails.vue'),
+    meta:{
+      requiresAuth : true
+    }
   },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/404.vue'),
+      meta: {
+        notFound: true,
+        title : 'Page Not Found'
+      }  
+  }
 ]
 
 const router = createRouter({

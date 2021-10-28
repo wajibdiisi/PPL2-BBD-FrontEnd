@@ -197,7 +197,7 @@ export default {
 
     function updatePlan(id){
       console.log(id)
-     let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + id
+     let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id + "/" + id
      app.appContext.config.globalProperties.$http.patch(uri_planner,title,config).then(
         Swal.fire("Plan Successfully Changed", "", "success"),
         exampleSideModal2.value = false,

@@ -725,7 +725,38 @@
                           style="width: 100%"
                         />
                       </MDBCol>
-                      <MDBCol md="4"> </MDBCol>
+                      <MDBCol md="4">
+                        <MDBRow>
+                          <MDBCol md="3" class="d-flex justify-content-center">
+                            <img
+                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                              alt="avatar"
+                              width="60"
+                              height="60"
+                            />
+                          </MDBCol>
+                          <MDBCol md="9">
+                            <MDBCol>
+                              <p style="margin-bottom: 4px">Bagus</p>
+                            </MDBCol>
+                            <MDBCol>
+                              <p class="fw-light">2 days ago</p>
+                            </MDBCol>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBCol>
+                          <p style="margin-top: 8px">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Vestibulum sit amet dignissim mauris. Nunc eu
+                            orci bibendum, pellentesque ligula vitae, rutrum
+                            tellus. Vivamus semper tempus mi sed elementum.
+                          </p>
+                        </MDBCol>
+                        <hr />
+                        <MDBCol>
+                          <p><MDBIcon icon="share" iconStyle="fas" /> Share</p>
+                        </MDBCol>
+                      </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
                 </MDBModal>
@@ -767,6 +798,9 @@
                     </MDBCard>
                   </MDBCol>
                 </MDBRow>
+              </MDBTabPane>
+              <MDBTabPane tabId="ex1-4">
+                <MDBRow> </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->

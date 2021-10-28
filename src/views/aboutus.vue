@@ -103,12 +103,8 @@
                 />
               </MDBCol>
               <MDBCol class="align-self-center" col="8">
-                <MDBCardText class="fs-2 lh-base">
-                  Back End
-                </MDBCardText>
-                <MDBCardText class="fs-5 lh-base">
-                  Ahmad Irfan F
-                </MDBCardText>
+                <MDBCardText class="fs-2 lh-base"> Back End </MDBCardText>
+                <MDBCardText class="fs-5 lh-base"> Ahmad Irfan F </MDBCardText>
               </MDBCol>
             </MDBRow>
           </MDBCardBody>

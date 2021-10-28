@@ -1,42 +1,24 @@
 <template>
   <Navbar />
-  <MDBContainer> </MDBContainer>
-  <div class="habib">
-    <img
-      src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-      class="search-bg"
-      alt=""
-    />
-    <div class="search-box">
-      <p class="search-text">Cari Wisata</p>
-      <input class="form-control" type="text" placeholder="Cari Wisata" />
+  <MDBContainer fluid style="margin-bottom: 1vh">
+    <div class="text-center">
+      <MDBCol col="12">
+        <img
+          src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+          alt=""
+        />
+      </MDBCol>
+      <div class="search-box">
+        <p class="search-text">Cari Wisata</p>
+        <input class="form-control" type="text" placeholder="Cari Wisata" />
+      </div>
     </div>
-  </div>
-  <div class="container" style="margin-bottom: 10vh">
+  </MDBContainer>
+  <div class="container" style="margin: 5vh auto">
     <div class="row">
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
-
       <div class="col-md-4">
-        <!-- <div class="card bagud">
-          <img
-            class="card-img-top"
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            alt="Card image cap"
-          />
-          <div class="card-body">
-            <a href="#" class="btn btn-primary">See Details</a>
-          </div>
-          <div class="card-isi">
-            <p>Candi Borobudur</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Accusantium corporis aut aliquid quasi a voluptatibus nihil iusto
-              quo similique. Ad.
-            </p>
-          </div>
-        </div> -->
-
         <MDBCard class="h-100">
           <MDBCardImg
             src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -45,16 +27,14 @@
           />
           <MDBCardBody>
             <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-
             <MDBCardText>
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
+              Candi Borobudur adalah candi Buddha terbesar di dunia. Candi
+              Borobudur adalah candi Buddha terbesar di dunia. Candi Borobudur
+              adalah candi Buddha terbesar di dunia. Candi Borobudur adalah
+              candi Buddha terbesar di dunia. Candi Borobudur adalah candi
+              Buddha terbesar di dunia. Candi Borobudur adalah candi Buddha
+              terbesar di dunia. Candi Borobudur adalah candi Buddha terbesar di
+              dunia. Candi Borobudur adalah candi Buddha terbesar di dunia.
             </MDBCardText>
             <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
           </MDBCardBody>
@@ -94,7 +74,7 @@
       </div>
     </div>
   </div>
-  <div class="container" style="margin-bottom: 10vh">
+  <div class="container" style="margin-bottom: 5vh">
     <div class="row">
       <h5>Lihat Diskusi Mengenai Tempat Wisata</h5>
       <p>
@@ -212,16 +192,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
-//import Wisatadetails from "../components/Wisatadetails.vue";
 import { ref } from "vue";
 import {
   MDBCarousel,
   MDBContainer,
-  // MDBInput,
   MDBCard,
   MDBCardBody,
   MDBCardTitle,
@@ -236,7 +212,6 @@ export default {
   components: {
     Navbar,
     Footer,
-    //Wisatadetails
     MDBCarousel,
     MDBContainer,
     MDBCard,
@@ -245,7 +220,6 @@ export default {
     MDBCardText,
     MDBCardImg,
     MDBBtn,
-    // MDBInput,
   },
   data() {
     return {
@@ -326,33 +300,18 @@ export default {
 };
 </script>
 <style>
+body {
+  background-color: #f0f2f5;
+}
 .navbar {
   background-color: rgba(255, 255, 255, 0.561);
 }
 .nav-link {
   color: black !important;
 }
-.habib {
-  width: 70vw;
-  margin: 0 auto;
-  background: black;
-  overflow: hidden;
-  border-radius: 10px;
-  position: relative;
-  margin-bottom: 10vh;
-}
-.habib .search-bg {
-  object-fit: cover;
-  opacity: 0.6;
-}
-.search-bg {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
 .search-box {
   position: absolute;
-  top: 35vh;
+  top: 40vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -367,27 +326,6 @@ export default {
   font-weight: 700;
   text-align: center;
 }
-/* .bagud {
-  position: relative;
-}
-.card-isi {
-  position: absolute;
-  background-color: white;
-  top: 150px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15vw;
-}
-.card-body {
-  background-color: white;
-  height: 250px;
-}
-.btn {
-  position: absolute;
-  top: 330px;
-  left: 50%;
-  transform: translateX(-50%);
-} */
 * {
   font-family: "Montserrat", sans-serif;
 }

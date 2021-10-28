@@ -66,6 +66,14 @@ const routes = [
     }
   },
   {
+    path: '/help',
+    name: 'Help',
+    component: () => import('../views/Help.vue'),
+    meta:{
+      requiresAuth : true
+    }
+  },
+  {
     path: '/planner/:id',
     name: 'PlannerDetails',
     component: () => import('../views/plannerdetails.vue'),

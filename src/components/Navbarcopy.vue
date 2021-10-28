@@ -1,13 +1,6 @@
 <template>
-  <MDBNavbar
-    expand="lg"
-    light
-    bg="light"
-    transparent
-    scrolling
-    container
-  >
-    <MDBNavbarBrand href="/" class="logo"
+  <MDBNavbar expand="lg" light bg="light" container="md">
+    <MDBNavbarBrand href="#"
       ><img
         src="https://i.ibb.co/T8wDGBV/Logo-removebg-preview-Copy-removebg-preview.png"
         height="50"
@@ -20,67 +13,74 @@
       target="#navbarSupportedContent"
     ></MDBNavbarToggler>
     <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
-      <MDBNavbarNav class="mb-2 mb-lg-0">
-        <MDBNavbarItem to="/" active>Home</MDBNavbarItem>
-        <MDBNavbarItem to="/Wisata"> Explore </MDBNavbarItem>
-        <MDBNavbarItem to="#"> Planner </MDBNavbarItem>
-        <MDBNavbarItem to="#"> About Us </MDBNavbarItem>
+      <!-- <MDBNavbarNav right class="mb-2 mb-lg-0"> -->
+      <MDBNavbarItem to="/" active>Home</MDBNavbarItem>
+      <MDBNavbarItem to="/Wisata"> Explore </MDBNavbarItem>
+      <MDBNavbarItem to="#"> Planner </MDBNavbarItem>
+      <MDBNavbarItem to="#"> About Us </MDBNavbarItem>
+      <MDBNavbarItem to="#"> Help </MDBNavbarItem>
+      <MDBNavbarNav right class="mb-2 mb-lg-0">
+        <MDBNavbarItem to="#">
+          <MDBIcon icon="bell"></MDBIcon>
+          <MDBBadge notification color="danger" pill>1</MDBBadge>
+        </MDBNavbarItem>
+        <MDBNavbarItem>
+          <MDBDropdown
+            class="nav-item"
+            v-model="dropdown6"
+            v-if="isLoggedIn == false"
+          >
+            <MDBDropdownToggle
+              tag="a"
+              class="nav-link"
+              @click="dropdown6 = !dropdown6"
+              ><img
+                src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                class="rounded-circle"
+                height="22"
+                alt=""
+                loading="lazy"
+              />
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <MDBDropdownItem to="/login">Login</MDBDropdownItem>
+              <MDBDropdownItem to="/register">Register</MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+          <MDBDropdown
+            class="nav-item"
+            v-model="dropdown6"
+            v-if="isLoggedIn == true"
+          >
+            <MDBDropdownToggle
+              tag="a"
+              class="nav-link"
+              @click="dropdown6 = !dropdown6"
+              ><img
+                src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                class="rounded-circle"
+                height="22"
+                alt=""
+                loading="lazy"
+              />
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+              <router-link
+                :to="{
+                  name: 'Profile',
+                  params: { username: user.user.username },
+                }"
+              >
+                <MDBDropdownItem to="">Profile</MDBDropdownItem>
+              </router-link>
+              <MDBDropdownItem to="" @click="logout()"> Logout</MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+        </MDBNavbarItem>
       </MDBNavbarNav>
+      <!-- </MDBNavbarNav> -->
     </MDBCollapse>
-    <!-- Notification dropdown -->
-    <MDBNavbarItem to="#">
-      <MDBIcon icon="bell"></MDBIcon>
-      <MDBBadge notification color="danger" pill>1</MDBBadge>
-
-      <!-- <MDBDropdownMenu>
-            <MDBDropdownItem href="#">Action</MDBDropdownItem>
-            <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
-            <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
-          </MDBDropdownMenu> -->
-    </MDBNavbarItem>
-    <!-- Notification dropdown -->
-    <!-- Avatar -->
-    <MDBDropdown class="nav-item" v-model="dropdown6" v-if="isLoggedIn ==false">
-      <MDBDropdownToggle
-        tag="a"
-        class="nav-link"
-        @click="dropdown6 = !dropdown6"
-        ><img
-          src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-          class="rounded-circle"
-          height="22"
-          alt=""
-          loading="lazy"
-        />
-      </MDBDropdownToggle>
-      <MDBDropdownMenu>
-        <MDBDropdownItem to="/login">Login</MDBDropdownItem>
-        <MDBDropdownItem to="/register">Register</MDBDropdownItem>
-      </MDBDropdownMenu>
-    </MDBDropdown>
-    <MDBDropdown class="nav-item" v-model="dropdown6" v-if="isLoggedIn ==true">
-      <MDBDropdownToggle
-        tag="a"
-        class="nav-link"
-        @click="dropdown6 = !dropdown6"
-        ><img
-          src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-          class="rounded-circle"
-          height="22"
-          alt=""
-          loading="lazy"
-        />
-      </MDBDropdownToggle>
-      <MDBDropdownMenu>
-        <router-link :to="{name : 'Profile', params : { username : user.user.username}}" >
-        <MDBDropdownItem to="">Profile</MDBDropdownItem>
-        </router-link>
-        <MDBDropdownItem to="" @click="logout()"> Logout</MDBDropdownItem>
-      </MDBDropdownMenu>
-    </MDBDropdown>
- 
   </MDBNavbar>
-   
   <MDBToast
     v-model="toastMsg"
     id="basic-primary-example"
@@ -94,13 +94,9 @@
     text="white"
     @hide="clearToast()"
   >
-    <template #title>
-      MDBootstrap
-    </template>
-    <template #small>
-      11 mins ago
-    </template>
-    {{toastMsg}}
+    <template #title> MDBootstrap </template>
+    <template #small> 11 mins ago </template>
+    {{ toastMsg }}
   </MDBToast>
 </template>
 <script>
@@ -120,20 +116,19 @@ import {
   MDBToast,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
-import { computed }  from 'vue';
-import { useStore } from 'vuex';
-
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
-  methods :{
+  methods: {
     logout: function () {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/");
       });
     },
-    clearToast:function(){
-      this.$store.dispatch('disableNotification');
-    }
+    clearToast: function () {
+      this.$store.dispatch("disableNotification");
+    },
   },
   components: {
     MDBIcon,
@@ -148,7 +143,7 @@ export default {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
-    MDBToast
+    MDBToast,
   },
   setup() {
     const store = useStore();
@@ -164,7 +159,7 @@ export default {
       collapse1,
       toastMsg,
       dropdown6,
-      user
+      user,
     };
   },
 };
@@ -175,11 +170,5 @@ li {
 }
 * {
   font-family: "Montserrat", sans-serif;
-}
-.dropdown {
-  padding-right: 100px;
-}
-.logo {
-  padding-left: 100px;
 }
 </style>

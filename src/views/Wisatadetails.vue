@@ -800,7 +800,21 @@
                 </MDBRow>
               </MDBTabPane>
               <MDBTabPane tabId="ex1-4">
-                <MDBRow> </MDBRow>
+                <MDBRow>
+                  <MDBRow class="d-flex justify-content-between">
+                    <MDBCol class="text-start">
+                      <h6 v-if="review_list != null">
+                        All Discussion ({{ review_list.length }})
+                      </h6>
+                    </MDBCol>
+                    <MDBCol class="text-end">
+                      <h6>Newest First</h6>
+                    </MDBCol>
+                  </MDBRow>
+                  <MDBCol>
+                    <p></p>
+                  </MDBCol>
+                </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->

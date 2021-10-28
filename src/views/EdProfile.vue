@@ -30,12 +30,9 @@
           <MDBCardBody>
             <MDBContainer>
               <MDBContainer>
-                 <MDBBtn tag="a" @click="updateProfile()" color="link" outline="primary"
-              >Upload Moment
-            </MDBBtn>
                 <MDBCardText class="fs-4"> Email </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label=""
                   class="my-1"
                   type="email"
                   v-model="user.user.email"
@@ -44,7 +41,7 @@
                 />
                 <MDBCardText class="fs-4"> Password </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label=""
                   class="my-1"
                   type="email"
                   v-model="email"
@@ -53,31 +50,42 @@
                 />
                 <MDBCardText class="fs-4"> Name </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label=""
                   class="my-1"
-                  type="email"
+                  type="name"
                   v-model="user.user.name"
                   invalidFeedback="Please input your email"
                   required
                 />
                 <MDBCardText class="fs-4"> Location </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label=""
                   class="my-1"
-                  type="email"
+                  type="location"
                   v-model="email"
                   invalidFeedback="Please input your email"
                   required
                 />
                 <MDBCardText class="fs-4"> Birth </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label=""
                   class="my-1"
                   type="email"
                   v-model="email"
                   invalidFeedback="Please input your email"
                   required
                 />
+                <div style="margin-top: 2vh">
+                  <MDBBtn size="lg"> Cancel </MDBBtn>
+                  <MDBBtn
+                    tag="a"
+                    size="lg"
+                    @click="updateProfile()"
+                    color="primary"
+                    style="background-color: rgb(50, 224, 196)"
+                    >Update Profile
+                  </MDBBtn>
+                </div>
               </MDBContainer>
             </MDBContainer>
           </MDBCardBody>
@@ -91,10 +99,10 @@
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
 import { MDBFile } from "mdb-vue-ui-kit";
-import { computed }  from 'vue';
+import { computed } from "vue";
 import authHeader from "../auth-header";
-import { useStore } from 'vuex';
-import { ref,getCurrentInstance } from "vue";
+import { useStore } from "vuex";
+import { ref, getCurrentInstance } from "vue";
 import {
   MDBCol,
   MDBRow,
@@ -117,26 +125,26 @@ export default {
     MDBCardTitle,
     MDBCardText,
     MDBContainer,
-  MDBBtn,
+    MDBBtn,
     MDBFile,
     MDBInput,
   },
   setup() {
-      const store = useStore();
-       const config = {
-        headers: authHeader(),
-      };
+    const store = useStore();
+    const config = {
+      headers: authHeader(),
+    };
     const user = computed(() => store.getters.user);
     const userInit = computed(() => store.getters.user);
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
     const files2 = ref([]);
     const input1 = ref("");
     const app = getCurrentInstance();
-    function updateProfile(){
-      
-        const uri_profile = process.env.VUE_APP_ROOT_API  + "users/update_profile"
-        app.appContext.config.globalProperties.$http.patch(uri_profile,user.value, config).then(store.dispatch('get_user'))
-      
+    function updateProfile() {
+      const uri_profile = process.env.VUE_APP_ROOT_API + "users/update_profile";
+      app.appContext.config.globalProperties.$http
+        .patch(uri_profile, user.value, config)
+        .then(store.dispatch("get_user"));
     }
 
     return {

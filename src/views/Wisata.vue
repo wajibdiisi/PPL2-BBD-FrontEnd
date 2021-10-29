@@ -86,12 +86,10 @@
         </MDBCol>
       </MDBRow> -->
       <nav aria-label="Page navigation example" style="margin-top: 5vh">
+        
+          <button @click="prev">prev</button>
+      <button @click="nextPagination()">next</button>
         <MDBPagination class="justify-content-end">
-          <MDBPageNav prev></MDBPageNav>
-          <MDBPageItem href="#">1</MDBPageItem>
-          <MDBPageItem href="#">2</MDBPageItem>
-          <MDBPageItem href="#">3</MDBPageItem>
-          <MDBPageNav next></MDBPageNav>
         </MDBPagination>
       </nav>
     </MDBCard>
@@ -105,6 +103,7 @@
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
 import { getCurrentInstance } from "vue";
+import { usePagination } from "vue-composable";
 //import Wisatadetails from "../components/Wisatadetails.vue";
 import { ref, onMounted, computed } from "vue";
 import {
@@ -122,8 +121,8 @@ import {
   MDBCardImg,
   MDBBtn,
   MDBPagination,
-  MDBPageNav,
-  MDBPageItem,
+  //MDBPageNav,
+  //MDBPageItem,
 } from "mdb-vue-ui-kit";
 
 export default {
@@ -145,19 +144,22 @@ export default {
     MDBCardImg,
     MDBBtn,
     MDBPagination,
-    MDBPageNav,
-    MDBPageItem,
+    //MDBPageNav,
+    //MDBPageItem,
     // MDBInput,
   },
 
   setup() {
-    const app = getCurrentInstance();
     const wisata_list = ref();
-    let search_wisata;
+     
+    const app = getCurrentInstance();
+    
+    
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all";
 
     onMounted(async () => {
       try {
+        
         const res = await app.appContext.config.globalProperties.$http.get(
           uri_wisata
         );
@@ -182,18 +184,31 @@ export default {
     ))
     }*/
 
-    search_wisata = computed({
+    const search_wisata = computed({
       get: () =>
         wisata_list.value?.filter((wisata) => {
+          
           if (autocompleteTemplate.value != null) {
-            console.log("test");
             return wisata.nama.includes(autocompleteTemplate.value);
           } else {
             return wisata.nama != null;
           }
-        }),
+        }).slice(offset.value, offset.value + pageSize.value),
     });
-
+    const {
+      currentPage,
+      lastPage,
+      next,
+      prev,
+      offset,
+      pageSize,
+      total,
+    } = usePagination({
+      currentPage: 1,
+      pageSize: 9,
+      total:100,
+    });   
+    console.log(total)
     const autocompleteTemplate = ref("");
 
     const itemTemplate = (result) => {
@@ -222,13 +237,27 @@ export default {
       wisata_list.value = response.data
   
       })*/
+
+    function nextPagination(){
+      console.log(offset.value)
+      if(search_wisata.value.length >= offset.value){
+        next()
+      }else{
+        return
+      }
+    }
     return {
-      wisata_list,
+      wisata_list,nextPagination,
       itemTemplate,
       autocompleteTemplate,
       filterTemplate,
       search_wisata,
       displayValueTemplate,
+      currentPage,
+      lastPage,
+      next,
+      total,
+      prev,
     };
   },
   // setup() {

@@ -801,7 +801,7 @@
               </MDBTabPane>
               <MDBTabPane tabId="ex1-4">
                 <MDBRow>
-                  <MDBRow class="d-flex justify-content-between">
+                  <MDBRow class="d-flex justify-content-between mt-2">
                     <MDBCol class="text-start">
                       <h6 v-if="review_list != null">
                         All Discussion ({{ review_list.length }})
@@ -811,8 +811,15 @@
                       <h6>Newest First</h6>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol>
-                    <p></p>
+                  <MDBCol class="mt-3">
+                    <MDBCard>
+                      <MDBCardBody>
+                        <p class="align-content-start">Title Discussion</p>
+                        <p class="align-content-end">
+                          <MDBIcon icon="share" iconStyle="fas" /> Share
+                        </p>
+                      </MDBCardBody>
+                    </MDBCard>
                   </MDBCol>
                 </MDBRow>
               </MDBTabPane>

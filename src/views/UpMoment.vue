@@ -66,8 +66,17 @@
                   invalidFeedback="Please input your email"
                   required
                 />
-                <MDBBtn tag="a" href="#!" color="primary">Upload</MDBBtn>
-                <MDBBtn tag="a" href="#!" color="light">Cancel</MDBBtn>
+                <div style="margin-top: 2vh">
+                  <MDBBtn size="lg"> Cancel </MDBBtn>
+                  <MDBBtn
+                    tag="a"
+                    size="lg"
+                    @click="updateProfile()"
+                    color="primary"
+                    style="background-color: rgb(50, 224, 196)"
+                    >Upload Moment
+                  </MDBBtn>
+                </div>
               </MDBContainer>
             </MDBContainer>
           </MDBCardBody>

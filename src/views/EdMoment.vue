@@ -66,6 +66,17 @@
                   invalidFeedback="Please input your email"
                   required
                 />
+                <div style="margin-top: 2vh">
+                  <MDBBtn size="lg"> Cancel </MDBBtn>
+                  <MDBBtn
+                    tag="a"
+                    size="lg"
+                    @click="updateProfile()"
+                    color="primary"
+                    style="background-color: rgb(50, 224, 196)"
+                    >Update Profile
+                  </MDBBtn>
+                </div>
               </MDBContainer>
             </MDBContainer>
           </MDBCardBody>
@@ -89,6 +100,7 @@ import {
   MDBCardText,
   MDBContainer,
   MDBInput,
+  MDBBtn,
 } from "mdb-vue-ui-kit";
 export default {
   components: {
@@ -103,6 +115,7 @@ export default {
     MDBContainer,
     MDBFile,
     MDBInput,
+    MDBBtn,
   },
   setup() {
     const files2 = ref([]);

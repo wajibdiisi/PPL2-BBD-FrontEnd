@@ -811,14 +811,14 @@
                       <h6>Newest First</h6>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol class="mt-3 align-content-center">
+                  <MDBCol class="mt-3 d-flex justify-content-center">
                     <MDBCard
                       border="primary"
                       shadow="0"
                       bg="white"
                       class="mb-3"
                       style="
-                        width: 1080px;
+                        width: 1000px;
                         height: auto;
                         border: 2px;
                         cursor: pointer;

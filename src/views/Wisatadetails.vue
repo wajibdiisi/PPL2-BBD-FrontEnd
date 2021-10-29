@@ -819,21 +819,26 @@
                       class="mb-3"
                       style="
                         width: 1080px;
-                        height: 60px;
+                        height: auto;
                         border: 2px;
                         cursor: pointer;
                       "
                       @click="Discussion = true"
                     >
-                      <MDBCardBody class="d-flex justify-content-between">
-                        <MDBCol>
-                          <span class="text-start">Title Discussion</span>
-                        </MDBCol>
-                        <MDBCol>
-                          <span class="text-end">
-                            <MDBIcon icon="share" iconStyle="fas" /> 90
-                          </span>
-                        </MDBCol>
+                      <MDBCardBody>
+                        <MDBRow>
+                          <MDBCol class="d-flex justify-content-start">
+                            <span>Title Discussion</span>
+                          </MDBCol>
+                          <MDBCol class="d-flex justify-content-end">
+                            <span class="pe-2">
+                              <MDBIcon icon="share" iconStyle="fas" /> 90
+                            </span>
+                            <span class="pe-2">
+                              <MDBIcon icon="comment" iconStyle="fas" /> 20
+                            </span>
+                          </MDBCol>
+                        </MDBRow>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>

@@ -811,17 +811,210 @@
                       <h6>Newest First</h6>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol class="mt-3">
-                    <MDBCard>
-                      <MDBCardBody>
-                        <p class="align-content-start">Title Discussion</p>
-                        <p class="align-content-end">
-                          <MDBIcon icon="share" iconStyle="fas" /> Share
-                        </p>
+                  <MDBCol class="mt-3 align-content-center">
+                    <MDBCard
+                      border="primary"
+                      shadow="0"
+                      bg="white"
+                      class="mb-3"
+                      style="
+                        width: 1080px;
+                        height: 60px;
+                        border: 2px;
+                        cursor: pointer;
+                      "
+                      @click="Discussion = true"
+                    >
+                      <MDBCardBody class="d-flex justify-content-between">
+                        <MDBCol>
+                          <span class="text-start">Title Discussion</span>
+                        </MDBCol>
+                        <MDBCol>
+                          <span class="text-end">
+                            <MDBIcon icon="share" iconStyle="fas" /> 90
+                          </span>
+                        </MDBCol>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
+                  <MDBRow>
+                    <MDBCol>
+                      <MDBBtn
+                        style="
+                          background-color: rgb(50, 224, 196);
+                          color: white;
+                        "
+                        @click="add_discussion = true"
+                      >
+                        Add Discussion
+                      </MDBBtn>
+                    </MDBCol>
+                  </MDBRow>
                 </MDBRow>
+                <MDBModal
+                  id="Discussion"
+                  tabindex="-1"
+                  labelledby="Discussion"
+                  v-model="Discussion"
+                  centered
+                  scrollable
+                  size="xl"
+                >
+                  <MDBModalBody>
+                    <MDBRow class="p-5">
+                      <MDBCol md="12">
+                        <MDBRow>
+                          <h5>Title Discussion</h5>
+                        </MDBRow>
+                        <MDBRow>
+                          <p class="mt-1">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Vestibulum sit amet dignissim mauris. Nunc eu
+                            orci bibendum, pellentesque ligula vitae, rutrum
+                            tellus. Vivamus semper tempus mi sed elementum.
+                          </p>
+                        </MDBRow>
+                        <MDBRow>
+                          <MDBCol class="mb-3">
+                            <span class="me-2">
+                              <MDBIcon icon="comment" iconStyle="fas" />
+                              3 Comments
+                            </span>
+                            <span class="me-2" style="cursor: pointer">
+                              <MDBIcon icon="share" iconStyle="fas" />
+                              Share
+                            </span>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                          <MDBTextarea
+                            label="What are your thoughts?"
+                            rows="10"
+                            class="my-1"
+                            v-model="review_content.content"
+                          />
+                        </MDBRow>
+                        <MDBRow class="align-content-end">
+                          <MDBBtn
+                            style="
+                              background-color: white;
+                              color: black;
+                              border: 1px solid black;
+                              width: 100px;
+                              height: 35px;
+                            "
+                            class="mt-2"
+                          >
+                            Submit
+                          </MDBBtn>
+                        </MDBRow>
+                        <hr />
+                        <MDBRow>
+                          <MDBCol
+                            md="1"
+                            class="d-flex justify-content-end mb-3"
+                          >
+                            <img
+                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                              alt="avatar"
+                              width="60"
+                              height="60"
+                            />
+                          </MDBCol>
+                          <MDBCol md="2">
+                            <MDBRow>
+                              <p class="mb-0 ms-2" style="font-weight: 500">
+                                Bagus
+                              </p>
+                            </MDBRow>
+                            <MDBRow>
+                              <p
+                                class="mb-0 ms-2"
+                                style="font-weight: 400; font-size: small"
+                              >
+                                3 hours ago
+                              </p>
+                            </MDBRow>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                          <MDBCol>
+                            <p>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Vestibulum sit amet dignissim mauris. Nunc
+                              eu orci bibendum, pellentesque ligula vitae,
+                              rutrum tellus. Vivamus semper tempus mi sed
+                              elementum.
+                            </p>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow class="d-flex justify-content-evenly">
+                          <MDBCol>
+                            <span class="me-2" style="cursor: pointer">
+                              <MDBIcon icon="comment" iconStyle="fas" />
+                              Reply
+                            </span>
+                            <span class="me-2" style="cursor: pointer">
+                              <MDBIcon icon="thumbs-up" iconStyle="fas" />
+                              20
+                            </span>
+                            <span class="me-2" style="cursor: pointer">
+                              Follow
+                            </span>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBModalBody>
+                </MDBModal>
+                <MDBModal
+                  id="add_discussion"
+                  tabindex="-1"
+                  labelledby="add_discussion"
+                  v-model="add_discussion"
+                  centered
+                  scrollable
+                  size="xl"
+                >
+                  <MDBModalBody>
+                    <MDBRow class="p-3">
+                      <MDBCol md="12">
+                        <MDBRow>
+                          <MDBCol>
+                            <h5>Create a discussion</h5>
+                          </MDBCol>
+                        </MDBRow>
+                        <MDBRow class="py-2">
+                          <MDBInput
+                            label="Title"
+                            class="my-1"
+                            style="height: 60px"
+                          />
+                        </MDBRow>
+                        <MDBRow class="py-2">
+                          <MDBTextarea
+                            label="What are your thoughts?"
+                            rows="10"
+                            class="my-1"
+                            v-model="review_content.content"
+                          />
+                        </MDBRow>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBModalBody>
+                  <MDBBtn
+                    style="
+                      background-color: rgb(13, 115, 119);
+                      color: white;
+                      width: 175px;
+                      height: 45px;
+                    "
+                    class="align-self-end m-4"
+                    @click="add_review(review_content)"
+                  >
+                    Post Discussion
+                  </MDBBtn>
+                </MDBModal>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->
@@ -865,7 +1058,10 @@ import {
   MDBPagination,
   MDBPageNav,
   MDBPageItem,
+  MDBCard,
+  MDBCardBody,
   MDBCardImg,
+  MDBInput,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
 
@@ -904,7 +1100,10 @@ export default {
     MDBPagination,
     MDBPageNav,
     MDBPageItem,
+    MDBCard,
+    MDBCardBody,
     MDBCardImg,
+    MDBInput,
   },
   setup() {
     const review_content = ref({
@@ -927,6 +1126,8 @@ export default {
     const isFavourited = ref(false);
     const AddReview = ref(false);
     const Moment = ref(false);
+    const Discussion = ref(false);
+    const add_discussion = ref(false);
     const review_list = ref();
 
     let uri_wisata =
@@ -1077,6 +1278,8 @@ export default {
       data_wisata,
       AddReview,
       Moment,
+      Discussion,
+      add_discussion,
       moment: moment,
     };
   },

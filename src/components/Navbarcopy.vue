@@ -57,7 +57,7 @@
               class="nav-link"
               @click="dropdown6 = !dropdown6"
               ><img
-                src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+                :src="user.user.profilePicture"
                 class="rounded-circle"
                 height="22"
                 alt=""
@@ -118,7 +118,6 @@ import {
 import { ref } from "vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
-
 export default {
   methods: {
     logout: function () {

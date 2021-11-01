@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-
+  
   <MDBContainer>
     <MDBRow start class="mb-6">
       <MDBCol sm="12" md="12">
@@ -29,7 +29,7 @@
                 >
                   <div class="sc-1q7bklc-6 liCXOR">
                     <div class="sc-1q7bklc-5 kHxpSk">
-                      <div class="sc-1q7bklc-1 cILgox">4.8</div>
+                      <div v-if="review_list?.totalRating > 0" class="sc-1q7bklc-1 cILgox">{{review_list?.totalRating}}</div>
                       <div class="sc-1q7bklc-2 pxJGx">
                         <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
                           ><svg
@@ -597,7 +597,7 @@
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <h6>Candi Borobudur Review</h6>
+                    <h6>{{data_wisata.nama}}'s Review</h6>
                   </MDBCol>
                 </MDBRow>
                 <MDBRow class="d-flex justify-content-between">
@@ -615,7 +615,7 @@
                   <MDBRow>
                     <MDBCol md="1" class="d-flex justify-content-end mb-3">
                       <img
-                        src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                        :src="review.id_user.profilePicture"
                         alt="avatar"
                         width="60"
                         height="60"
@@ -641,7 +641,7 @@
                           style="font-weight: 400; font-size: small"
                         >
                           <MDBBtn
-                            v-if="review.id_user._id == user.user._id"
+                            v-if="review.id_user._id == user.user?._id"
                             style="
                               background-color: rgb(50, 224, 196);
                               color: white;
@@ -812,7 +812,7 @@
                       <h6>Newest First</h6>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol class="mt-3 d-flex justify-content-center">
+                  <MDBCol class="mt-3 d-flex justify-content-center" v-for="discussion in discussion_list" :key="discussion._id">
                     <MDBCard
                       border="primary"
                       shadow="0"
@@ -824,12 +824,12 @@
                         border: 2px;
                         cursor: pointer;
                       "
-                      @click="Discussion = true"
+                      @click="openModal(discussion)"
                     >
                       <MDBCardBody>
                         <MDBRow>
                           <MDBCol class="d-flex justify-content-start">
-                            <span>Title Discussion</span>
+                            <span>{{discussion.title}}</span>
                           </MDBCol>
                           <MDBCol class="d-flex justify-content-end">
                             <span class="pe-2">
@@ -837,6 +837,9 @@
                             </span>
                             <span class="pe-2">
                               <MDBIcon icon="comment" iconStyle="fas" /> 20
+                            </span>
+                             <span class="pe-2">
+                              <MDBIcon icon="user" iconStyle="fas" /> <span>This discussion is created by you</span>
                             </span>
                           </MDBCol>
                         </MDBRow>
@@ -861,7 +864,7 @@
                   id="Discussion"
                   tabindex="-1"
                   labelledby="Discussion"
-                  v-model="Discussion"
+                  v-model="discussionModal"
                   centered
                   scrollable
                   size="xl"
@@ -870,38 +873,48 @@
                     <MDBRow class="p-5">
                       <MDBCol md="12">
                         <MDBRow>
-                          <h5>Title Discussion</h5>
+                          <h5>{{modalData.title}}</h5>
                         </MDBRow>
                         <MDBRow>
                           <p class="mt-1">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Vestibulum sit amet dignissim mauris. Nunc eu
-                            orci bibendum, pellentesque ligula vitae, rutrum
-                            tellus. Vivamus semper tempus mi sed elementum.
+                           {{modalData.content}}
                           </p>
                         </MDBRow>
                         <MDBRow>
                           <MDBCol class="mb-3">
                             <span class="me-2">
                               <MDBIcon icon="comment" iconStyle="fas" />
+                              Posted By {{modalData.id_user.name}}
+                            </span>
+                            <span class="me-2">
+                              <MDBIcon icon="comment" iconStyle="fas" />
                               3 Comments
+                            </span>
+                             <span class="me-2">
+                              <MDBIcon icon="clock" iconStyle="fas" />
+                              {{ moment(modalData.created_at).fromNow() }}
                             </span>
                             <span class="me-2" style="cursor: pointer">
                               <MDBIcon icon="share" iconStyle="fas" />
                               Share
                             </span>
+                            <a @click="confirmDeleteDiscussion(modalData._id)" class="m-1"  role="button" style="color: rgb(255, 0, 0);">
+                            <MDBIcon iconStyle="fas" icon="trash" size="xs"></MDBIcon> Delete
+                          </a>
                           </MDBCol>
                         </MDBRow>
-                        <MDBRow>
+                        <MDBRow class="needs-validation" tag="form" novalidate @submit.prevent="checkFormComment">
                           <MDBTextarea
                             label="What are your thoughts?"
                             rows="10"
-                            class="my-1"
-                            v-model="review_content.content"
+                            class="my-2"
+                            v-model="comment_content"
+                             invalidFeedback="Please provide comment content"
+                            validFeedback="Looks good!"
+                            required
                           />
-                        </MDBRow>
-                        <MDBRow class="align-content-end">
-                          <MDBBtn
+                           <MDBBtn
+                           type="submit"
                             style="
                               background-color: white;
                               color: black;
@@ -909,19 +922,20 @@
                               width: 100px;
                               height: 35px;
                             "
-                            class="mt-2"
+                            class="mt-2 align-content-end"
                           >
                             Submit
                           </MDBBtn>
                         </MDBRow>
                         <hr />
-                        <MDBRow>
+                        <MDBRow v-for="comment in modalData.id_comments" :key="comment._id">
+                        
                           <MDBCol
                             md="1"
                             class="d-flex justify-content-end mb-3"
                           >
                             <img
-                              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                              :src="comment.id_user.profilePicture"
                               alt="avatar"
                               width="60"
                               height="60"
@@ -930,7 +944,7 @@
                           <MDBCol md="2">
                             <MDBRow>
                               <p class="mb-0 ms-2" style="font-weight: 500">
-                                Bagus
+                                {{comment.id_user.name}}
                               </p>
                             </MDBRow>
                             <MDBRow>
@@ -938,37 +952,32 @@
                                 class="mb-0 ms-2"
                                 style="font-weight: 400; font-size: small"
                               >
-                                3 hours ago
+                                {{moment(comment.created_at).fromNow()}}
                               </p>
                             </MDBRow>
                           </MDBCol>
-                        </MDBRow>
-                        <MDBRow>
+                                <MDBRow>
                           <MDBCol>
                             <p>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing
-                              elit. Vestibulum sit amet dignissim mauris. Nunc
-                              eu orci bibendum, pellentesque ligula vitae,
-                              rutrum tellus. Vivamus semper tempus mi sed
-                              elementum.
+                             {{comment.content}}
                             </p>
+                            
                           </MDBCol>
-                        </MDBRow>
-                        <MDBRow class="d-flex justify-content-evenly">
+                           <MDBRow class="d-flex justify-content-evenly">
                           <MDBCol>
-                            <span class="me-2" style="cursor: pointer">
-                              <MDBIcon icon="comment" iconStyle="fas" />
-                              Reply
-                            </span>
                             <span class="me-2" style="cursor: pointer">
                               <MDBIcon icon="thumbs-up" iconStyle="fas" />
                               20
                             </span>
-                            <span class="me-2" style="cursor: pointer">
-                              Follow
-                            </span>
+                            <a @click="confirmDeleteComment(modalData._id,comment._id)" class="m-1"  role="button" style="color: rgb(255, 0, 0);">
+                            <MDBIcon iconStyle="fas" icon="trash" size="xs"></MDBIcon> Delete
+                          </a>
                           </MDBCol>
                         </MDBRow>
+                        </MDBRow>
+                        </MDBRow>
+                  
+                       
                       </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
@@ -983,7 +992,7 @@
                   size="xl"
                 >
                   <MDBModalBody>
-                    <MDBRow class="p-3">
+                    <MDBRow class="p-3 needs-validation" tag="form" novalidate @submit.prevent="checkForm">
                       <MDBCol md="12">
                         <MDBRow>
                           <MDBCol>
@@ -995,6 +1004,10 @@
                             label="Title"
                             class="my-1"
                             style="height: 60px"
+                            v-model="discussion_content.title"
+                            invalidFeedback="Please provide discussion content"
+                            validFeedback="Looks good!"
+                            required
                           />
                         </MDBRow>
                         <MDBRow class="py-2">
@@ -1002,13 +1015,14 @@
                             label="What are your thoughts?"
                             rows="10"
                             class="my-1"
-                            v-model="review_content.content"
+                            v-model="discussion_content.content"
+                            invalidFeedback="Please provide discussion content"
+                            validFeedback="Looks good!"
+                            required
                           />
                         </MDBRow>
                       </MDBCol>
-                    </MDBRow>
-                  </MDBModalBody>
-                  <MDBBtn
+                     <MDBBtn
                     style="
                       background-color: rgb(13, 115, 119);
                       color: white;
@@ -1016,11 +1030,47 @@
                       height: 45px;
                     "
                     class="align-self-end m-4"
-                    @click="add_review(review_content)"
+                   
+                    type ="submit"
                   >
                     Post Discussion
                   </MDBBtn>
+                    </MDBRow>
+                  </MDBModalBody>
+                 
                 </MDBModal>
+              </MDBTabPane>
+              <MDBTabPane tabId="ex1-5">
+                <MDBRow>
+              <MDBCol md="12">
+                <MDBCol
+                            md="1"
+                            class="d-flex justify-content-end mb-3"
+                          >
+                            <img
+                              src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                              alt="avatar"
+                              width="60"
+                              height="60"
+                            />
+                          </MDBCol>
+                          <MDBCol md="2">
+                            <MDBRow>
+                              <p class="mb-0 ms-2" style="font-weight: 500">
+                              Testis
+                              </p>
+                            </MDBRow>
+                            <MDBRow>
+                              <p
+                                class="mb-0 ms-2"
+                                style="font-weight: 400; font-size: small"
+                              >
+                               Bekasi
+                              </p>
+                            </MDBRow>
+                          </MDBCol>
+                </MDBCol>
+                  </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->
@@ -1112,10 +1162,29 @@ export default {
     MDBInput,
   },
   setup() {
+    const checkForm = async e => {
+        e.target.classList.add("was-validated");
+        if(discussion_content.value.content != null && discussion_content.value.title != null){
+          create_discussion(discussion_content.value)
+        }
+        
+      };
+    const checkFormComment = async e => {
+        e.target.classList.add("was-validated");
+        if(comment_content.value != null){
+          create_comment(comment_content.value,modalData.value)
+        }
+        
+      };
     const review_content = ref({
       content: null,
       rating: null,
     });
+    const discussion_content = ref({
+      content : null,
+      title : null,
+    })
+    const comment_content = ref();
     const data_wisata = ref({
       nama: null,
       description: null,
@@ -1133,19 +1202,33 @@ export default {
     const isFavourited = ref(false);
     const AddReview = ref(false);
     const Moment = ref(false);
-    const Discussion = ref(false);
+    const discussionModal = ref(false);
     const add_discussion = ref(false);
     const review_list = ref();
+    const modalData = ref();
+    const discussion_list = ref([]);
+    const comment_list = ref([]);
+    const reviewRating = ref();
 
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
     let uri_review =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/review";
+    let uri_discussion =
+    process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion";
     app.appContext.config.globalProperties.$http
       .get(uri_review)
-      .then((response) => {
-        review_list.value = response.data;
+      .then( (response) => {
+        review_list.value =  response.data.data;
+        reviewRating.value =  response.data.count.map(item => item.rating);
+        review_list.value.totalRating =  sum_rating(reviewRating)
+        console.log(review_list.value.totalRating)
       });
+    app.appContext.config.globalProperties.$http
+      .get(uri_discussion)
+      .then((response)=> {
+        discussion_list.value = response.data
+      })
 
     app.appContext.config.globalProperties.$http
       .get(uri_wisata)
@@ -1162,12 +1245,50 @@ export default {
 
     const activeTabId1 = ref("ex1-1");
 
+    function openModal(data){
+      modalData.value = data
+      discussionModal.value = true
+     // get_comment(comment_list, modalData.value)
+    }
+
+
     function get_review(data) {
       return app.appContext.config.globalProperties.$http
         .get(uri_review)
-        .then((response) => {
-          data.value = response.data;
+        .then(async (response) => {
+           data.value = await response.data.data;
+           reviewRating.value = await response.data.count.map(item => item.rating);
+           data.value.totalRating = sum_rating(reviewRating)
         });
+    }
+
+    function sum_rating(data){
+      var temp = 0
+      for (var i=0; i<data.value.length;i ++){
+        console.log(data.value)
+         temp += data.value[i]
+      }
+      return temp/data.value?.length
+     
+    }
+
+    function get_discussion(data){
+      return app.appContext.config.globalProperties.$http
+      .get(uri_discussion)
+      .then((response) => {
+        data.value = response.data
+      })
+    }
+
+    function get_comment(data,id_disc){
+       let uri_comment = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + id_disc
+      return app.appContext.config.globalProperties.$http
+      .get(uri_comment)
+      .then((response) => {
+        data.value = response.data
+      }).catch((err)=> {
+        console.log(err.status)
+      })
     }
 
     function add_favourite(slug) {
@@ -1179,8 +1300,14 @@ export default {
       app.appContext.config.globalProperties.$http
         .post(uri_favourite, config, config)
         .then((response) => {
-          console.log(response.data);
+          if(response.status == 200){
+          Swal.fire({
+          title: "Operation Successful",
+          text: "This place has been marked as one of your favourites place",
+          icon: "success",
+        });
           isFavourited.value = true;
+          }
         })
         .catch((error) => {
           console.log(error.message);
@@ -1188,7 +1315,15 @@ export default {
     }
 
     function remove_favourite(slug) {
-      const config = {
+       Swal.fire({
+        title: "Do you want to remove this place from your favourites list?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
         headers: authHeader(),
       };
       let uri_favourite =
@@ -1196,12 +1331,21 @@ export default {
       app.appContext.config.globalProperties.$http
         .post(uri_favourite, config, config)
         .then((response) => {
+        if(response.status == 200){
+          Swal.fire({
+          title: "Operation Successful",
+          text: "This place has been deleted from your favourites list",
+          icon: "success",
+        });
           isFavourited.value = false;
-          console.log(response.data);
+          }
         })
         .catch((error) => {
           console.log(error.message);
         });
+        }
+      });
+      
     }
     function add_review(review_content) {
       if (review_content.rating == null) {
@@ -1224,7 +1368,6 @@ export default {
           .then(() => {
             AddReview.value = false;
             get_review(review_list);
-            console.log(review_list.value);
             Swal.fire({
               title: "Review created Successful",
               text: "Please refresh the page",
@@ -1241,6 +1384,7 @@ export default {
           });
       }
     }
+    
 
     function confirm_deletion() {
       Swal.fire({
@@ -1268,6 +1412,119 @@ export default {
         }
       });
     }
+   
+    function create_discussion(discussion) {
+      if (discussion.title == null && discussion.content == null) {
+        Swal.fire({
+          title: "Mohon masukan Title & Content ",
+          text: "Tidak ada judul",
+          icon: "error",
+        });
+      } else {
+        const config = {
+          headers: authHeader(),
+        };
+        
+        app.appContext.config.globalProperties.$http
+          .post(uri_discussion, discussion, config)
+          .then(() => {
+           
+            add_discussion.value = false
+            get_discussion(discussion_list)
+            discussion_content.value = {
+              content : null,
+              title : null
+            }
+            Swal.fire({
+              title: "Discussion created Successful",
+              text: "Please refresh the page",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            AddReview.value = false;
+            Swal.fire({
+              title: "Discussion gagal dibuat",
+              text: error.response,
+              icon: "error",
+            });
+          });
+      }
+    }
+
+    function create_comment(comment_content,data){
+      let uri_comment = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + data._id
+        const config = {
+          headers: authHeader(),
+        };
+         app.appContext.config.globalProperties.$http
+          .post(uri_comment, {content : comment_content, id_discussion : data._id}, config)
+          .then((response) => {
+            if(response.status == 201){
+              get_comment(modalData, data._id)
+              Swal.fire({
+                title : "Comment Created Successfully",
+                icon : 'success'
+              })
+            }
+          })
+    }
+     function confirmDeleteDiscussion(discussion_id){
+      Swal.fire({
+        title: "Do you want to delete your discussion?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
+            headers: authHeader(),
+          };
+          let uri_deleteDiscussion =
+            process.env.VUE_APP_ROOT_API +
+            "wisata/" +
+            route.params.slug +
+            "/discussion/" + discussion_id ;
+          app.appContext.config.globalProperties.$http
+            .delete(uri_deleteDiscussion, config)
+            .then(() => {
+              discussionModal.value = false
+              Swal.fire("Discussion Deleted", "", "success");
+            });
+          get_discussion(discussion_list);
+        }
+      });
+    }
+     function confirmDeleteComment(discussion_id,comment_id){
+      Swal.fire({
+        title: "Do you want to delete your discussion?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
+            headers: authHeader(),
+          };
+          let uri_deleteDiscussion =
+            process.env.VUE_APP_ROOT_API +
+            "wisata/" +
+            route.params.slug +
+            "/discussion/" + discussion_id + "/" + comment_id ;
+          app.appContext.config.globalProperties.$http
+            .delete(uri_deleteDiscussion, config)
+            .then((response) => {
+              if(response.status == 201){
+              Swal.fire("Comment Deleted", "", "success");
+              get_comment(modalData, discussion_id)
+              }
+            });
+          get_discussion(discussion_list);
+        }
+      });
+    }
 
     return {
       mapLoaded,
@@ -1275,19 +1532,29 @@ export default {
       confirm_deletion,
       isFavourited,
       get_review,
+      add_discussion,
       activeTabId1,
       remove_favourite,
       review_content,
+      discussion_list,
+      comment_list,
       review_list,
       center,
+      reviewRating,
       add_favourite,
       add_review,
       data_wisata,
       AddReview,
       Moment,
-      Discussion,
-      add_discussion,
+      discussionModal,
+      create_discussion,
+      openModal,
+      modalData,
       moment: moment,
+      discussion_content,
+      comment_content,
+      checkForm,checkFormComment,
+      get_discussion,confirmDeleteDiscussion,confirmDeleteComment
     };
   },
 };

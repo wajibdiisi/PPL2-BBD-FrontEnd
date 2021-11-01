@@ -16,7 +16,7 @@
             <MDBRow>
               <MDBCol md="8"
                 ><h1 class="display-6">
-                  {{ data_wisata["nama"] }}{{ isFavourited }}
+                  {{ data_wisata["nama"] }}
                 </h1></MDBCol
               >
               <MDBCol md="4" class="d-flex justify-content-end">
@@ -135,6 +135,7 @@
               <MDBTabItem tabId="ex1-2" href="ex1-2">Review</MDBTabItem>
               <MDBTabItem tabId="ex1-3" href="ex1-3">Moment</MDBTabItem>
               <MDBTabItem tabId="ex1-4" href="ex1-4">Discussion</MDBTabItem>
+              <MDBTabItem tabId="ex1-5" href="ex1-4">Favorited by {{data_wisata["bookmark_id_user"].length - 1}} users</MDBTabItem>
             </MDBTabNav>
             <!-- Tabs navs -->
             <!-- Tabs content -->
@@ -1120,6 +1121,7 @@ export default {
       description: null,
       avg_cost: null,
       slug: null,
+      bookmark_id_user : []
     });
     const route = useRoute();
     const app = getCurrentInstance();

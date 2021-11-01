@@ -6,7 +6,7 @@
         <MDBCard text="center">
           <MDBCol class="align-self-center" md="3">
             <MDBCardImg
-              src="https://i.ibb.co/CvZk0fc/1479636246154.jpg"
+              :src="userProfile.profilePicture"
               top
               class="img-fluid rounded-circle"
               alt="..."
@@ -20,9 +20,11 @@
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Upload Moment
             </MDBBtn>
+            <router-link to="/profile/edit">
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Edit Profile
             </MDBBtn>
+            </router-link>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>

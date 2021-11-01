@@ -10,7 +10,7 @@ const routes = [
     component: Home
   },
   {
-    path:'/editprofile',
+    path:'/profile/edit',
     name: 'EditProfile',
     component: () => import('../views/EdProfile.vue')
   },

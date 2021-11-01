@@ -42,6 +42,26 @@
         </MDBCol>
         <MDBCol class="my-4">
           <MDBInput
+            v-model="username"
+            label="Provinsi"
+            class="my-4"
+            type="text"
+            invalidFeedback="Please input your username (you won't be able to change it later)"
+            required
+          />
+        </MDBCol>
+        <MDBCol class="my-4">
+          <MDBInput
+            v-model="username"
+            label="Kota"
+            class="my-4"
+            type="text"
+            invalidFeedback="Please input your username (you won't be able to change it later)"
+            required
+          />
+        </MDBCol>
+        <MDBCol class="my-4">
+          <MDBInput
             v-model="password"
             label="Password"
             class="my-4"

@@ -215,7 +215,7 @@ export default {
       return `
           <div class="autocomplete-custom-item-content">
             <div class="autocomplete-custom-item-title">${result.nama}</div>
-            <div class="autocomplete-custom-item-subtitle">${result.slug}</div>
+            <div class="autocomplete-custom-item-subtitle">${result.kota} - ${result.provinsi}</div>
           </div>
         `;
     };
@@ -227,7 +227,14 @@ export default {
       const data = await res.value.data;
 
       return data.filter((wisata) => {
+        if(!wisata.nama.split(" ").length > 1)
         return wisata.nama.toLowerCase().startsWith(value.toLowerCase());
+        else{
+          var words = wisata.nama.split(" ");
+          for (var i = 0; i < words.length; i + 1){
+            return wisata.nama.toLowerCase().includes(value)
+          }
+        }
       });
     };
     const displayValueTemplate = (value) => value.nama;

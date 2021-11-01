@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  
+
   <MDBContainer>
     <MDBRow start class="mb-6">
       <MDBCol sm="12" md="12">
@@ -29,7 +29,12 @@
                 >
                   <div class="sc-1q7bklc-6 liCXOR">
                     <div class="sc-1q7bklc-5 kHxpSk">
-                      <div v-if="review_list?.totalRating > 0" class="sc-1q7bklc-1 cILgox">{{review_list?.totalRating}}</div>
+                      <div
+                        v-if="review_list?.totalRating > 0"
+                        class="sc-1q7bklc-1 cILgox"
+                      >
+                        {{ review_list?.totalRating }}
+                      </div>
                       <div class="sc-1q7bklc-2 pxJGx">
                         <i class="sc-rbbb40-1 iFnyeo" color="#FFFFFF"
                           ><svg
@@ -65,14 +70,16 @@
                   style="background-color: rgb(50, 224, 196); color: white"
                   @click="add_favourite(data_wisata['slug'])"
                 >
-                  <MDBIcon icon="star" iconStyle="fas" /> Add Review
+                  <MDBIcon icon="heart" iconStyle="fas" class="pe-1" /> Add
+                  Favorite
                 </MDBBtn>
                 <MDBBtn
                   v-if="isFavourited == true"
                   style="background-color: rgb(50, 224, 196); color: white"
                   @click="remove_favourite(data_wisata['slug'])"
                 >
-                  <MDBIcon icon="star" iconStyle="fas" /> Remove Favorite
+                  <MDBIcon icon="heart" iconStyle="fas" class="pe-1" /> Remove
+                  Favorite
                 </MDBBtn>
                 <MDBBtn
                   style="
@@ -93,6 +100,7 @@
                     icon="directions"
                     iconStyle="fas"
                     style="color: rgb(50, 224, 196)"
+                    class="pe-1"
                   />
                   Direction
                 </MDBBtn>
@@ -104,11 +112,12 @@
                   "
                 >
                   <MDBIcon
-                    icon="bookmark"
+                    icon="star"
                     iconStyle="fas"
                     style="color: rgb(50, 224, 196)"
+                    class="pe-1"
                   />
-                  Bookmark
+                  Review
                 </MDBBtn>
                 <MDBBtn
                   style="
@@ -121,6 +130,7 @@
                     icon="share-alt"
                     iconStyle="fas"
                     style="color: rgb(50, 224, 196)"
+                    class="pe-1"
                   />
                   Share
                 </MDBBtn>
@@ -135,7 +145,11 @@
               <MDBTabItem tabId="ex1-2" href="ex1-2">Review</MDBTabItem>
               <MDBTabItem tabId="ex1-3" href="ex1-3">Moment</MDBTabItem>
               <MDBTabItem tabId="ex1-4" href="ex1-4">Discussion</MDBTabItem>
-              <MDBTabItem tabId="ex1-5" href="ex1-4">Favorited by {{data_wisata["bookmark_id_user"].length - 1}} users</MDBTabItem>
+              <MDBTabItem tabId="ex1-5" href="ex1-4"
+                >Favorited by
+                {{ data_wisata["bookmark_id_user"].length - 1 }}
+                users</MDBTabItem
+              >
             </MDBTabNav>
             <!-- Tabs navs -->
             <!-- Tabs content -->
@@ -597,7 +611,7 @@
                 </MDBRow>
                 <MDBRow>
                   <MDBCol>
-                    <h6>{{data_wisata.nama}}'s Review</h6>
+                    <h6>{{ data_wisata.nama }}'s Review</h6>
                   </MDBCol>
                 </MDBRow>
                 <MDBRow class="d-flex justify-content-between">
@@ -812,7 +826,11 @@
                       <h6>Newest First</h6>
                     </MDBCol>
                   </MDBRow>
-                  <MDBCol class="mt-3 d-flex justify-content-center" v-for="discussion in discussion_list" :key="discussion._id">
+                  <MDBCol
+                    class="mt-3 d-flex justify-content-center"
+                    v-for="discussion in discussion_list"
+                    :key="discussion._id"
+                  >
                     <MDBCard
                       border="primary"
                       shadow="0"
@@ -829,7 +847,7 @@
                       <MDBCardBody>
                         <MDBRow>
                           <MDBCol class="d-flex justify-content-start">
-                            <span>{{discussion.title}}</span>
+                            <span>{{ discussion.title }}</span>
                           </MDBCol>
                           <MDBCol class="d-flex justify-content-end">
                             <span class="pe-2">
@@ -838,8 +856,9 @@
                             <span class="pe-2">
                               <MDBIcon icon="comment" iconStyle="fas" /> 20
                             </span>
-                             <span class="pe-2">
-                              <MDBIcon icon="user" iconStyle="fas" /> <span>This discussion is created by you</span>
+                            <span class="pe-2">
+                              <MDBIcon icon="user" iconStyle="fas" />
+                              <span>This discussion is created by you</span>
                             </span>
                           </MDBCol>
                         </MDBRow>
@@ -873,24 +892,24 @@
                     <MDBRow class="p-5">
                       <MDBCol md="12">
                         <MDBRow>
-                          <h5>{{modalData.title}}</h5>
+                          <h5>{{ modalData.title }}</h5>
                         </MDBRow>
                         <MDBRow>
                           <p class="mt-1">
-                           {{modalData.content}}
+                            {{ modalData.content }}
                           </p>
                         </MDBRow>
                         <MDBRow>
                           <MDBCol class="mb-3">
                             <span class="me-2">
                               <MDBIcon icon="comment" iconStyle="fas" />
-                              Posted By {{modalData.id_user.name}}
+                              Posted By {{ modalData.id_user.name }}
                             </span>
                             <span class="me-2">
                               <MDBIcon icon="comment" iconStyle="fas" />
                               3 Comments
                             </span>
-                             <span class="me-2">
+                            <span class="me-2">
                               <MDBIcon icon="clock" iconStyle="fas" />
                               {{ moment(modalData.created_at).fromNow() }}
                             </span>
@@ -898,23 +917,38 @@
                               <MDBIcon icon="share" iconStyle="fas" />
                               Share
                             </span>
-                            <a @click="confirmDeleteDiscussion(modalData._id)" class="m-1"  role="button" style="color: rgb(255, 0, 0);">
-                            <MDBIcon iconStyle="fas" icon="trash" size="xs"></MDBIcon> Delete
-                          </a>
+                            <a
+                              @click="confirmDeleteDiscussion(modalData._id)"
+                              class="m-1"
+                              role="button"
+                              style="color: rgb(255, 0, 0)"
+                            >
+                              <MDBIcon
+                                iconStyle="fas"
+                                icon="trash"
+                                size="xs"
+                              ></MDBIcon>
+                              Delete
+                            </a>
                           </MDBCol>
                         </MDBRow>
-                        <MDBRow class="needs-validation" tag="form" novalidate @submit.prevent="checkFormComment">
+                        <MDBRow
+                          class="needs-validation"
+                          tag="form"
+                          novalidate
+                          @submit.prevent="checkFormComment"
+                        >
                           <MDBTextarea
                             label="What are your thoughts?"
                             rows="10"
                             class="my-2"
                             v-model="comment_content"
-                             invalidFeedback="Please provide comment content"
+                            invalidFeedback="Please provide comment content"
                             validFeedback="Looks good!"
                             required
                           />
-                           <MDBBtn
-                           type="submit"
+                          <MDBBtn
+                            type="submit"
                             style="
                               background-color: white;
                               color: black;
@@ -928,8 +962,10 @@
                           </MDBBtn>
                         </MDBRow>
                         <hr />
-                        <MDBRow v-for="comment in modalData.id_comments" :key="comment._id">
-                        
+                        <MDBRow
+                          v-for="comment in modalData.id_comments"
+                          :key="comment._id"
+                        >
                           <MDBCol
                             md="1"
                             class="d-flex justify-content-end mb-3"
@@ -944,7 +980,7 @@
                           <MDBCol md="2">
                             <MDBRow>
                               <p class="mb-0 ms-2" style="font-weight: 500">
-                                {{comment.id_user.name}}
+                                {{ comment.id_user.name }}
                               </p>
                             </MDBRow>
                             <MDBRow>
@@ -952,32 +988,44 @@
                                 class="mb-0 ms-2"
                                 style="font-weight: 400; font-size: small"
                               >
-                                {{moment(comment.created_at).fromNow()}}
+                                {{ moment(comment.created_at).fromNow() }}
                               </p>
                             </MDBRow>
                           </MDBCol>
-                                <MDBRow>
-                          <MDBCol>
-                            <p>
-                             {{comment.content}}
-                            </p>
-                            
-                          </MDBCol>
-                           <MDBRow class="d-flex justify-content-evenly">
-                          <MDBCol>
-                            <span class="me-2" style="cursor: pointer">
-                              <MDBIcon icon="thumbs-up" iconStyle="fas" />
-                              20
-                            </span>
-                            <a @click="confirmDeleteComment(modalData._id,comment._id)" class="m-1"  role="button" style="color: rgb(255, 0, 0);">
-                            <MDBIcon iconStyle="fas" icon="trash" size="xs"></MDBIcon> Delete
-                          </a>
-                          </MDBCol>
+                          <MDBRow>
+                            <MDBCol>
+                              <p>
+                                {{ comment.content }}
+                              </p>
+                            </MDBCol>
+                            <MDBRow class="d-flex justify-content-evenly">
+                              <MDBCol>
+                                <span class="me-2" style="cursor: pointer">
+                                  <MDBIcon icon="thumbs-up" iconStyle="fas" />
+                                  20
+                                </span>
+                                <a
+                                  @click="
+                                    confirmDeleteComment(
+                                      modalData._id,
+                                      comment._id
+                                    )
+                                  "
+                                  class="m-1"
+                                  role="button"
+                                  style="color: rgb(255, 0, 0)"
+                                >
+                                  <MDBIcon
+                                    iconStyle="fas"
+                                    icon="trash"
+                                    size="xs"
+                                  ></MDBIcon>
+                                  Delete
+                                </a>
+                              </MDBCol>
+                            </MDBRow>
+                          </MDBRow>
                         </MDBRow>
-                        </MDBRow>
-                        </MDBRow>
-                  
-                       
                       </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
@@ -992,7 +1040,12 @@
                   size="xl"
                 >
                   <MDBModalBody>
-                    <MDBRow class="p-3 needs-validation" tag="form" novalidate @submit.prevent="checkForm">
+                    <MDBRow
+                      class="p-3 needs-validation"
+                      tag="form"
+                      novalidate
+                      @submit.prevent="checkForm"
+                    >
                       <MDBCol md="12">
                         <MDBRow>
                           <MDBCol>
@@ -1022,55 +1075,151 @@
                           />
                         </MDBRow>
                       </MDBCol>
-                     <MDBBtn
-                    style="
-                      background-color: rgb(13, 115, 119);
-                      color: white;
-                      width: 175px;
-                      height: 45px;
-                    "
-                    class="align-self-end m-4"
-                   
-                    type ="submit"
-                  >
-                    Post Discussion
-                  </MDBBtn>
+                      <MDBBtn
+                        style="
+                          background-color: rgb(13, 115, 119);
+                          color: white;
+                          width: 175px;
+                          height: 45px;
+                        "
+                        class="align-self-end m-4"
+                        type="submit"
+                      >
+                        Post Discussion
+                      </MDBBtn>
                     </MDBRow>
                   </MDBModalBody>
-                 
                 </MDBModal>
               </MDBTabPane>
               <MDBTabPane tabId="ex1-5">
                 <MDBRow>
-              <MDBCol md="12">
-                <MDBCol
-                            md="1"
-                            class="d-flex justify-content-end mb-3"
-                          >
-                            <img
-                              src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                              alt="avatar"
-                              width="60"
-                              height="60"
-                            />
-                          </MDBCol>
-                          <MDBCol md="2">
-                            <MDBRow>
-                              <p class="mb-0 ms-2" style="font-weight: 500">
-                              Testis
-                              </p>
-                            </MDBRow>
-                            <MDBRow>
-                              <p
-                                class="mb-0 ms-2"
-                                style="font-weight: 400; font-size: small"
-                              >
-                               Bekasi
-                              </p>
-                            </MDBRow>
-                          </MDBCol>
-                </MDBCol>
-                  </MDBRow>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                  <MDBCol md="2" class="mb-3 justify-content-center">
+                    <MDBCol class="d-flex justify-content-center">
+                      <img
+                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        alt="avatar"
+                        width="100"
+                        height="100"
+                      />
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                    </MDBCol>
+                    <MDBCol class="d-flex justify-content-center">
+                      <p
+                        class="mb-0"
+                        style="font-weight: 400; font-size: small"
+                      >
+                        Bekasi, Jawa Barat
+                      </p>
+                    </MDBCol>
+                  </MDBCol>
+                </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
             <!-- Tabs content -->
@@ -1083,16 +1232,16 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbarcopy.vue";
-import { useRoute } from "vue-router";
-import { GoogleMap, Marker } from "vue3-google-map";
-import Footer from "../components/Footer copy.vue";
-import { getCurrentInstance } from "vue";
-import authHeader from "../auth-header";
-import { computed } from "vue";
-import { useStore } from "vuex";
-import moment from "moment";
-import Swal from "sweetalert2";
+import Navbar from "../components/Navbarcopy.vue"
+import { useRoute } from "vue-router"
+import { GoogleMap, Marker } from "vue3-google-map"
+import Footer from "../components/Footer copy.vue"
+import { getCurrentInstance } from "vue"
+import authHeader from "../auth-header"
+import { computed } from "vue"
+import { useStore } from "vuex"
+import moment from "moment"
+import Swal from "sweetalert2"
 import {
   MDBIcon,
   MDBBtn,
@@ -1117,19 +1266,19 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardImg,
-  MDBInput,
-} from "mdb-vue-ui-kit";
-import { ref } from "vue";
+  MDBInput
+} from "mdb-vue-ui-kit"
+import { ref } from "vue"
 
 export default {
   data() {
-    return {};
+    return {}
   },
 
   methods: {
     redirect: function (link, target = "_blank") {
-      window.open(link, target);
-    },
+      window.open(link, target)
+    }
   },
   components: {
     GoogleMap,
@@ -1159,371 +1308,391 @@ export default {
     MDBCard,
     MDBCardBody,
     MDBCardImg,
-    MDBInput,
+    MDBInput
   },
   setup() {
-    const checkForm = async e => {
-        e.target.classList.add("was-validated");
-        if(discussion_content.value.content != null && discussion_content.value.title != null){
-          create_discussion(discussion_content.value)
-        }
-        
-      };
-    const checkFormComment = async e => {
-        e.target.classList.add("was-validated");
-        if(comment_content.value != null){
-          create_comment(comment_content.value,modalData.value)
-        }
-        
-      };
+    const checkForm = async (e) => {
+      e.target.classList.add("was-validated")
+      if (
+        discussion_content.value.content != null &&
+        discussion_content.value.title != null
+      ) {
+        create_discussion(discussion_content.value)
+      }
+    }
+    const checkFormComment = async (e) => {
+      e.target.classList.add("was-validated")
+      if (comment_content.value != null) {
+        create_comment(comment_content.value, modalData.value)
+      }
+    }
     const review_content = ref({
       content: null,
-      rating: null,
-    });
-    const discussion_content = ref({
-      content : null,
-      title : null,
+      rating: null
     })
-    const comment_content = ref();
+    const discussion_content = ref({
+      content: null,
+      title: null
+    })
+    const comment_content = ref()
     const data_wisata = ref({
       nama: null,
       description: null,
       avg_cost: null,
       slug: null,
-      bookmark_id_user : []
-    });
-    const route = useRoute();
-    const app = getCurrentInstance();
-    const mapLoaded = ref(false);
-    const bookmark_list = [];
-    const center = { lat: 40.689247, lng: -74.044502 };
-    const store = useStore();
-    const user = computed(() => store.getters.user);
-    const isFavourited = ref(false);
-    const AddReview = ref(false);
-    const Moment = ref(false);
-    const discussionModal = ref(false);
-    const add_discussion = ref(false);
-    const review_list = ref();
-    const modalData = ref();
-    const discussion_list = ref([]);
-    const comment_list = ref([]);
-    const reviewRating = ref();
+      bookmark_id_user: []
+    })
+    const route = useRoute()
+    const app = getCurrentInstance()
+    const mapLoaded = ref(false)
+    const bookmark_list = []
+    const center = { lat: 40.689247, lng: -74.044502 }
+    const store = useStore()
+    const user = computed(() => store.getters.user)
+    const isFavourited = ref(false)
+    const AddReview = ref(false)
+    const Moment = ref(false)
+    const discussionModal = ref(false)
+    const add_discussion = ref(false)
+    const review_list = ref()
+    const modalData = ref()
+    const discussion_list = ref([])
+    const comment_list = ref([])
+    const reviewRating = ref()
 
     let uri_wisata =
-      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug;
+      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug
     let uri_review =
-      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/review";
+      process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/review"
     let uri_discussion =
-    process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion";
+      process.env.VUE_APP_ROOT_API +
+      "wisata/" +
+      route.params.slug +
+      "/discussion"
     app.appContext.config.globalProperties.$http
       .get(uri_review)
-      .then( (response) => {
-        review_list.value =  response.data.data;
-        reviewRating.value =  response.data.count.map(item => item.rating);
-        review_list.value.totalRating =  sum_rating(reviewRating)
+      .then((response) => {
+        review_list.value = response.data.data
+        reviewRating.value = response.data.count.map((item) => item.rating)
+        review_list.value.totalRating = sum_rating(reviewRating)
         console.log(review_list.value.totalRating)
-      });
+      })
     app.appContext.config.globalProperties.$http
       .get(uri_discussion)
-      .then((response)=> {
+      .then((response) => {
         discussion_list.value = response.data
       })
 
     app.appContext.config.globalProperties.$http
       .get(uri_wisata)
       .then((response) => {
-        data_wisata.value = response.data;
-        mapLoaded.value = true;
-        center.lat = response.data.coordinate[0];
-        center.lng = response.data.coordinate[1];
-        bookmark_list.value = data_wisata.value.bookmark_id_user;
+        data_wisata.value = response.data
+        mapLoaded.value = true
+        center.lat = response.data.coordinate[0]
+        center.lng = response.data.coordinate[1]
+        bookmark_list.value = data_wisata.value.bookmark_id_user
         isFavourited.value = response.data.bookmark_id_user.includes(
           JSON.parse(JSON.stringify(user.value.user._id))
-        );
-      });
+        )
+      })
 
-    const activeTabId1 = ref("ex1-1");
+    const activeTabId1 = ref("ex1-1")
 
-    function openModal(data){
+    function openModal(data) {
       modalData.value = data
       discussionModal.value = true
-     // get_comment(comment_list, modalData.value)
+      // get_comment(comment_list, modalData.value)
     }
-
 
     function get_review(data) {
       return app.appContext.config.globalProperties.$http
         .get(uri_review)
         .then(async (response) => {
-           data.value = await response.data.data;
-           reviewRating.value = await response.data.count.map(item => item.rating);
-           data.value.totalRating = sum_rating(reviewRating)
-        });
+          data.value = await response.data.data
+          reviewRating.value = await response.data.count.map(
+            (item) => item.rating
+          )
+          data.value.totalRating = sum_rating(reviewRating)
+        })
     }
 
-    function sum_rating(data){
+    function sum_rating(data) {
       var temp = 0
-      for (var i=0; i<data.value.length;i ++){
+      for (var i = 0; i < data.value.length; i++) {
         console.log(data.value)
-         temp += data.value[i]
+        temp += data.value[i]
       }
-      return temp/data.value?.length
-     
+      return temp / data.value?.length
     }
 
-    function get_discussion(data){
+    function get_discussion(data) {
       return app.appContext.config.globalProperties.$http
-      .get(uri_discussion)
-      .then((response) => {
-        data.value = response.data
-      })
+        .get(uri_discussion)
+        .then((response) => {
+          data.value = response.data
+        })
     }
 
-    function get_comment(data,id_disc){
-       let uri_comment = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + id_disc
+    function get_comment(data, id_disc) {
+      let uri_comment =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id_disc
       return app.appContext.config.globalProperties.$http
-      .get(uri_comment)
-      .then((response) => {
-        data.value = response.data
-      }).catch((err)=> {
-        console.log(err.status)
-      })
+        .get(uri_comment)
+        .then((response) => {
+          data.value = response.data
+        })
+        .catch((err) => {
+          console.log(err.status)
+        })
     }
 
     function add_favourite(slug) {
       const config = {
-        headers: authHeader(),
-      };
+        headers: authHeader()
+      }
       let uri_favourite =
-        process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/add_bookmark";
+        process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/add_bookmark"
       app.appContext.config.globalProperties.$http
         .post(uri_favourite, config, config)
         .then((response) => {
-          if(response.status == 200){
-          Swal.fire({
-          title: "Operation Successful",
-          text: "This place has been marked as one of your favourites place",
-          icon: "success",
-        });
-          isFavourited.value = true;
+          if (response.status == 200) {
+            Swal.fire({
+              title: "Operation Successful",
+              text: "This place has been marked as one of your favourites place",
+              icon: "success"
+            })
+            isFavourited.value = true
           }
         })
         .catch((error) => {
-          console.log(error.message);
-        });
+          console.log(error.message)
+        })
     }
 
     function remove_favourite(slug) {
-       Swal.fire({
+      Swal.fire({
         title: "Do you want to remove this place from your favourites list?",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Save",
+        confirmButtonText: "Save"
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           const config = {
-        headers: authHeader(),
-      };
-      let uri_favourite =
-        process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/remove_bookmark";
-      app.appContext.config.globalProperties.$http
-        .post(uri_favourite, config, config)
-        .then((response) => {
-        if(response.status == 200){
-          Swal.fire({
-          title: "Operation Successful",
-          text: "This place has been deleted from your favourites list",
-          icon: "success",
-        });
-          isFavourited.value = false;
+            headers: authHeader()
           }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+          let uri_favourite =
+            process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/remove_bookmark"
+          app.appContext.config.globalProperties.$http
+            .post(uri_favourite, config, config)
+            .then((response) => {
+              if (response.status == 200) {
+                Swal.fire({
+                  title: "Operation Successful",
+                  text: "This place has been deleted from your favourites list",
+                  icon: "success"
+                })
+                isFavourited.value = false
+              }
+            })
+            .catch((error) => {
+              console.log(error.message)
+            })
         }
-      });
-      
+      })
     }
     function add_review(review_content) {
       if (review_content.rating == null) {
         Swal.fire({
           title: "Mohon masukan Rating",
           text: "Tidak ada rating",
-          icon: "error",
-        });
+          icon: "error"
+        })
       } else {
         const config = {
-          headers: authHeader(),
-        };
+          headers: authHeader()
+        }
         let uri_addReview =
           process.env.VUE_APP_ROOT_API +
           "wisata/" +
           route.params.slug +
-          "/review";
+          "/review"
         app.appContext.config.globalProperties.$http
           .post(uri_addReview, review_content, config)
           .then(() => {
-            AddReview.value = false;
-            get_review(review_list);
+            AddReview.value = false
+            get_review(review_list)
             Swal.fire({
               title: "Review created Successful",
               text: "Please refresh the page",
-              icon: "success",
-            });
+              icon: "success"
+            })
           })
           .catch((error) => {
-            AddReview.value = false;
+            AddReview.value = false
             Swal.fire({
               title: "Review gagal dibuat",
               text: error.response.data.msg,
-              icon: "error",
-            });
-          });
+              icon: "error"
+            })
+          })
       }
     }
-    
 
     function confirm_deletion() {
       Swal.fire({
         title: "Do you want to delete your review?",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Save",
+        confirmButtonText: "Save"
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           const config = {
-            headers: authHeader(),
-          };
+            headers: authHeader()
+          }
           let uri_deleteReview =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
-            "/review";
+            "/review"
           app.appContext.config.globalProperties.$http
             .delete(uri_deleteReview, config)
             .then(() => {
-              Swal.fire("Review Deleted", "", "success");
-            });
-          get_review(review_list);
+              Swal.fire("Review Deleted", "", "success")
+            })
+          get_review(review_list)
         }
-      });
+      })
     }
-   
+
     function create_discussion(discussion) {
       if (discussion.title == null && discussion.content == null) {
         Swal.fire({
           title: "Mohon masukan Title & Content ",
           text: "Tidak ada judul",
-          icon: "error",
-        });
+          icon: "error"
+        })
       } else {
         const config = {
-          headers: authHeader(),
-        };
-        
+          headers: authHeader()
+        }
+
         app.appContext.config.globalProperties.$http
           .post(uri_discussion, discussion, config)
           .then(() => {
-           
             add_discussion.value = false
             get_discussion(discussion_list)
             discussion_content.value = {
-              content : null,
-              title : null
+              content: null,
+              title: null
             }
             Swal.fire({
               title: "Discussion created Successful",
               text: "Please refresh the page",
-              icon: "success",
-            });
+              icon: "success"
+            })
           })
           .catch((error) => {
-            AddReview.value = false;
+            AddReview.value = false
             Swal.fire({
               title: "Discussion gagal dibuat",
               text: error.response,
-              icon: "error",
-            });
-          });
+              icon: "error"
+            })
+          })
       }
     }
 
-    function create_comment(comment_content,data){
-      let uri_comment = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + data._id
-        const config = {
-          headers: authHeader(),
-        };
-         app.appContext.config.globalProperties.$http
-          .post(uri_comment, {content : comment_content, id_discussion : data._id}, config)
-          .then((response) => {
-            if(response.status == 201){
-              get_comment(modalData, data._id)
-              Swal.fire({
-                title : "Comment Created Successfully",
-                icon : 'success'
-              })
-            }
-          })
+    function create_comment(comment_content, data) {
+      let uri_comment =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        data._id
+      const config = {
+        headers: authHeader()
+      }
+      app.appContext.config.globalProperties.$http
+        .post(
+          uri_comment,
+          { content: comment_content, id_discussion: data._id },
+          config
+        )
+        .then((response) => {
+          if (response.status == 201) {
+            get_comment(modalData, data._id)
+            Swal.fire({
+              title: "Comment Created Successfully",
+              icon: "success"
+            })
+          }
+        })
     }
-     function confirmDeleteDiscussion(discussion_id){
+    function confirmDeleteDiscussion(discussion_id) {
       Swal.fire({
         title: "Do you want to delete your discussion?",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Save",
+        confirmButtonText: "Save"
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           const config = {
-            headers: authHeader(),
-          };
+            headers: authHeader()
+          }
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
-            "/discussion/" + discussion_id ;
+            "/discussion/" +
+            discussion_id
           app.appContext.config.globalProperties.$http
             .delete(uri_deleteDiscussion, config)
             .then(() => {
               discussionModal.value = false
-              Swal.fire("Discussion Deleted", "", "success");
-            });
-          get_discussion(discussion_list);
+              Swal.fire("Discussion Deleted", "", "success")
+            })
+          get_discussion(discussion_list)
         }
-      });
+      })
     }
-     function confirmDeleteComment(discussion_id,comment_id){
+    function confirmDeleteComment(discussion_id, comment_id) {
       Swal.fire({
         title: "Do you want to delete your discussion?",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Save",
+        confirmButtonText: "Save"
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           const config = {
-            headers: authHeader(),
-          };
+            headers: authHeader()
+          }
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
-            "/discussion/" + discussion_id + "/" + comment_id ;
+            "/discussion/" +
+            discussion_id +
+            "/" +
+            comment_id
           app.appContext.config.globalProperties.$http
             .delete(uri_deleteDiscussion, config)
             .then((response) => {
-              if(response.status == 201){
-              Swal.fire("Comment Deleted", "", "success");
-              get_comment(modalData, discussion_id)
+              if (response.status == 201) {
+                Swal.fire("Comment Deleted", "", "success")
+                get_comment(modalData, discussion_id)
               }
-            });
-          get_discussion(discussion_list);
+            })
+          get_discussion(discussion_list)
         }
-      });
+      })
     }
 
     return {
@@ -1553,11 +1722,14 @@ export default {
       moment: moment,
       discussion_content,
       comment_content,
-      checkForm,checkFormComment,
-      get_discussion,confirmDeleteDiscussion,confirmDeleteComment
-    };
-  },
-};
+      checkForm,
+      checkFormComment,
+      get_discussion,
+      confirmDeleteDiscussion,
+      confirmDeleteComment
+    }
+  }
+}
 </script>
 
 <style scoped>

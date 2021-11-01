@@ -333,7 +333,7 @@ export default {
           Time: `${planner.time}`,
           Date: `${planner.date}`,
           Action:  `
-              <button class="details-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}"><i class="fa fa-eye"></i></button>
+              
               <button class="edit-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}" data-mdb-time="${planner.time}" 
                data-mdb-date="${planner.date}" data-mdb-title="${planner.id_wisata.nama}"><i class="fa fa-edit"></i></button>
               <button class="delete-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}"><i class="fa fa-trash"></i></button>`}))

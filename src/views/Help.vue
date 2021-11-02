@@ -13,7 +13,7 @@
                 <MDBTabs v-model="activeTabId2">
                   <!-- Tabs navs -->
                   <MDBTabNav fill tabsClasses="mb-3">
-                    <MDBTabItem tabId="ex2-1" href="ex2-1"></MDBTabItem>
+                    <MDBTabItem tabId="ex2-1" href="ex2-1">Akun</MDBTabItem>
                     <MDBTabItem tabId="ex2-2" href="ex2-2"
                       >Very very very very long link</MDBTabItem
                     >
@@ -27,7 +27,7 @@
                   <!-- Tabs navs -->
                   <!-- Tabs content -->
                   <MDBTabContent>
-                    <MDBTabPane tabId="ex2-1">Tab 1 content</MDBTabPane>
+                    <MDBTabPane tabId="ex2-1">Cara Membuat Akun di website MyTour!</MDBTabPane>
                     <MDBTabPane tabId="ex2-2">Tab 2 content</MDBTabPane>
                     <MDBTabPane tabId="ex2-3">Tab 3 content</MDBTabPane>
                   </MDBTabContent>

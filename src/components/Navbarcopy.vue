@@ -16,9 +16,9 @@
       <!-- <MDBNavbarNav right class="mb-2 mb-lg-0"> -->
       <MDBNavbarItem to="/" active>Home</MDBNavbarItem>
       <MDBNavbarItem to="/Wisata"> Explore </MDBNavbarItem>
-      <MDBNavbarItem to="#"> Planner </MDBNavbarItem>
-      <MDBNavbarItem to="#"> About Us </MDBNavbarItem>
-      <MDBNavbarItem to="#"> Help </MDBNavbarItem>
+      <MDBNavbarItem to="/Planner"> Planner </MDBNavbarItem>
+      <MDBNavbarItem to="/Aboutus"> About Us </MDBNavbarItem>
+      <MDBNavbarItem to="/Help"> Help </MDBNavbarItem>
       <MDBNavbarNav right class="mb-2 mb-lg-0">
         <MDBNavbarItem to="#">
           <MDBIcon icon="bell"></MDBIcon>

@@ -68,9 +68,20 @@
         </div>
         <MDBCol class="my-2">
           <MDBTimepicker
-            label="Pilih Jam"
+            label="Pilih Jam Mulai"
             inline
             v-model="data.time"
+            :hoursFormat="24"
+            :increment="5"
+            readonly
+            placeholder="20:05"
+          />
+        </MDBCol>
+         <MDBCol class="my-2">
+          <MDBTimepicker
+            label="Pilih Jam Selesai"
+            inline
+            v-model="data.end_time"
             :hoursFormat="24"
             :increment="5"
             readonly
@@ -211,7 +222,8 @@ export default {
     const data = ref({
       wisata : null,
       time : null,
-      date : null
+      date : null,
+      end_time : null,
     })
      const config = {
         headers: authHeader(),
@@ -330,7 +342,7 @@ export default {
         dataset3.value.rows = response.data.map(planner => ({
           ...planner,
           Title: `${planner.id_wisata.nama}`,
-          Time: `${planner.time}`,
+          Time: `${planner.time} - ${planner.end_time}`,
           Date: `${planner.date}`,
           Action:  `
               

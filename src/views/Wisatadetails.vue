@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  {{currentPage}}
   <MDBContainer>
     <MDBCard class="mt-4">
       <MDBCardBody>
@@ -756,7 +755,7 @@
                         <MDBRow>
                           <MDBCol md="8">
                             <img
-                              src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                              :src="modalDataMoment.photo"
                               alt="..."
                               style="width: 100%"
                             />
@@ -768,7 +767,7 @@
                                 class="d-flex justify-content-center"
                               >
                                 <img
-                                  src="https://mdbootstrap.com/img/Photos/Avatars/img%20(4).jpg"
+                                  :src="modalDataMoment.id_user.profilePicture"
                                   alt="avatar"
                                   width="60"
                                   height="60"
@@ -776,69 +775,55 @@
                               </MDBCol>
                               <MDBCol md="9">
                                 <MDBCol>
-                                  <p style="margin-bottom: 4px">Bagus</p>
+                                  <p style="margin-bottom: 4px">{{modalDataMoment.id_user.name}}</p>
                                 </MDBCol>
                                 <MDBCol>
-                                  <p class="fw-light">2 days ago</p>
+                                  <p class="fw-light">{{moment(modalDataMoment.created_at).fromNow()}}</p>
                                 </MDBCol>
                               </MDBCol>
                             </MDBRow>
                             <MDBCol>
                               <p style="margin-top: 8px">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Vestibulum sit amet dignissim
-                                mauris. Nunc eu orci bibendum, pellentesque
-                                ligula vitae, rutrum tellus. Vivamus semper
-                                tempus mi sed elementum.
+                               {{modalDataMoment.description}}
                               </p>
+                              <p>
+                              Tanggal : {{modalDataMoment.date}}
+                            </p>
+                            <p>
+                              waktu : {{modalDataMoment.time}}
+                            </p>
+                             <MDBBtn size="sm" outline="dark" v-for="wisata in modalDataMoment.id_wisata" :key="wisata._id">
+                                  <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
+                                  <p style="margin-bottom: 4px">{{wisata.nama}}</p>
+                                  </router-link>
+                                </MDBBtn>
                             </MDBCol>
                             <hr />
                             <MDBCol>
                               <p>
-                                <MDBIcon icon="share" iconStyle="fas" /> Share
-                              </p>
+                               <a role="button"  style="color: rgb(0, 0, 255)" @click="likeMoment(modalDataMoment._id)"><MDBIcon icon="thumbs-up" iconStyle="fas" />Like ({{modalDataMoment.thumbs_up.length}}) </a>
+                               <template v-if="modalDataMoment.id_user._id == user.user?._id">
+                                <a role="button" @click="deleteMoment(modalDataMoment._id)"><MDBIcon icon="trash" iconStyle="fas" />Delete </a>
+                                </template>
+                               </p>
                             </MDBCol>
                           </MDBCol>
                         </MDBRow>
                       </MDBModalBody>
                     </MDBModal>
                     <MDBRow>
-                      <MDBCol md="3">
-                        <MDBCard @click="Moment = true" style="cursor: pointer">
+                      <template v-if="moment_list">
+                      <MDBCol md="3" v-for="data_moment in moment_list" :key="data_moment._id">
+                        
+                        <MDBCard @click="openModalMoment(data_moment)" style="cursor: pointer">
                           <MDBCardImg
                             top
-                            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
+                           :src="data_moment.photo"
                             alt="..."
                           />
                         </MDBCard>
                       </MDBCol>
-                      <MDBCol md="3">
-                        <MDBCard>
-                          <MDBCardImg
-                            top
-                            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
-                            alt="..."
-                          />
-                        </MDBCard>
-                      </MDBCol>
-                      <MDBCol md="3">
-                        <MDBCard>
-                          <MDBCardImg
-                            top
-                            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
-                            alt="..."
-                          />
-                        </MDBCard>
-                      </MDBCol>
-                      <MDBCol md="3">
-                        <MDBCard>
-                          <MDBCardImg
-                            top
-                            src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
-                            alt="..."
-                          />
-                        </MDBCard>
-                      </MDBCol>
+                    </template>
                     </MDBRow>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-4">
@@ -1296,7 +1281,11 @@ export default {
         { text: "Oldest First", value: "asc" },
        
       ]);
+    const config = {
+            headers: authHeader()
+    }
     const selectedSort = ref("");
+    const modalDataMoment = ref()
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
         currentPage: 1,
@@ -1369,7 +1358,7 @@ export default {
     const carousel1 = ref(0)
     const route = useRoute()
     const router = useRouter()
-    const app = getCurrentInstance()
+    const fetch_data = getCurrentInstance().appContext.config.globalProperties.$http
     const mapLoaded = ref(false)
     const bookmark_list = []
     const center = { lat: 40.689247, lng: -74.044502 }
@@ -1387,6 +1376,8 @@ export default {
     const reviewRating = ref()
     const listToShow = ref(5)
     const currentPagination = ref()
+    const moment_list = ref()
+    let uri_moment = process.env.VUE_APP_ROOT_API + "moment/wisata/" + route.params.slug
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug
     let uri_review =
@@ -1396,7 +1387,7 @@ export default {
       "wisata/" +
       route.params.slug +
       "/discussion"
-    app.appContext.config.globalProperties.$http
+    fetch_data
       .get(uri_review)
       .then((response) => {
         review_list.value = response.data.data
@@ -1404,23 +1395,27 @@ export default {
         review_list.value.totalRating = sum_rating(reviewRating)
         console.log(review_list.value.totalRating)
       })
-    app.appContext.config.globalProperties.$http
+    fetch_data
       .get(uri_discussion)
       .then((response) => {
         discussion_list.value = response.data
       })
-    app.appContext.config.globalProperties.$http
+    fetch_data
       .get(uri_wisata)
       .then((response) => {
         data_wisata.value = response.data
         mapLoaded.value = true
         center.lat = response.data.coordinate[0]
         center.lng = response.data.coordinate[1]
+        document.title = data_wisata.value.nama + ' - Mytour'
         bookmark_list.value = data_wisata.value.bookmark_id_user.map((user) => user._id)
         isFavourited.value = bookmark_list.value.includes(
           JSON.parse(JSON.stringify(user.value.user._id))
         )
       })
+    fetch_data.get(uri_moment).then((response) => {
+      moment_list.value = response.data
+    })
     const activeTabId1 = ref("ex1-1")
     function openModal(data) {
       modalData.value = data
@@ -1428,9 +1423,14 @@ export default {
       discussionModal.value = true
       // get_comment(comment_list, modalData.value)
     }
+
+    function openModalMoment(data){
+      modalDataMoment.value = data
+      Moment.value = true
+    }
     
     function get_review(data) {
-      return app.appContext.config.globalProperties.$http
+      return fetch_data
         .get(uri_review)
         .then(async (response) => {
           data.value = await response.data.data
@@ -1449,7 +1449,7 @@ export default {
       return temp / data.value?.length
     }
     function get_discussion(data) {
-      return app.appContext.config.globalProperties.$http
+      return fetch_data
         .get(uri_discussion)
         .then((response) => {
           data.value = response.data
@@ -1462,7 +1462,7 @@ export default {
         route.params.slug +
         "/discussion/" +
         id_disc
-      return app.appContext.config.globalProperties.$http
+      return fetch_data
         .get(uri_comment)
         .then((response) => {
           data.value = response.data
@@ -1480,12 +1480,9 @@ export default {
         })
         return router.push('/login')
       }
-      const config = {
-        headers: authHeader()
-      }
       let uri_favourite =
         process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/add_bookmark"
-      app.appContext.config.globalProperties.$http
+      fetch_data
         .post(uri_favourite, config, config)
         .then((response) => {
           if (response.status == 200) {
@@ -1510,12 +1507,10 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          const config = {
-            headers: authHeader()
-          }
+          
           let uri_favourite =
             process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/remove_bookmark"
-          app.appContext.config.globalProperties.$http
+          fetch_data
             .post(uri_favourite, config, config)
             .then((response) => {
               if (response.status == 200) {
@@ -1549,15 +1544,13 @@ export default {
           icon: "error"
         })
       } else {
-        const config = {
-          headers: authHeader()
-        }
+      
         let uri_addReview =
           process.env.VUE_APP_ROOT_API +
           "wisata/" +
           route.params.slug +
           "/review"
-        app.appContext.config.globalProperties.$http
+        fetch_data
           .post(uri_addReview, review_content, config)
           .then(() => {
             AddReview.value = false
@@ -1587,15 +1580,13 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          const config = {
-            headers: authHeader()
-          }
+          
           let uri_deleteReview =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
             "/review"
-          app.appContext.config.globalProperties.$http
+          fetch_data
             .delete(uri_deleteReview, config)
             .then(() => {
               Swal.fire("Review Deleted", "", "success")
@@ -1612,10 +1603,8 @@ export default {
           icon: "error"
         })
       } else {
-        const config = {
-          headers: authHeader()
-        }
-        app.appContext.config.globalProperties.$http
+       
+        fetch_data
           .post(uri_discussion, discussion, config)
           .then(() => {
             add_discussion.value = false
@@ -1647,10 +1636,8 @@ export default {
         route.params.slug +
         "/discussion/" +
         data._id
-      const config = {
-        headers: authHeader()
-      }
-      app.appContext.config.globalProperties.$http
+      
+      fetch_data
         .post(
           uri_comment,
           { content: comment_content, id_discussion: data._id },
@@ -1675,16 +1662,14 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          const config = {
-            headers: authHeader()
-          }
+          
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
             "/discussion/" +
             discussion_id
-          app.appContext.config.globalProperties.$http
+          fetch_data
             .delete(uri_deleteDiscussion, config)
             .then(() => {
               discussionModal.value = false
@@ -1703,9 +1688,7 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          const config = {
-            headers: authHeader()
-          }
+          
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
@@ -1714,7 +1697,7 @@ export default {
             discussion_id +
             "/" +
             comment_id
-          app.appContext.config.globalProperties.$http
+          fetch_data
             .delete(uri_deleteDiscussion, config)
             .then((response) => {
               if (response.status == 201) {
@@ -1730,22 +1713,41 @@ export default {
 
     function getSpecificDiscussion(id,data){
       let uri_discussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + id
-      app.appContext.config.globalProperties.$http.get(uri_discussion).then((response) => {
+      fetch_data.get(uri_discussion).then((response) => {
+        data.value = response.data
+      })
+    }
+     function getSpecificMoment(id,data){
+      let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id 
+      fetch_data.get(uri_moment).then((response) => {
         data.value = response.data
       })
     }
 
     function likeDiscussion(id){
-      const config = {
-            headers: authHeader()
-          }
+      
       let uri_likeDiscussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug +
       "/discussion/" + 
      id + "/thumbs"
-     app.appContext.config.globalProperties.$http.post(uri_likeDiscussion,config,config).then((response) => {
+     fetch_data.post(uri_likeDiscussion,config,config).then((response) => {
        console.log(response.data)
        getSpecificDiscussion(id,modalData)
      })
+    }
+    function likeMoment(id){
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can do this action",
+          icon : "error"
+        })
+        return router.push('/login')
+      }else{
+         let uri_thumbsMoment = process.env.VUE_APP_ROOT_API + "moment/" + id +"/thumbs"
+         fetch_data.post(uri_thumbsMoment,config,config).then(()=> {
+           getSpecificMoment(id,modalDataMoment)
+         })
+      }
     }
      const commentComputed = computed({
       get: () =>
@@ -1835,6 +1837,7 @@ export default {
       openModal,
       modalData,
       moment: moment,
+      moment_list,
       discussion_content,
       comment_content,
       checkForm,
@@ -1857,7 +1860,11 @@ export default {
       nextPagination,
       resetPagination,
       reviewComputed,
-      currentPagination
+      currentPagination,
+      openModalMoment,
+      modalDataMoment,
+      likeMoment,
+      getSpecificMoment
     }
   }
 }

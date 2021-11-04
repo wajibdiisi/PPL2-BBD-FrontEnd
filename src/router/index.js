@@ -12,25 +12,37 @@ const routes = [
   {
     path:'/profile/edit',
     name: 'EditProfile',
-    component: () => import('../views/EdProfile.vue')
+    component: () => import('../views/EdProfile.vue'),
+    meta: {
+      requiresAuth: true,
+      title : 'Edit Profile - Mytour'
+    }
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
     meta: {
-      guest: true
+      guest: true,
+      title : 'Login - Mytour'
     }
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Daftar.vue')
+    component: () => import('../views/Daftar.vue'),
+    meta: {
+      guest : true,
+      title : 'Register - Mytour'
+    }
   },
   {
     path: '/wisata',
     name: 'Wisata',
-    component: () => import('../views/Wisata.vue')
+    component: () => import('../views/Wisata.vue'),
+    meta : {
+      title : 'Wisata - Mytour'
+    }
   },
   {
     path: '/wisata/:slug',
@@ -40,7 +52,10 @@ const routes = [
   {
     path: '/404',
     name: '404NotFound',
-    component: () => import('../views/404.vue')
+    component: () => import('../views/404.vue'),
+    meta : {
+      title : '404 Page Not Found - Mytour'
+    }
   },
   {
     path: '/profile/:username',
@@ -48,21 +63,30 @@ const routes = [
     component: () => import('../views/Profile.vue')
   },
   {
-    path: '/UpMoment',
+    path: '/uploadmoment',
     name: 'UpMoment',
-    component: () => import('../views/UpMoment.vue')
+    component: () => import('../views/UpMoment.vue'),
+    meta : {
+      title : 'Upload Moment - Mytour',
+      requiresAuth: true
+    }
   },
   {
     path: '/aboutus',
     name: 'Abousus',
-    component: () => import('../views/aboutus.vue')
+    component: () => import('../views/aboutus.vue'),
+    meta : {
+      title : 'About Us - Mytour',
+      requiresAuth: true
+    }
   },
   {
     path: '/planner',
     name: 'Planner',
     component: () => import('../views/planner.vue'),
     meta:{
-      requiresAuth : true
+      requiresAuth : true,
+      title : 'Planner - Mytour'
     }
   },
   {
@@ -70,7 +94,8 @@ const routes = [
     name: 'Help',
     component: () => import('../views/Help.vue'),
     meta:{
-      requiresAuth : true
+      requiresAuth : true,
+      title : 'Help - Mytour'
     }
   },
   {

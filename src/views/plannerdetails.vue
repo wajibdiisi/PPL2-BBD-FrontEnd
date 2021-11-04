@@ -244,6 +244,7 @@ export default {
       let uri_plan = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id
       app.appContext.config.globalProperties.$http.get(uri_plan,config).then((response) => {
         planner.value = response.data
+        document.title = planner.value.title + ' - Mytour'
       })
       dataset3.value.rows = await []
       get_plan()

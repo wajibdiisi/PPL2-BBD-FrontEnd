@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  <MDBBtn @click="modalOpened = true"></MDBBtn>
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="12" class="align-self-center">
@@ -21,9 +20,11 @@
             <MDBCardText class="fs-4">
             {{userProfile.tglLahir}}
             </MDBCardText>
+            <router-link to="/uploadmoment">
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Upload Moment
             </MDBBtn>
+            </router-link>
             <router-link to="/profile/edit">
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Edit Profile
@@ -356,60 +357,102 @@
         <MDBCard>
           <MDBCardBody>
             <MDBRow>
-              <div class="col-md-6" style="margin: 2vh auto">
-                <MDBCard class="h-100">
+              <div v-for="data_moment in moment_list" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">
+                <MDBCard style="cursor: pointer" class="h-100" @click="openModalMoment(data_moment)">
                   <MDBCardImg
-                    src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+                    :src="data_moment.photo"
                     top
                     alt="..."
                   />
                   <MDBCardBody>
-                    <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+                    <MDBCardTitle>{{data_moment.title}}<small class="text-end"> {{moment(data_moment.created_at).fromNow()}}</small></MDBCardTitle>
+                    <MDBBtn size="sm" outline="dark" v-for="wisata in data_moment.id_wisata" :key="wisata._id">
+                                  <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
+                                  {{wisata.nama}}
+                                  </router-link>
+                                </MDBBtn>
                   </MDBCardBody>
+                  
                 </MDBCard>
               </div>
-              <div class="col-md-6" style="margin: 2vh auto">
-                <MDBCard class="h-100">
-                  <MDBCardImg
-                    src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-                    top
-                    alt="..."
-                  />
-                  <MDBCardBody>
-                    <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
-              <div class="col-md-6" style="margin: 2vh auto">
-                <MDBCard class="h-100">
-                  <MDBCardImg
-                    src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-                    top
-                    alt="..."
-                  />
-                  <MDBCardBody>
-                    <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
-              <div class="col-md-6" style="margin: 2vh auto">
-                <MDBCard class="h-100">
-                  <MDBCardImg
-                    src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-                    top
-                    alt="..."
-                  />
-                  <MDBCardBody>
-                    <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
+              
+            
             </MDBRow>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
+   <MDBModal
+                      id="Moment"
+                      tabindex="-1"
+                      labelledby="Moment"
+                      v-model="modalMoment"
+                      centered
+                      scrollable
+                      size="xl"
+                    >
+                      <MDBModalBody>
+                        <MDBRow>
+                          <MDBCol md="8">
+                            <img
+                              :src="modalDataMoment.photo"
+                              alt="..."
+                              style="width: 100%"
+                            />
+                          </MDBCol>
+                          <MDBCol md="4">
+                            <MDBRow>
+                              <MDBCol
+                                md="3"
+                                class="d-flex justify-content-center"
+                              >
+                              
+                                <img
+                                  :src="modalDataMoment.id_user.profilePicture"
+                                  alt="avatar"
+                                  width="60"
+                                  height="60"
+                                />
+                              </MDBCol>
+                              <MDBCol md="9">
+                                <MDBCol>
+                                  <p style="margin-bottom: 4px">{{modalDataMoment.title}}</p>
+                                </MDBCol>
+                                
+                                <MDBCol>
+                                  <p class="fw-light">{{moment(modalDataMoment.created_at).fromNow()}}</p>
+                                </MDBCol>
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBCol>
+                              <p style="margin-top: 8px">
+                                {{modalDataMoment.description}}
+                              </p>
+                            </MDBCol>
+                            <p>
+                              Tanggal : {{modalDataMoment.date}}
+                            </p>
+                            <p>
+                              waktu : {{modalDataMoment.time}}
+                            </p>
+                             <MDBBtn size="sm" outline="dark" v-for="wisata in modalDataMoment.id_wisata" :key="wisata._id">
+                                  <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
+                                  <p style="margin-bottom: 4px">{{wisata.nama}}</p>
+                                  </router-link>
+                                </MDBBtn>
+                            <hr />
+                            <MDBCol>
+                              <p>
+                                <a role="button"  style="color: rgb(0, 0, 255)" @click="likeMoment(modalDataMoment._id)"><MDBIcon icon="thumbs-up" iconStyle="fas" />Like ({{modalDataMoment.thumbs_up.length}}) </a>
+                                <a role="button" @click="deleteMoment(modalDataMoment._id)"><MDBIcon icon="trash" iconStyle="fas" />Delete </a>
+                              </p>
+                              
+                            </MDBCol>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBModalBody>
+                    </MDBModal>
   <Footer />
 </template>
 <script>
@@ -492,7 +535,10 @@ export default {
     const modalOpened = ref(false)
     const listToShow = ref(5);
     const modalData = ref()
+    const modalDataMoment = ref()
     const selectedSort = ref();
+    const moment_list = ref();
+    const modalMoment = ref(false)
     const user = computed(() => store.getters.user);
     const userProfile = ref({
       name: null,
@@ -501,11 +547,20 @@ export default {
     });
     let uri_profile =
       process.env.VUE_APP_ROOT_API + "users/profile/" + route.params.username;
-
+    let uri_moment = 
+    process.env.VUE_APP_ROOT_API + "moment/user/" + route.params.username;
+    app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+      moment_list.value = response.data
+    })
     app.appContext.config.globalProperties.$http
       .get(uri_profile)
       .then((response) => {
         userProfile.value = response.data;
+        document.title = userProfile.value.name + '- Mytour'
+      }).catch((err) => {
+        if(err.response.status == 404){
+          router.push('/404')
+        }
       });
     if(user.value?.user.username == route.params.username){
        get_notification()
@@ -543,9 +598,14 @@ export default {
       })
       
       }
+    
 
     
       // get_comment(comment_list, modalData.value)
+    }
+    function openModalMoment(data){
+      modalDataMoment.value = data
+      modalMoment.value = true
     }
     function create_comment(comment_content, data) {
      
@@ -593,6 +653,11 @@ export default {
           console.log(err.status)
         })
     }
+    function get_moment(){
+      return app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+        moment_list.value = response.data
+      })
+    }
 
     function deleteNotification(id){
       Swal.fire({
@@ -625,6 +690,55 @@ export default {
       
     }
 
+    function getSpecificMoment(id,data){
+      let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id 
+      app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+        data.value = response.data
+      })
+    }
+
+    function likeMoment(id){
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can do this action",
+          icon : "error"
+        })
+        return router.push('/login')
+      }else{
+         let uri_thumbsMoment = process.env.VUE_APP_ROOT_API + "moment/" + id +"/thumbs"
+         app.appContext.config.globalProperties.$http.post(uri_thumbsMoment,config,config).then(()=> {
+           getSpecificMoment(id,modalDataMoment)
+         })
+      }
+    }
+
+    function deleteMoment(id){
+       Swal.fire({
+        title: "Do you want to delete your Moment?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save"
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
+            headers: authHeader()
+          }
+          let uri_singleMoment = process.env.VUE_APP_ROOT_API + "moment/" + id
+          app.appContext.config.globalProperties.$http
+            .delete(uri_singleMoment, config)
+            .then(() => {
+              modalMoment.value = false
+              Swal.fire("Moment Deleted", "", "success")
+               get_moment()
+            })
+         
+        }
+      })
+      
+    }
+
     return {
       dropdown21,
       userProfile,
@@ -642,8 +756,14 @@ export default {
       create_comment,
       get_comment,
       sortType,
-      deleteNotification
-    };
+      moment_list,
+      deleteNotification,
+      openModalMoment,
+      modalMoment,
+      modalDataMoment,
+      deleteMoment,
+      likeMoment
+};
   },
 };
 </script>

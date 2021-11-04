@@ -104,7 +104,7 @@
         </MDBCollapse>
       </MDBCol>
       <MDBRow :cols="['1', 'md-3']" class="g-4">
-        <MDBCol v-for="wisata in search_wisata" :key="wisata.id">
+        <MDBCol v-for="(wisata,index) in search_wisata" :key="index">
           <MDBCard border="light" shadow="0" bg="white" class="h-100">
             <MDBCardImg
               src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -114,7 +114,14 @@
             <MDBCardBody>
               <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
               <MDBCardText>
-                {{ wisata.description }}
+                <template v-if="stringToShow[index] == 200">
+                {{ wisata.description.slice(0,stringToShow[index]) }}  <a class="" @click="stringToShow[index] = 0">
+        Read more...
+        </a>
+                </template>
+                <template v-if="stringToShow[index] == 0">
+                  {{wisata.description}}
+                  </template>
               </MDBCardText>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <router-link
@@ -250,6 +257,7 @@ export default {
 
   setup() {
     const wisata_list = ref()
+    const stringToShow = ref(Array(100).fill(200))
     const selectedProv = ref(null)
     const sortType = ref("nameAsc")
     const options1 = ref([
@@ -275,7 +283,7 @@ export default {
     const collapse1 = ref(false)
     const collapse2 = ref(false)
     const checkbox5 = ref(false)
-
+    
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
 
     onMounted(async () => {
@@ -393,6 +401,7 @@ export default {
       }
     }
     return {
+      stringToShow,
       wisata_list,
       nextPagination,
       itemTemplate,

@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  {{notification}}
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="12" class="align-self-center">
@@ -48,7 +49,7 @@
                   <div class="box-title border-bottom p-3">
                     <h6 class="m-0">Recent</h6>
                   </div>
-                  <div class="box-body p-0">
+                  <div v-for="notif in notification" :key="notif._id" class="box-body p-0">
                     <div
                       class="
                         p-3
@@ -62,17 +63,22 @@
                       <div class="dropdown-list-image mr-3">
                         <img
                           class="rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                          :src="notif.ref_user.profilePicture"
                           alt=""
                         />
                       </div>
                       <div class="mr-3">
                         <div class="font-weight-bold text-truncate">
-                          DAILY RUNDOWN: WEDNESDAY
+                          <template v-if="notif.content == 'comment'">
+                         {{notif.ref_user.name}} Commented on your <router-link
+                         :to="{
+                    name: 'Home',
+                    params: 'test',
+                  }"><a>Post</a></router-link>
+                         </template>
                         </div>
                         <div class="small">
-                          Income tax sops on the cards, The bias in VC funding,
-                          and other top news for you
+                          {{moment(notif.created_at).fromNow()}}
                         </div>
                       </div>
                       <!-- Default dropstart button -->
@@ -121,85 +127,9 @@
                       </span> -->
                     </div>
                   </div>
+                  
                 </div>
-                <div class="box shadow-sm rounded bg-white mb-3">
-                  <div class="box-title border-bottom p-3">
-                    <h6 class="m-0">Earlier</h6>
-                  </div>
-                  <div class="box-body p-0">
-                    <div
-                      class="
-                        p-3
-                        d-flex
-                        align-items-center
-                        bg-light
-                        border-bottom
-                        osahan-post-header
-                      "
-                    >
-                      <div class="dropdown-list-image mr-3">
-                        <img
-                          class="rounded-circle"
-                          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="mr-3">
-                        <div class="font-weight-bold text-truncate">
-                          DAILY RUNDOWN: WEDNESDAY
-                        </div>
-                        <div class="small">
-                          Income tax sops on the cards, The bias in VC funding,
-                          and other top news for you
-                        </div>
-                      </div>
-                      <!-- Default dropstart button -->
-                      <div class="justify-content-md-end">
-                        <MDBDropdown btnGroup dropstart v-model="dropdown21">
-                          <MDBDropdownToggle @click="dropdown21 = !dropdown21">
-                            <MDBIcon icon="ellipsis-v" iconStyle="fas" />
-                          </MDBDropdownToggle>
-                          <MDBDropdownMenu>
-                            <MDBDropdownItem href="#">Delete</MDBDropdownItem>
-                            <!-- <MDBDropdownItem href="#"
-                            >Another Action</MDBDropdownItem
-                          >
-                          <MDBDropdownItem href="#"
-                            >Something else here</MDBDropdownItem
-                          >
-                          <MDBDropdownItem divider />
-                          <MDBDropdownItem href="#"
-                            >Separated link</MDBDropdownItem
-                          > -->
-                          </MDBDropdownMenu>
-                        </MDBDropdown>
-                      </div>
-                      <!-- <span class="ml-auto mb-auto">
-                        <div class="btn-group">
-                          <button
-                            type="button"
-                            class="btn btn-light btn-sm rounded"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            <i class="mdi mdi-dots-vertical"></i>
-                          </button>
-                          <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">
-                              <i class="mdi mdi-delete"></i> Delete
-                            </button>
-                            <button class="dropdown-item" type="button">
-                              <i class="mdi mdi-close"></i> Turn Off
-                            </button>
-                          </div>
-                        </div>
-                        <br />
-                        <div class="text-right text-muted pt-1">3d</div>
-                      </span> -->
-                    </div>
-                  </div>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -323,6 +253,8 @@ import { getCurrentInstance } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { computed } from "vue";
+import authHeader from "../auth-header"
+import moment from "moment"
 import {
   MDBCol,
   MDBRow,
@@ -359,10 +291,14 @@ export default {
     MDBIcon,
   },
   setup() {
+     const config = {
+          headers: authHeader()
+        }
     const dropdown21 = ref(false);
     const route = useRoute();
     const app = getCurrentInstance();
     const store = useStore();
+    const notification = ref([])
     const user = computed(() => store.getters.user);
     const userProfile = ref({
       name: null,
@@ -378,10 +314,18 @@ export default {
         console.log(response);
         userProfile.value = response.data;
       });
+    if(user.value?.user.username == route.params.username){
+      let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
+      app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response)=> {
+        notification.value = response.data
+      })
+    }
     return {
       dropdown21,
       userProfile,
       user,
+      notification,
+      moment: moment
     };
   },
 };

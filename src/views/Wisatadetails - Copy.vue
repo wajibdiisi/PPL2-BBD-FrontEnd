@@ -869,16 +869,17 @@
                             <MDBRow>
                               <MDBCol class="d-flex justify-content-start">
                                 <span>{{ discussion.title }}</span>
-                                
-                              </MDBCol>
-                              <MDBCol md="8" class="d-flex justify-content-end">
-                               
                                 <span class="pe-2">
-                                  <MDBIcon icon="comment" iconStyle="fas" /> {{discussion.id_comments.length}}
-                                </span>
-                                 <span class="pe-2">
                               <MDBIcon icon="time" iconStyle="fas" /> {{ moment(discussion.created_at).fromNow() }}
                             </span>
+                              </MDBCol>
+                              <MDBCol class="d-flex justify-content-end">
+                                <span class="pe-2">
+                                  <MDBIcon icon="share" iconStyle="fas" /> 90
+                                </span>
+                                <span class="pe-2">
+                                  <MDBIcon icon="comment" iconStyle="fas" /> 20
+                                </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="user" iconStyle="fas" />
                                   <span>This discussion is created by you</span>
@@ -940,7 +941,6 @@
                                   <MDBIcon icon="share" iconStyle="fas" />
                                   Share
                                 </span>
-                                <template v-if="modalData.id_user._id == user.user?._id">
                                 <a
                                   @click="
                                     confirmDeleteDiscussion(modalData._id)
@@ -956,7 +956,6 @@
                                   ></MDBIcon>
                                   Delete
                                 </a>
-                                </template>
                               </MDBCol>
                             </MDBRow>
                             <MDBRow
@@ -1038,7 +1037,6 @@
                                       />
                                       20
                                     </span>
-                                    <template v-if="comment.id_user._id == user.user?._id">
                                     <a
                                       @click="
                                         confirmDeleteComment(
@@ -1057,24 +1055,10 @@
                                       ></MDBIcon>
                                       Delete
                                     </a>
-                                    </template>
                                   </MDBCol>
                                 </MDBRow>
                               </MDBRow>
                             </MDBRow>
-                            <MDBBtn
-                        @click="listToShow +=5"
-                            style="
-                              background-color: white;
-                              color: primary;
-                              border: 1px solid black;
-                              width: 400px;
-                              height: 40px;
-                            "
-                            class="mt-2 align-content-end"
-                          >
-                            Load More Comments
-                          </MDBBtn>
                           </MDBCol>
                         </MDBRow>
                       </MDBModalBody>
@@ -1181,7 +1165,7 @@
 </template>
 <script>
 import Navbar from "../components/Navbarcopy.vue"
-import { useRoute,useRouter } from "vue-router"
+import { useRoute } from "vue-router"
 import { GoogleMap, Marker } from "vue3-google-map"
 import Footer from "../components/Footer copy.vue"
 import { getCurrentInstance } from "vue"
@@ -1269,14 +1253,6 @@ export default {
     const selectedSort = ref("");
     const checkForm = async (e) => {
       e.target.classList.add("was-validated")
-      if(localStorage.getItem('token') == null){
-        Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
-        })
-        return router.push('/login')
-      }
       if (
         discussion_content.value.content != null &&
         discussion_content.value.title != null
@@ -1286,14 +1262,6 @@ export default {
     }
     const checkFormComment = async (e) => {
       e.target.classList.add("was-validated")
-      if(localStorage.getItem('token') == null){
-        Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can add comment",
-          icon : "error"
-        })
-        return router.push('/login')
-      }
       if (comment_content.value != null) {
         create_comment(comment_content.value, modalData.value)
       }
@@ -1330,7 +1298,6 @@ export default {
     ]
     const carousel1 = ref(0)
     const route = useRoute()
-    const router = useRouter()
     const app = getCurrentInstance()
     const mapLoaded = ref(false)
     const bookmark_list = []
@@ -1433,14 +1400,6 @@ export default {
         })
     }
     function add_favourite(slug) {
-      if(localStorage.getItem('token') == null){
-        Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
-        })
-        return router.push('/login')
-      }
       const config = {
         headers: authHeader()
       }
@@ -1495,14 +1454,6 @@ export default {
       })
     }
     function add_review(review_content) {
-      if(localStorage.getItem('token') == null){
-        Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
-        })
-        return router.push('/login')
-      }
       if (review_content.rating == null) {
         Swal.fire({
           title: "Mohon masukan Rating",
@@ -1706,11 +1657,8 @@ export default {
       get: () =>
         discussion_list.value?.slice(0,1500).sort((a,b) => {
           let modifier = 1;
-          if(selectedSort.value == "desc"){
-            modifier = -1
-          }
+          if(selectedSort.value == "desc")modifier = -1
           if(a['created_at'].valueOf() < b['created_at'].valueOf()){
-            
             return -1 * modifier;
           }
           if(a['created_at'].valueOf() > b['created_at'].valueOf()){
@@ -1755,8 +1703,7 @@ export default {
       listToShow,
       commentComputed,
       discussionComputed,
-      carousel1,
-      selectedSort
+      carousel1
     }
   }
 }

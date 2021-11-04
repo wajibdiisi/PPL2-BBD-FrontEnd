@@ -207,7 +207,7 @@ export default {
       currentPage: 1,
       pageSize: 9,
       total:100,
-    });   
+    });
     console.log(total)
     const autocompleteTemplate = ref("");
 

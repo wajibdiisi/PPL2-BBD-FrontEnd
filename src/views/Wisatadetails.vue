@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-
+  
   <MDBContainer>
     <MDBRow start class="mb-6">
       <MDBCol sm="12" md="12">
@@ -110,12 +110,14 @@
                     color: black;
                     border: 1px solid black;
                   "
+                  @click="AddReview = true"
                 >
                   <MDBIcon
                     icon="star"
                     iconStyle="fas"
                     style="color: rgb(50, 224, 196)"
                     class="pe-1"
+                    
                   />
                   Review
                 </MDBBtn>
@@ -145,9 +147,9 @@
               <MDBTabItem tabId="ex1-2" href="ex1-2">Review</MDBTabItem>
               <MDBTabItem tabId="ex1-3" href="ex1-3">Moment</MDBTabItem>
               <MDBTabItem tabId="ex1-4" href="ex1-4">Discussion</MDBTabItem>
-              <MDBTabItem tabId="ex1-5" href="ex1-4"
+              <MDBTabItem tabId="ex1-5" href="ex1-5"
                 >Favorited by
-                {{ data_wisata["bookmark_id_user"].length - 1 }}
+                {{ data_wisata["bookmark_id_user"].length }}
                 users</MDBTabItem
               >
             </MDBTabNav>
@@ -226,8 +228,7 @@
                   </MDBRow>
                 </MDBCol>
               </MDBTabPane>
-              <MDBTabPane tabId="ex1-2">
-                <MDBModal
+               <MDBModal
                   id="AddReview"
                   tabindex="-1"
                   labelledby="AddReviewTitle"
@@ -433,6 +434,8 @@
                     Add Review
                   </MDBBtn>
                 </MDBModal>
+              <MDBTabPane tabId="ex1-2">
+               
                 <MDBRow class="d-flex align-content-center">
                   <MDBCol md="12" class="text-center">
                     <h5 style="font-weight: 500">
@@ -620,8 +623,8 @@
                       All Review ({{ review_list.length }})
                     </h6>
                   </MDBCol>
-                  <MDBCol class="text-end">
-                    <h6>Newest First</h6>
+                  <MDBCol md="3" class="text-end">
+                    <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
                   </MDBCol>
                 </MDBRow>
 
@@ -822,13 +825,14 @@
                         All Discussion ({{ review_list.length }})
                       </h6>
                     </MDBCol>
-                    <MDBCol class="text-end">
-                      <h6>Newest First</h6>
+                    <MDBCol md="2" class="text-end">
+                      <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
                     </MDBCol>
                   </MDBRow>
+                  <template v-if="discussion_list != null">
                   <MDBCol
                     class="mt-3 d-flex justify-content-center"
-                    v-for="discussion in discussion_list"
+                    v-for="discussion in discussionComputed"
                     :key="discussion._id"
                   >
                     <MDBCard
@@ -848,8 +852,12 @@
                         <MDBRow>
                           <MDBCol class="d-flex justify-content-start">
                             <span>{{ discussion.title }}</span>
+                             <span class="pe-2">
+                              <MDBIcon icon="time" iconStyle="fas" /> {{ moment(discussion.created_at).fromNow() }}
+                            </span>
                           </MDBCol>
                           <MDBCol class="d-flex justify-content-end">
+                           
                             <span class="pe-2">
                               <MDBIcon icon="share" iconStyle="fas" /> 90
                             </span>
@@ -865,6 +873,7 @@
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
+                  </template>
                   <MDBRow>
                     <MDBCol>
                       <MDBBtn
@@ -907,7 +916,7 @@
                             </span>
                             <span class="me-2">
                               <MDBIcon icon="comment" iconStyle="fas" />
-                              3 Comments
+                              {{modalData.id_comments.length}}
                             </span>
                             <span class="me-2">
                               <MDBIcon icon="clock" iconStyle="fas" />
@@ -963,7 +972,7 @@
                         </MDBRow>
                         <hr />
                         <MDBRow
-                          v-for="comment in modalData.id_comments"
+                          v-for="comment in commentComputed"
                           :key="comment._id"
                         >
                           <MDBCol
@@ -1026,6 +1035,19 @@
                             </MDBRow>
                           </MDBRow>
                         </MDBRow>
+                        <MDBBtn
+                        @click="listToShow +=5"
+                            style="
+                              background-color: white;
+                              color: primary;
+                              border: 1px solid black;
+                              width: 400px;
+                              height: 40px;
+                            "
+                            class="mt-2 align-content-end"
+                          >
+                            Load More Comments
+                          </MDBBtn>
                       </MDBCol>
                     </MDBRow>
                   </MDBModalBody>
@@ -1093,132 +1115,33 @@
               </MDBTabPane>
               <MDBTabPane tabId="ex1-5">
                 <MDBRow>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
+                  <MDBCol md="2" class="mb-3 justify-content-center"  v-for="userFavourited in data_wisata.bookmark_id_user"
+                          :key="userFavourited._id">
+                       
                     <MDBCol class="d-flex justify-content-center">
                       <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
+                        :src="userFavourited.profilePicture"
                         alt="avatar"
                         width="100"
                         height="100"
                       />
                     </MDBCol>
                     <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
+                      <p class="mb-0" style="font-weight: 500">{{userFavourited.name}}</p>
                     </MDBCol>
                     <MDBCol class="d-flex justify-content-center">
                       <p
                         class="mb-0"
                         style="font-weight: 400; font-size: small"
                       >
-                        Bekasi, Jawa Barat
+                        {{userFavourited.kota}}, {{userFavourited.provinsi}}
                       </p>
                     </MDBCol>
                   </MDBCol>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
-                    <MDBCol class="d-flex justify-content-center">
-                      <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                        alt="avatar"
-                        width="100"
-                        height="100"
-                      />
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p
-                        class="mb-0"
-                        style="font-weight: 400; font-size: small"
-                      >
-                        Bekasi, Jawa Barat
-                      </p>
-                    </MDBCol>
-                  </MDBCol>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
-                    <MDBCol class="d-flex justify-content-center">
-                      <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                        alt="avatar"
-                        width="100"
-                        height="100"
-                      />
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p
-                        class="mb-0"
-                        style="font-weight: 400; font-size: small"
-                      >
-                        Bekasi, Jawa Barat
-                      </p>
-                    </MDBCol>
-                  </MDBCol>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
-                    <MDBCol class="d-flex justify-content-center">
-                      <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                        alt="avatar"
-                        width="100"
-                        height="100"
-                      />
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p
-                        class="mb-0"
-                        style="font-weight: 400; font-size: small"
-                      >
-                        Bekasi, Jawa Barat
-                      </p>
-                    </MDBCol>
-                  </MDBCol>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
-                    <MDBCol class="d-flex justify-content-center">
-                      <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                        alt="avatar"
-                        width="100"
-                        height="100"
-                      />
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p
-                        class="mb-0"
-                        style="font-weight: 400; font-size: small"
-                      >
-                        Bekasi, Jawa Barat
-                      </p>
-                    </MDBCol>
-                  </MDBCol>
-                  <MDBCol md="2" class="mb-3 justify-content-center">
-                    <MDBCol class="d-flex justify-content-center">
-                      <img
-                        src="https://mdbootstrap.com/img/new/slides/041.jpg"
-                        alt="avatar"
-                        width="100"
-                        height="100"
-                      />
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p class="mb-0" style="font-weight: 500">Testis</p>
-                    </MDBCol>
-                    <MDBCol class="d-flex justify-content-center">
-                      <p
-                        class="mb-0"
-                        style="font-weight: 400; font-size: small"
-                      >
-                        Bekasi, Jawa Barat
-                      </p>
-                    </MDBCol>
-                  </MDBCol>
+                 
+                 
+              
+                  
                 </MDBRow>
               </MDBTabPane>
             </MDBTabContent>
@@ -1233,7 +1156,7 @@
 
 <script>
 import Navbar from "../components/Navbarcopy.vue"
-import { useRoute } from "vue-router"
+import { useRoute,useRouter } from "vue-router"
 import { GoogleMap, Marker } from "vue3-google-map"
 import Footer from "../components/Footer copy.vue"
 import { getCurrentInstance } from "vue"
@@ -1266,7 +1189,7 @@ import {
   MDBCard,
   MDBCardBody,
   MDBCardImg,
-  MDBInput
+  MDBInput,MDBSelect
 } from "mdb-vue-ui-kit"
 import { ref } from "vue"
 
@@ -1308,15 +1231,30 @@ export default {
     MDBCard,
     MDBCardBody,
     MDBCardImg,
-    MDBInput
+    MDBInput,MDBSelect
   },
   setup() {
+    const sortType = ref([
+        { text: "Newest First", value: "desc" },
+        { text: "Oldest First", value: "asc" },
+       
+      ]);
+      const selectedSort = ref("");
     const checkForm = async (e) => {
       e.target.classList.add("was-validated")
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can make a discussion",
+          icon : "error"
+        })
+        return router.push('/login')
+      }
       if (
         discussion_content.value.content != null &&
         discussion_content.value.title != null
       ) {
+        
         create_discussion(discussion_content.value)
       }
     }
@@ -1343,6 +1281,7 @@ export default {
       bookmark_id_user: []
     })
     const route = useRoute()
+    const router = useRouter()
     const app = getCurrentInstance()
     const mapLoaded = ref(false)
     const bookmark_list = []
@@ -1359,7 +1298,7 @@ export default {
     const discussion_list = ref([])
     const comment_list = ref([])
     const reviewRating = ref()
-
+    const listToShow = ref(5)
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug
     let uri_review =
@@ -1375,7 +1314,6 @@ export default {
         review_list.value = response.data.data
         reviewRating.value = response.data.count.map((item) => item.rating)
         review_list.value.totalRating = sum_rating(reviewRating)
-        console.log(review_list.value.totalRating)
       })
     app.appContext.config.globalProperties.$http
       .get(uri_discussion)
@@ -1391,19 +1329,57 @@ export default {
         center.lat = response.data.coordinate[0]
         center.lng = response.data.coordinate[1]
         bookmark_list.value = data_wisata.value.bookmark_id_user
+        if(user.value?.user){
         isFavourited.value = response.data.bookmark_id_user.includes(
           JSON.parse(JSON.stringify(user.value.user._id))
         )
+        }
       })
 
     const activeTabId1 = ref("ex1-1")
 
     function openModal(data) {
       modalData.value = data
+      listToShow.value = 5
       discussionModal.value = true
-      // get_comment(comment_list, modalData.value)
     }
+    const commentComputed = computed({
+      get: () =>
+        modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
+          let modifier = 1;
+          if(selectedSort.value == "desc")modifier = -1
+          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
+            return -1 * modifier;
+          }
+          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
+            return 1 * modifier
+          }
+        }).slice(0,listToShow.value)
+    });
 
+    const discussionComputed = computed({
+      get: () =>
+        discussion_list.value?.slice(0,1500).sort((a,b) => {
+          let modifier = 1;
+          if(selectedSort.value == "desc")modifier = -1
+          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
+            console.log()
+            return -1 * modifier;
+          }
+          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
+            return 1 * modifier
+          }
+        }).slice(0,listToShow.value)
+    });
+   
+
+
+  /*  function loadMore(count){
+      loadComment.value = loadComment.value + count
+      console.log(loadComment.value)
+      return modalData.value.id_comments.slice(0,loadComment.value)
+    }
+*/
     function get_review(data) {
       return app.appContext.config.globalProperties.$http
         .get(uri_review)
@@ -1451,6 +1427,14 @@ export default {
     }
 
     function add_favourite(slug) {
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can add item to your favourite",
+          icon : "error"
+        })
+        return router.push('/login')
+      }
       const config = {
         headers: authHeader()
       }
@@ -1506,6 +1490,14 @@ export default {
       })
     }
     function add_review(review_content) {
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can make a review",
+          icon : "error"
+        })
+        return router.push('/login')
+      }
       if (review_content.rating == null) {
         Swal.fire({
           title: "Mohon masukan Rating",
@@ -1726,7 +1718,8 @@ export default {
       checkFormComment,
       get_discussion,
       confirmDeleteDiscussion,
-      confirmDeleteComment
+      confirmDeleteComment,listToShow,commentComputed,sortType,selectedSort,
+      discussionComputed
     }
   }
 }

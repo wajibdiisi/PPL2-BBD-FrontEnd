@@ -84,7 +84,7 @@
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
        
-            format="DD, MMM, YYYY"
+            format="DD MMMM YYYY"
             placeholder="DD, MMM, YYYY"
           />
                 <div style="margin-top: 2vh">

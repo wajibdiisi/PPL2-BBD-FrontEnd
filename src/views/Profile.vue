@@ -15,7 +15,10 @@
           <MDBCardBody>
             <MDBCardTitle class="fs-1">{{ userProfile.name }}</MDBCardTitle>
             <MDBCardText class="fs-4">
-              Cilegon, 14 - Desember - 2000
+             {{userProfile.kota}}, {{userProfile.provinsi}}
+            </MDBCardText>
+            <MDBCardText class="fs-4">
+            {{userProfile.tglLahir}}
             </MDBCardText>
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Upload Moment
@@ -363,6 +366,8 @@ export default {
     const user = computed(() => store.getters.user);
     const userProfile = ref({
       name: null,
+      tglLahir : 'Data not available',
+      location : 'Data not available',
     });
     let uri_profile =
       process.env.VUE_APP_ROOT_API + "users/profile/" + route.params.username;

@@ -167,6 +167,18 @@
         <button @click="nextPagination()">next</button>
         <MDBPagination class="justify-content-end"> </MDBPagination>
       </nav>
+      <div class="center">
+        <div class="pagination">
+          <a href="#">&laquo;</a>
+          <a href="#" class="active">1</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a href="#">&raquo;</a>
+        </div>
+      </div>
     </MDBCard>
   </MDBContainer>
   <Footer />
@@ -413,4 +425,29 @@ body {
 * {
   font-family: "Montserrat", sans-serif;
 }
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: rgb(50, 224, 196);
+  color: white;
+  border: 1px solid rgb(50, 224, 196);
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 </style>

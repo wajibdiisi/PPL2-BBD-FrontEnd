@@ -22,7 +22,9 @@
       <MDBNavbarNav right class="mb-2 mb-lg-0">
         <MDBNavbarItem to="#">
           <MDBIcon icon="bell"></MDBIcon>
-          <MDBBadge notification color="danger" pill>1</MDBBadge>
+          <template v-if="notification?.length">
+          <MDBBadge notification color="danger" pill>{{notification?.length}}</MDBBadge>
+          </template>
         </MDBNavbarItem>
         <MDBNavbarItem>
           <MDBDropdown
@@ -116,8 +118,9 @@ import {
   MDBToast,
 } from "mdb-vue-ui-kit";
 import { ref } from "vue";
-import { computed } from "vue";
+import { computed,getCurrentInstance } from "vue";
 import { useStore } from "vuex";
+import authHeader from "../auth-header"
 export default {
   methods: {
     logout: function () {
@@ -145,6 +148,9 @@ export default {
     MDBToast,
   },
   setup() {
+    const config = {
+        headers: authHeader()
+      }
     const store = useStore();
     const collapse1 = ref(false);
     const dropdown6 = ref(false);
@@ -152,13 +158,19 @@ export default {
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
     const toast1 = ref(computed(() => store.getters.set_notification));
     const toastMsg = computed(() => store.getters.notificationData);
+    const notification = ref();
+    const app = getCurrentInstance();
+    let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
+      app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response) => {
+        notification.value = response.data
+    })
     return {
       isLoggedIn,
       toast1,
       collapse1,
       toastMsg,
       dropdown6,
-      user,
+      user,notification
     };
   },
 };

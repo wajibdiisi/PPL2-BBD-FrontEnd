@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  {{sortName}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -54,6 +55,8 @@
                 v-model:options="options2"
                 label="Location"
                 clearButton
+                placeholder="Example placeholder"
+                v-model:selected="selectedProv"
               />
             </MDBCol>
             <!-- <MDBCol col="3" style="margin-top: 2vh">
@@ -90,18 +93,18 @@
               />
             </MDBCol>
             <MDBCol col="4">
-              <MDBCheckbox label="Ascending" inline />
-              <MDBCheckbox label="Descending" inline />
+              <MDBRadio value="nameAsc" label="Ascending" v-model="sortType" inline />
+              <MDBRadio value="nameDesc" label="Descending" v-model="sortType" inline />
             </MDBCol>
             <MDBCol col="4">
-              <MDBCheckbox label="Most Popular" inline />
-              <MDBCheckbox label="Least Popular" inline />
+              <MDBRadio value="popDesc" label="Most Popular" v-model="sortType" inline />
+               <MDBRadio value="popAsc" label="Least Popular" v-model="sortType" inline />
             </MDBCol>
           </MDBRow>
         </MDBCollapse>
       </MDBCol>
       <MDBRow :cols="['1', 'md-3']" class="g-4">
-        <MDBCol v-for="wisata in search_wisata" :key="wisata.id">
+        <MDBCol v-for="(wisata,index) in search_wisata" :key="index">
           <MDBCard border="light" shadow="0" bg="white" class="h-100">
             <MDBCardImg
               src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
@@ -111,7 +114,14 @@
             <MDBCardBody>
               <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
               <MDBCardText>
-                {{ wisata.description }}
+                <template v-if="stringToShow[index] == 200">
+                {{ wisata.description.slice(0,stringToShow[index]) }}  <a class="" @click="stringToShow[index] = 0">
+        Read more...
+        </a>
+                </template>
+                <template v-if="stringToShow[index] == 0">
+                  {{wisata.description}}
+                  </template>
               </MDBCardText>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <router-link
@@ -120,6 +130,9 @@
                     params: { slug: wisata.slug }
                   }"
                 >
+                 <span class="pe-2">
+                                  <MDBIcon icon="comment" iconStyle="fas" /> {{wisata.bookmark_id_user.length}}
+                                </span>
                   <MDBBtn tag="a" color="link" outline="primary"
                     >See Details
                   </MDBBtn>
@@ -162,21 +175,17 @@
           </MDBCard>
         </MDBCol>
       </MDBRow> -->
-      <nav aria-label="Page navigation example" style="margin-top: 5vh">
-        <button @click="prev">prev</button>
-        <button @click="nextPagination()">next</button>
-        <MDBPagination class="justify-content-end"> </MDBPagination>
-      </nav>
+   
       <div class="center">
         <div class="pagination">
-          <a href="#">&laquo;</a>
-          <a href="#" class="active">1</a>
+          <a  @click="prev">&laquo;</a>
+          <a href="#" class="active">{{currentPage}}</a>
           <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
           <a href="#">6</a> -->
-          <a href="#">&raquo;</a>
+          <a @click="nextPagination()">&raquo;</a>
         </div>
       </div>
     </MDBCard>
@@ -207,11 +216,12 @@ import {
   MDBAutocomplete,
   MDBCardImg,
   MDBBtn,
-  MDBPagination,
+  //MDBPagination,
   MDBCollapse,
   MDBIcon,
   MDBSelect,
-  MDBCheckbox
+  MDBCheckbox,
+  MDBRadio
   //MDBPageNav,
   //MDBPageItem,
 } from "mdb-vue-ui-kit"
@@ -234,11 +244,12 @@ export default {
     MDBAutocomplete,
     MDBCardImg,
     MDBBtn,
-    MDBPagination,
+    //MDBPagination,
     MDBCollapse,
     MDBIcon,
     MDBSelect,
-    MDBCheckbox
+    MDBCheckbox,
+    MDBRadio,
     //MDBPageNav,
     //MDBPageItem,
     // MDBInput,
@@ -246,6 +257,9 @@ export default {
 
   setup() {
     const wisata_list = ref()
+    const stringToShow = ref(Array(100).fill(200))
+    const selectedProv = ref(null)
+    const sortType = ref("nameAsc")
     const options1 = ref([
       { text: "Pantai", value: 1 },
       { text: "Gunung", value: 2 },
@@ -253,9 +267,10 @@ export default {
       { text: "Other", value: 4 }
     ])
     const options2 = ref([
-      { text: "Sumatra Selatan", value: 1 },
+      {text : "Select All", value : "Select All"},
+      { text: "Sumatra Selatan", value: "Sumatra Selatan" },
       { text: "Jawa Barat", value: 2 },
-      { text: "Bali", value: 3 },
+      { text: "Bali", value: "Bali" },
       { text: "Sulawesi Utara", value: 4 }
     ])
     const options3 = ref([
@@ -268,7 +283,7 @@ export default {
     const collapse1 = ref(false)
     const collapse2 = ref(false)
     const checkbox5 = ref(false)
-
+    
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
 
     onMounted(async () => {
@@ -306,6 +321,30 @@ export default {
             } else {
               return wisata.nama != null
             }
+          }).filter((wisata) => {
+            if(selectedProv.value != "Select All"){
+      
+              return wisata.provinsi.includes(selectedProv.value)
+            }else{
+              return wisata.nama != null
+            }
+          }).sort((a,b) => {
+            let modifier = 1
+            if(sortType.value == 'nameDesc' || sortType.value =='popDesc'){
+               modifier = -1
+            }
+            if(sortType.value == 'nameAsc' || sortType.value == 'nameDesc'){
+            if(a['nama'] < b['nama']){
+              return -1 * modifier;
+            }
+            if(a['nama'] > b['nama']){
+              return 1 * modifier
+            }
+            }else if (sortType.value == 'popAsc' || sortType.value == 'popDesc'){
+              if(a['bookmark_id_user'].length < b['bookmark_id_user'].length) return -1 * modifier
+              if(a['bookmark_id_user'].length > b['bookmark_id_user'].length) return 1 * modifier
+            }
+
           })
           .slice(offset.value, offset.value + pageSize.value)
     })
@@ -313,7 +352,7 @@ export default {
       usePagination({
         currentPage: 1,
         pageSize: 9,
-        total: 100
+        total: 200
       })
     console.log(total)
     const autocompleteTemplate = ref("")
@@ -353,14 +392,16 @@ export default {
       })*/
 
     function nextPagination() {
-      console.log(offset.value)
-      if (search_wisata.value.length >= offset.value) {
+    
+      if (wisata_list.value.length > offset.value + search_wisata.value.length) {
         next()
+        if(search_wisata.value.length == 0) prev()
       } else {
         return
       }
     }
     return {
+      stringToShow,
       wisata_list,
       nextPagination,
       itemTemplate,
@@ -378,7 +419,9 @@ export default {
       options1,
       options2,
       options3,
-      checkbox5
+      checkbox5,
+      selectedProv,
+    sortType
     }
   }
   // setup() {

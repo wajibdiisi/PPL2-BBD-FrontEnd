@@ -5,6 +5,12 @@
 <script>
 export default {
   name: "App",
+  watch : {
+    '$route' (to){
+      document.title = to.meta.title || 'Mytour'
+    },
+    immediate : true
+  }
 };
 </script>
 

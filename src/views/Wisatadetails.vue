@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-
+  {{currentPage}}
   <MDBContainer>
     <MDBCard class="mt-4">
       <MDBCardBody>
@@ -113,6 +113,7 @@
                         color: black;
                         border: 1px solid black;
                       "
+                      @click="AddReview = true"
                     >
                       <MDBIcon
                         icon="star"
@@ -143,10 +144,10 @@
               <MDBTabs v-model="activeTabId1">
                 <!-- Tabs navs -->
                 <MDBTabNav tabsClasses="mb-3">
-                  <MDBTabItem tabId="ex1-1" href="ex1-1">Overview</MDBTabItem>
-                  <MDBTabItem tabId="ex1-2" href="ex1-2">Review</MDBTabItem>
-                  <MDBTabItem tabId="ex1-3" href="ex1-3">Moment</MDBTabItem>
-                  <MDBTabItem tabId="ex1-4" href="ex1-4">Discussion</MDBTabItem>
+                  <MDBTabItem tabId="ex1-1" href="ex1-1" >Overview</MDBTabItem>
+                  <MDBTabItem tabId="ex1-2" href="ex1-2" @click="resetPagination('review')">Review</MDBTabItem>
+                  <MDBTabItem tabId="ex1-3" href="ex1-3" >Moment</MDBTabItem>
+                  <MDBTabItem tabId="ex1-4" href="ex1-4" @click="resetPagination('discussion')">Discussion</MDBTabItem>
                   <MDBTabItem tabId="ex1-5" href="ex1-4"
                     >Favorited by
                     {{ data_wisata["bookmark_id_user"].length }}
@@ -186,8 +187,7 @@
                       <MDBRow>
                         <MDBCol>
                           <p style="font-size: 1rem">
-                            Jl. Badrawati, Kw. Candi Borobudur, Borobudur, Kec.
-                            Borobudur, Magelang, Jawa Tengah
+                      {{data_wisata["alamat"]}}
                           </p>
                         </MDBCol>
                         <MDBRow>
@@ -229,8 +229,7 @@
                       </MDBRow>
                     </MDBCol>
                   </MDBTabPane>
-                  <MDBTabPane tabId="ex1-2">
-                    <MDBModal
+                   <MDBModal
                       id="AddReview"
                       tabindex="-1"
                       labelledby="AddReviewTitle"
@@ -447,6 +446,8 @@
                         Add Review
                       </MDBBtn>
                     </MDBModal>
+                  <MDBTabPane tabId="ex1-2">
+                   
                     <MDBRow class="d-flex align-content-center">
                       <MDBCol md="12" class="text-center">
                         <h5 style="font-weight: 500">
@@ -638,7 +639,7 @@
                     <MDBSelect  v-model:options="sortType" v-model:selected="selectedSort" />
                       </MDBCol>
                     </MDBRow>
-                    <MDBCol v-for="review in review_list" :key="review._id">
+                    <MDBCol v-for="review in reviewComputed" :key="review._id">
                       <MDBRow>
                         <MDBCol md="1" class="d-flex justify-content-end mb-3">
                           <img
@@ -728,13 +729,18 @@
                         </p>
                       </MDBCol>
                     </MDBCol>
-                    <MDBPagination class="justify-content-end" circle>
-                      <MDBPageNav prev></MDBPageNav>
-                      <MDBPageItem active href="#">1</MDBPageItem>
-                      <MDBPageItem href="#">2</MDBPageItem>
-                      <MDBPageItem href="#">3</MDBPageItem>
-                      <MDBPageNav next></MDBPageNav>
-                    </MDBPagination>
+                     <div class="center">
+        <div class="pagination">
+          <a role="button" @click="prev">&laquo;</a>
+          <a role="button" class="active">{{currentPage}}</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a role="button" @click="nextPagination()">&raquo;</a>
+        </div>
+      </div>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-3">
                     <MDBModal
@@ -839,8 +845,8 @@
                     <MDBRow>
                       <MDBRow class="d-flex justify-content-between mt-2">
                         <MDBCol class="text-start">
-                          <h6 v-if="review_list != null">
-                            All Discussion ({{ review_list.length }})
+                          <h6 v-if="discussion_list != null">
+                            All Discussion ({{ discussion_list.length }})
                           </h6>
                         </MDBCol>
                         <MDBCol md="3" class="text-end">
@@ -899,7 +905,9 @@
                           >
                             Add Discussion
                           </MDBBtn>
+                          
                         </MDBCol>
+                        
                       </MDBRow>
                     </MDBRow>
                     <MDBModal
@@ -924,6 +932,21 @@
                             </MDBRow>
                             <MDBRow>
                               <MDBCol class="mb-3">
+                                <a
+                                  @click="
+                                    likeDiscussion(modalData._id)
+                                  "
+                                  class="m-1"
+                                  role="button"
+                                  style="color: rgb(0, 0, 255)"
+                                >
+                                  <MDBIcon
+                                    iconStyle="fas"
+                                    icon="thumbs-up"
+                                    size="xs"
+                                  ></MDBIcon>
+                                  Like ({{modalData.thumbs_up.length}})
+                                </a>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
                                   Posted By {{ modalData.id_user.name }}
@@ -1139,6 +1162,18 @@
                         </MDBRow>
                       </MDBModalBody>
                     </MDBModal>
+                    <div class="center">
+        <div class="pagination">
+          <a role="button" @click="prev">&laquo;</a>
+          <a role="button" class="active">{{currentPage}}</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a role="button" @click="nextPagination()">&raquo;</a>
+        </div>
+      </div>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-5">
                     <MDBRow>
@@ -1188,6 +1223,7 @@ import { getCurrentInstance } from "vue"
 import authHeader from "../auth-header"
 import { computed } from "vue"
 import { useStore } from "vuex"
+import { usePagination } from "vue-composable"
 import moment from "moment"
 import Swal from "sweetalert2"
 import {
@@ -1208,9 +1244,6 @@ import {
   MDBModalTitle,
   MDBModalBody,
   MDBTextarea,
-  MDBPagination,
-  MDBPageNav,
-  MDBPageItem,
   MDBCard,
   MDBCardBody,
   MDBCardImg,
@@ -1250,9 +1283,6 @@ export default {
     MDBModalTitle,
     MDBModalBody,
     MDBTextarea,
-    MDBPagination,
-    MDBPageNav,
-    MDBPageItem,
     MDBCard,
     MDBCardBody,
     MDBCardImg,
@@ -1267,6 +1297,14 @@ export default {
        
       ]);
     const selectedSort = ref("");
+    const { currentPage, lastPage, next, prev, offset, pageSize, total } =
+      usePagination({
+        currentPage: 1,
+        pageSize: 10,
+        total: 1000
+      })
+    
+    
     const checkForm = async (e) => {
       e.target.classList.add("was-validated")
       if(localStorage.getItem('token') == null){
@@ -1348,6 +1386,7 @@ export default {
     const comment_list = ref([])
     const reviewRating = ref()
     const listToShow = ref(5)
+    const currentPagination = ref()
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug
     let uri_review =
@@ -1377,8 +1416,8 @@ export default {
         mapLoaded.value = true
         center.lat = response.data.coordinate[0]
         center.lng = response.data.coordinate[1]
-        bookmark_list.value = data_wisata.value.bookmark_id_user
-        isFavourited.value = response.data.bookmark_id_user.includes(
+        bookmark_list.value = data_wisata.value.bookmark_id_user.map((user) => user._id)
+        isFavourited.value = bookmark_list.value.includes(
           JSON.parse(JSON.stringify(user.value.user._id))
         )
       })
@@ -1688,6 +1727,26 @@ export default {
       })
       
     }
+
+    function getSpecificDiscussion(id,data){
+      let uri_discussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + id
+      app.appContext.config.globalProperties.$http.get(uri_discussion).then((response) => {
+        data.value = response.data
+      })
+    }
+
+    function likeDiscussion(id){
+      const config = {
+            headers: authHeader()
+          }
+      let uri_likeDiscussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug +
+      "/discussion/" + 
+     id + "/thumbs"
+     app.appContext.config.globalProperties.$http.post(uri_likeDiscussion,config,config).then((response) => {
+       console.log(response.data)
+       getSpecificDiscussion(id,modalData)
+     })
+    }
      const commentComputed = computed({
       get: () =>
         modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
@@ -1699,7 +1758,20 @@ export default {
           if(a['created_at'].valueOf() > b['created_at'].valueOf()){
             return 1 * modifier
           }
-        }).slice(0,listToShow.value)
+        }).slice(0, listToShow.value)
+    });
+     const reviewComputed = computed({
+      get: () =>
+        review_list.value?.slice(0,1500).sort((a,b) => {
+          let modifier = 1;
+          if(selectedSort.value == "desc")modifier = -1
+          if(a['date'].valueOf() < b['date'].valueOf()){
+            return -1 * modifier;
+          }
+          if(a['date'].valueOf() > b['date'].valueOf()){
+            return 1 * modifier
+          }
+        }).slice(offset.value,offset.value + pageSize.value)
     });
 
     const discussionComputed = computed({
@@ -1716,8 +1788,28 @@ export default {
           if(a['created_at'].valueOf() > b['created_at'].valueOf()){
             return 1 * modifier
           }
-        }).slice(0,listToShow.value)
+        }).slice(offset.value,offset.value + pageSize.value)
     });
+
+    function nextPagination() {
+    
+      if (discussion_list.value.length > offset.value + discussionComputed.value.length) {
+        next()
+        if(currentPagination.value == 'discussion'){
+        if(discussionComputed.value.length == 0) prev()
+        }else if(currentPagination.value == 'review'){
+          if(reviewComputed.value.length == 0) prev()
+        }
+
+      } else {
+        return
+      }
+    }
+    function resetPagination(pagination){
+      currentPagination.value = pagination
+      currentPage.value = 1;
+      offset.value = 0
+    }
     return {
       mapLoaded,
       user,
@@ -1756,7 +1848,16 @@ export default {
       commentComputed,
       discussionComputed,
       carousel1,
-      selectedSort
+      selectedSort,likeDiscussion,
+      currentPage,
+      lastPage,
+      next,
+      total,
+      prev,
+      nextPagination,
+      resetPagination,
+      reviewComputed,
+      currentPagination
     }
   }
 }
@@ -1838,4 +1939,29 @@ export default {
   border-radius: 0.6rem;
   border: 1px solid rgb(50, 224, 196);
 }
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: rgb(50, 224, 196);
+  color: white;
+  border: 1px solid rgb(50, 224, 196);
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 </style>

@@ -74,7 +74,7 @@
                         <div class="font-weight-bold text-truncate">
                           
                           <template v-if="notif.content == 'comment'">
-                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Discussion</a>
+                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)" >Discussion</a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -86,6 +86,17 @@
                          </template>
                           <template v-if="notif.content == 'likeDiscussion'">
                          {{notif.ref_user.name}} Liked one of your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Discussion</a>
+                         <span class="me-2" style="cursor: pointer">
+                                      <a role="button" @click="deleteNotification(notif._id)">
+                                      <MDBIcon
+                                        icon="trash"
+                                        iconStyle="fas"
+                                      />
+                                      </a>
+                                    </span>
+                         </template>
+                          <template v-if="notif.content == 'likeReview'">
+                         {{notif.ref_user.name}} Liked one of your Review about <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)"> {{notif.id_review}}</a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -634,6 +645,7 @@ export default {
         }).slice(0,listToShow.value)
     });
     function openModal(data,content) {
+      console.log('test')
       if(content == 'comment'){
         let uri_discussion =
       process.env.VUE_APP_ROOT_API +

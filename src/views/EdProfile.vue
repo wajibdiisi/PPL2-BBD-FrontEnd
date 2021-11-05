@@ -113,6 +113,7 @@ import Footer from "../components/Footer copy.vue";
 
 import { computed } from "vue";
 import { useStore } from "vuex";
+import {useRouter} from 'vue-router'
 import Swal from "sweetalert2";
 import { ref, getCurrentInstance } from "vue";
 import {
@@ -150,6 +151,7 @@ export default {
       }
     };
     const provinsi = ref("");
+    const router = useRouter()
     const user = computed(() => store.getters.user);
     const userInit = computed(() => store.getters.user);
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
@@ -212,11 +214,14 @@ export default {
       formData.append("tglLahir",user.value.user.tglLahir)
       app.appContext.config.globalProperties.$http
         .patch(uri_profile, formData, config)
-        .then(store.dispatch('get_user'),
+        .then(() => {
+        router.push({name : 'Profile', params :{username : user.value.user.username}})
+        store.dispatch('get_user'),
         Swal.fire({
           icon : 'success',
           text : 'success'
-        }));
+        })
+        });
     }
 
     return {

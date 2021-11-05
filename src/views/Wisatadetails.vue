@@ -144,13 +144,13 @@
                 <!-- Tabs navs -->
                 <MDBTabNav tabsClasses="mb-3">
                   <MDBTabItem tabId="ex1-1" href="ex1-1" >Overview</MDBTabItem>
-                  <MDBTabItem tabId="ex1-2" href="ex1-2" @click="resetPagination('review')">Review</MDBTabItem>
-                  <MDBTabItem tabId="ex1-3" href="ex1-3" >Moment</MDBTabItem>
-                  <MDBTabItem tabId="ex1-4" href="ex1-4" @click="resetPagination('discussion')">Discussion</MDBTabItem>
+                  <MDBTabItem tabId="ex1-2" href="ex1-2" @click="resetPagination('review')">Review({{review_list?.length}})</MDBTabItem>
+                  <MDBTabItem tabId="ex1-3" href="ex1-3" >Moment({{moment_list?.length}})</MDBTabItem>
+                  <MDBTabItem tabId="ex1-4" href="ex1-4" @click="resetPagination('discussion')">Discussion({{discussion_list?.length}})</MDBTabItem>
                   <MDBTabItem tabId="ex1-5" href="ex1-4"
                     >Favorited by
                     {{ data_wisata["bookmark_id_user"].length }}
-                    users</MDBTabItem
+                    user(s)</MDBTabItem
                   >
                 </MDBTabNav>
                 <!-- Tabs navs -->

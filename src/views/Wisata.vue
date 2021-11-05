@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  {{sortName}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -52,7 +51,7 @@
             </MDBCol>
             <MDBCol col="6" style="margin-top: 2vh">
               <MDBSelect
-                v-model:options="options2"
+                v-model:options="optionsProvinsi"
                 label="Location"
                 clearButton
                 placeholder="Example placeholder"
@@ -260,6 +259,7 @@ export default {
     const stringToShow = ref(Array(100).fill(200))
     const selectedProv = ref(null)
     const sortType = ref("nameAsc")
+    const optionsProvinsi = ref([])
     const options1 = ref([
       { text: "Pantai", value: 1 },
       { text: "Gunung", value: 2 },
@@ -288,10 +288,28 @@ export default {
 
     onMounted(async () => {
       try {
-        const res = await app.appContext.config.globalProperties.$http.get(
+      const dataTemp = ref([])
+       app.appContext.config.globalProperties.$http.get(
           uri_wisata
-        )
-        wisata_list.value = await res.data
+        ).then((response) => {
+          wisata_list.value =  response.data
+          for(let i = 0; i < response.data.length; i++){
+            const data = {
+              'text' : response.data[i].provinsi,
+              'mdbKey' : i,
+              'value' : response.data[i].provinsi
+            }
+            dataTemp.value.push(data)
+
+          }
+
+       optionsProvinsi.value =  dataTemp.value.filter(function(item,pos,array){
+          return array.map(function(mapItem){
+            return mapItem['text'];
+          }).indexOf(item['text']) == pos;
+        })
+
+        })
       } catch (e) {
         console.log("Error Loading Wisata")
       }
@@ -354,7 +372,6 @@ export default {
         pageSize: 9,
         total: 200
       })
-    console.log(total)
     const autocompleteTemplate = ref("")
 
     const itemTemplate = (result) => {
@@ -421,7 +438,8 @@ export default {
       options3,
       checkbox5,
       selectedProv,
-    sortType
+    sortType,
+    optionsProvinsi
     }
   }
   // setup() {

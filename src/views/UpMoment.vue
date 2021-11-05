@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  {{data.id_wisata}}
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="12" class="align-self-center">
@@ -104,7 +103,7 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
-import { useRoute , useRouter} from "vue-router"
+import {  useRouter} from "vue-router"
 import Swal from 'sweetalert2'
 import { ref,getCurrentInstance } from "vue";
 import {
@@ -177,7 +176,6 @@ export default {
       'Content-Type': 'multipart/form-data'
       }
     };
-    const route = useRoute()
     const router = useRouter()
     const file = ref(null)
     const input1 = ref("");
@@ -234,8 +232,8 @@ export default {
             title : 'Moment created successfully',
             icon : 'success'
           })
+          router.push('/')
         }
-        route.push('/')
       })
     }
     return {

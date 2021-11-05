@@ -220,7 +220,7 @@ export default {
   setup() {
     const search3 = ref("");
     const data = ref({
-      wisata : null,
+      wisata : '',
       time : null,
       date : null,
       end_time : null,
@@ -267,11 +267,11 @@ export default {
         `;
       };
       const filterTemplate =  async value => {
-        const res = ref([])
+        const res = ref()
         res.value = await app.appContext.config.globalProperties.$http.get(uri_wisata)
         const data = await res.value.data
 
-        return data.filter(wisata => {
+        return data?.filter(wisata => {
           return wisata.nama.toLowerCase().startsWith(value.toLowerCase());
         });
         

@@ -198,9 +198,19 @@ export default {
     app.appContext.config.globalProperties.$http.get(uri_momentRandom).then((response)=> {
       moment_wisata.value = response.data
       for(let i = 0 ; i < response.data.length ; i++){
+        var label = ''
+        for(let j = 0 ; j < response.data[i].id_wisata.length ; j++){
+          if(response.data[i].id_wisata.length - 1 == 0)
+          label = label + response.data[i].id_wisata[j].nama
+          else if(response.data[i].id_wisata.length - j != 1)
+          label = label + response.data[i].id_wisata[j].nama + ' - '
+          else 
+          label = label + response.data[i].id_wisata[j].nama + ' '
+        }
         const data = {
           'src' : response.data[i].photo,
           'alt' : "..",
+          'label' : label
         }
         if(i <= 2 ){
           momentCarousel.value.push(data)

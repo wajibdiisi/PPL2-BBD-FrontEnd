@@ -152,7 +152,7 @@
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  3 Comments
+                                  {{modalData.id_comments.length}} Comments
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="clock" iconStyle="fas" />

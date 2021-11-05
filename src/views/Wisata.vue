@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  {{checkbox5}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -83,13 +84,8 @@
               <p>Popular</p>
             </MDBCol>
             <MDBCol col="4" style="margin-top: 2vh">
-              <MDBCheckbox
-                tag="span"
-                :btnCheck="true"
-                labelClass="btn btn-primary"
-                label="Only Show Favorite"
-                v-model="checkbox5"
-              />
+               <MDBBtn color="primary" @click="onlyShowFavourite" >Only Show Favourited</MDBBtn>
+              
             </MDBCol>
             <MDBCol col="4">
               <MDBRadio value="nameAsc" label="Ascending" v-model="sortType" inline />
@@ -199,6 +195,8 @@ import Navbar from "../components/Navbarcopy.vue"
 import Footer from "../components/Footer copy.vue"
 import { getCurrentInstance } from "vue"
 import { usePagination } from "vue-composable"
+import Swal from 'sweetalert2'
+import { useStore } from "vuex"
 //import Wisatadetails from "../components/Wisatadetails.vue";
 import { ref, onMounted, computed } from "vue"
 import {
@@ -219,11 +217,12 @@ import {
   MDBCollapse,
   MDBIcon,
   MDBSelect,
-  MDBCheckbox,
+  //MDBCheckbox,
   MDBRadio
   //MDBPageNav,
   //MDBPageItem,
 } from "mdb-vue-ui-kit"
+import { useRouter } from 'vue-router'
 
 export default {
   name: "Home",
@@ -247,7 +246,7 @@ export default {
     MDBCollapse,
     MDBIcon,
     MDBSelect,
-    MDBCheckbox,
+    //MDBCheckbox,
     MDBRadio,
     //MDBPageNav,
     //MDBPageItem,
@@ -256,10 +255,13 @@ export default {
 
   setup() {
     const wisata_list = ref()
+    const router = useRouter()
     const stringToShow = ref(Array(100).fill(200))
     const selectedProv = ref(null)
     const sortType = ref("nameAsc")
     const optionsProvinsi = ref([])
+    const store = useStore()
+    const user = computed(() => store.getters.user)
     const options1 = ref([
       { text: "Pantai", value: 1 },
       { text: "Gunung", value: 2 },
@@ -293,10 +295,16 @@ export default {
           uri_wisata
         ).then((response) => {
           wisata_list.value =  response.data
+          const dataInit = {
+            'text' : 'Select All',
+            'mdbKey' : 0,
+            'value' : 'Select All'
+          }
+          dataTemp.value.push(dataInit)
           for(let i = 0; i < response.data.length; i++){
             const data = {
               'text' : response.data[i].provinsi,
-              'mdbKey' : i,
+              'mdbKey' : i + 1,
               'value' : response.data[i].provinsi
             }
             dataTemp.value.push(data)
@@ -346,7 +354,14 @@ export default {
             }else{
               return wisata.nama != null
             }
-          }).sort((a,b) => {
+          }).
+          filter((wisata)=> {
+            if(checkbox5.value == true){
+              return wisata.bookmark_id_user.includes(user.value.user._id)
+            }else{
+              return wisata.nama != null
+            }
+            }).sort((a,b) => {
             let modifier = 1
             if(sortType.value == 'nameDesc' || sortType.value =='popDesc'){
                modifier = -1
@@ -417,6 +432,19 @@ export default {
         return
       }
     }
+
+    function onlyShowFavourite(){
+     if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can make a discussion",
+          icon : "error"
+        })
+        return router.push('/login')
+      }else{
+        checkbox5.value = !checkbox5.value
+      } 
+    }
     return {
       stringToShow,
       wisata_list,
@@ -438,8 +466,10 @@ export default {
       options3,
       checkbox5,
       selectedProv,
-    sortType,
-    optionsProvinsi
+      sortType,
+      optionsProvinsi,
+      onlyShowFavourite,
+      user
     }
   }
   // setup() {

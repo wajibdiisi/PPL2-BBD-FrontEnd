@@ -488,12 +488,12 @@
                                 {{modalDataMoment.description}}
                               </p>
                             </MDBCol>
-                            <p>
-                              Tanggal : {{modalDataMoment.date}}
+                            <p class="text-end">
+                              {{modalDataMoment.time}} ; {{modalDataMoment.date}}
                             </p>
-                            <p>
+                            <!-- <p>
                               waktu : {{modalDataMoment.time}}
-                            </p>
+                            </p> -->
                              <MDBBtn size="sm" outline="dark" v-for="wisata in modalDataMoment.id_wisata" :key="wisata._id">
                                   <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
                                   <p style="margin-bottom: 4px">{{wisata.nama}}</p>

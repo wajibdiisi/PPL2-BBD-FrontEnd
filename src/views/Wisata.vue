@@ -110,7 +110,7 @@
               <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
               <MDBCardText>
                 <template v-if="stringToShow[index] == 200">
-                {{ wisata.description.slice(0,stringToShow[index]) }}  <a role="button" @click="stringToShow[index] = 0">
+                {{ wisata.description.slice(0,stringToShow[index]) }}  <a role="button" class="" @click="stringToShow[index] = 0">
         Read more...
         </a>
                 </template>
@@ -126,7 +126,7 @@
                   }"
                 >
                  <span class="pe-2">
-                                  <MDBIcon icon="comment" iconStyle="fas" /> {{wisata.bookmark_id_user.length}}
+                                  <MDBIcon icon="heart" iconStyle="fas" /> {{wisata.bookmark_id_user.length}}
                                 </span>
                   <MDBBtn tag="a" color="link" outline="primary"
                     >See Details

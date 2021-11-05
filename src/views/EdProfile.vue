@@ -219,7 +219,8 @@ export default {
         store.dispatch('get_user'),
         Swal.fire({
           icon : 'success',
-          text : 'success'
+          text : 'success',
+          title : 'Data Berhasil Diubah'
         })
         });
     }

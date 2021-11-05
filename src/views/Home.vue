@@ -1,6 +1,7 @@
 <template>
   <Navbar />
   <MDBContainer fluid style="margin-bottom: 1vh">
+    {{autocompleteTemplate}}
     <div class="text-center">
       <MDBCol col="12">
         <img
@@ -15,7 +16,7 @@
           :filter="filterTemplate"
           :displayValue="displayValueTemplate"
           :itemContent="itemTemplate"
-          @update="redirect(autocompleteTemplate)"
+          @update="redirectAutoComplete(autocompleteTemplate)"
           style="width: 22rem"
           label="Cari Tempat Wisata"
         />
@@ -180,12 +181,14 @@ export default {
     const moment_wisata = ref()
     const stringToShow = ref(Array(100).fill(200))
     const most_favourited = ref()
+    const wisataAutoComplete = ref()
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
     let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
     let uri_wisataRandom = process.env.VUE_APP_ROOT_API + "wisata/random"
     let uri_momentRandom = process.env.VUE_APP_ROOT_API + "moment/random/moment"
     app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
       wisata_list.value = response.data
+      wisataAutoComplete.value = wisata_list.value.map((wisata) => wisata.slug)
     
     })
     app.appContext.config.globalProperties.$http.get(uri_favourite).then((response)=> {
@@ -221,6 +224,10 @@ export default {
     }})
     function redirect(data) {
       router.push({ name: "WisataDetails", params: { slug: data } })
+    }
+    function redirectAutoComplete(data) {
+      if(wisataAutoComplete.value.includes(data)){
+      router.push({ name: "WisataDetails", params: { slug: data } })}
     }
 
     const filterTemplate = async (value) => {
@@ -267,7 +274,7 @@ export default {
       redirect,
       filterTemplate,
       displayValueTemplate,
-      itemTemplate,
+      itemTemplate,redirectAutoComplete,
       autocompleteTemplate
     }
   },

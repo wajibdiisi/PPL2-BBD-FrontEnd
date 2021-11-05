@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <MDBContainer fluid style="margin-bottom: 1vh">
-    {{autocompleteTemplate}}
+
     <div class="text-center">
       <MDBCol col="12">
         <img

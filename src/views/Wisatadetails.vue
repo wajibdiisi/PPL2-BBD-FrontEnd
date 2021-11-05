@@ -216,7 +216,11 @@
                                 width: 100px;
                                 height: 35px;
                               "
+                              @click="copyClipboard()"
+                              
+                              ref="clipboard"
                             >
+                             <input type="text" hidden id="copyAlamat" :value="data_wisata['alamat']">
                               <MDBIcon
                                 icon="copy"
                                 iconStyle="fas"
@@ -225,21 +229,28 @@
                               Copy
                             </MDBBtn>
                             <MDBBtn
-                              style="
-                                background-color: white;
-                                color: black;
-                                border: 1px solid black;
-                                width: 140px;
-                                height: 35px;
-                              "
-                            >
-                              <MDBIcon
-                                icon="directions"
-                                iconStyle="fas"
-                                style="color: rgb(50, 224, 196)"
-                              />
-                              Direction
-                            </MDBBtn>
+                      style="
+                        background-color: white;
+                        color: black;
+                        border: 1px solid black;
+                      "
+                      @click="
+                        redirect(
+                          'https://www.google.com/maps/dir/?api=1&destination=' +
+                            center['lat'] +
+                            ',' +
+                            center['lng']
+                        )
+                      "
+                    >
+                      <MDBIcon
+                        icon="directions"
+                        iconStyle="fas"
+                        style="color: rgb(50, 224, 196)"
+                        class="pe-1"
+                      />
+                      Direction
+                    </MDBBtn>
                           </MDBCol>
                         </MDBRow>
                       </MDBRow>
@@ -1029,7 +1040,7 @@
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  3 Comments
+                                  {{modalData.id_comments.length}} Comments
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="clock" iconStyle="fas" />
@@ -1135,13 +1146,17 @@
                                 </MDBCol>
                                 <MDBRow class="d-flex justify-content-evenly">
                                   <MDBCol class="mb-3">
-                                    <span class="me-2" style="cursor: pointer">
-                                      <MDBIcon
-                                        icon="thumbs-up"
-                                        iconStyle="fas"
-                                      />
-                                      20
-                                    </span>
+                                    <a
+                                  role="button"
+                                  style="color: rgb(0, 0, 255)"
+                                  @click="likeComment(comment.id_discussion,comment._id)"
+                                  ><MDBIcon
+                                    icon="thumbs-up"
+                                    iconStyle="fas"
+                                  />Like ({{
+                                    comment.thumbs_up.length
+                                  }})
+                                </a>
                                     <template
                                       v-if="
                                         comment.id_user._id == user.user?._id
@@ -1381,6 +1396,7 @@ export default {
     MDBSelect
   },
   setup() {
+    const clipboard = ref()
     const sortType = ref([
       { text: "Newest First", value: "desc" },
       { text: "Oldest First", value: "asc" }
@@ -1833,6 +1849,20 @@ export default {
         getSpecificDiscussion(id, modalData)
       })
     }
+    function likeComment(id,id_comment) {
+      console.log(id)
+      let uri_likeComment =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id + "/" + id_comment + 
+        "/thumbs"
+      fetch_data.post(uri_likeComment, config, config).then((response) => {
+        console.log(response.data)
+        getSpecificDiscussion(id, modalData)
+      })
+    }
     function likeMoment(id) {
       if (localStorage.getItem("token") == null) {
         Swal.fire({
@@ -1971,8 +2001,14 @@ export default {
       currentPage.value = 1
       offset.value = 0
     }
+    function copyClipboard(){
+      let copyText = document.querySelector('#copyAlamat')
+      copyText.select()
+      copyText.setAttribute('type', 'text')
+      navigator.clipboard.writeText(copyText.value);
+    }
     return {
-      mapLoaded,
+      mapLoaded,copyClipboard,
       user,
       confirm_deletion,
       isFavourited,
@@ -2030,7 +2066,9 @@ export default {
       modalDataMoment,
       likeMoment,
       likeReview,
-      getSpecificMoment
+      getSpecificMoment,
+      likeComment,
+      clipboard
     }
   }
 }

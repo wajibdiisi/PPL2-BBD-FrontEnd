@@ -184,41 +184,41 @@ export default {
     let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
     let uri_wisataRandom = process.env.VUE_APP_ROOT_API + "wisata/random"
     let uri_momentRandom = process.env.VUE_APP_ROOT_API + "moment/random/moment"
-    app.appContext.config.globalProperties.$http
-      .get(uri_wisata)
-      .then((response) => {
-        wisata_list.value = response.data
-      })
-    app.appContext.config.globalProperties.$http
-      .get(uri_favourite)
-      .then((response) => {
-        most_favourited.value = response.data
-      })
-    app.appContext.config.globalProperties.$http
-      .get(uri_wisataRandom)
-      .then((response) => {
-        diskusi_wisata.value = response.data
-      })
-    app.appContext.config.globalProperties.$http
-      .get(uri_momentRandom)
-      .then((response) => {
-        moment_wisata.value = response.data
-        for (let i = 0; i < response.data.length; i++) {
-          const data = {
-            src: response.data[i].photo,
-            alt: ".."
-          }
-          if (i <= 2) {
-            momentCarousel.value.push(data)
-          }
-          if (2 < i <= 5) {
-            momentCarousel2.value.push(data)
-          }
-          if (5 < i <= 8) {
-            momentCarousel3.value.push(data)
-          }
+    app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
+      wisata_list.value = response.data
+    
+    })
+    app.appContext.config.globalProperties.$http.get(uri_favourite).then((response)=> {
+      most_favourited.value = response.data
+    })
+    app.appContext.config.globalProperties.$http.get(uri_wisataRandom).then((response)=> {
+      diskusi_wisata.value = response.data
+    })
+    app.appContext.config.globalProperties.$http.get(uri_momentRandom).then((response)=> {
+      moment_wisata.value = response.data
+      for(let i = 0 ; i < response.data.length ; i++){
+        var label = ''
+        for(let j = 0 ; j < response.data[i].id_wisata.length ; j++){
+          if(response.data[i].id_wisata.length - 1 == 0)
+          label = label + response.data[i].id_wisata[j].nama
+          else if(response.data[i].id_wisata.length - j != 1)
+          label = label + response.data[i].id_wisata[j].nama + ' - '
+          else 
+          label = label + response.data[i].id_wisata[j].nama + ' '
         }
-      })
+        const data = {
+          'src' : response.data[i].photo,
+          'alt' : "..",
+          'label' : label
+        }
+        if(i <= 2 ){
+          momentCarousel.value.push(data)
+        }if(2 < i <= 5){
+          momentCarousel2.value.push(data)
+        }if(5 < i <= 8){
+          momentCarousel3.value.push(data)
+        }
+    }})
     function redirect(data) {
       router.push({ name: "WisataDetails", params: { slug: data } })
     }

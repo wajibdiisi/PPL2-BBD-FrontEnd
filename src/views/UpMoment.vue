@@ -6,7 +6,7 @@
         <MDBCard class="upload-box text-white" text="center">
           <MDBCardBody>
             <MDBCardTitle class="fs-1"
-              >You can upload up to X images
+              >You can upload up to 1 image
             </MDBCardTitle>
             <MDBCardTitle class="fs-1">Select your images here </MDBCardTitle>
             <MDBCol col="6" class="photo-box" style="margin: 3vh auto">

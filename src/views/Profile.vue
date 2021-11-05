@@ -4,7 +4,7 @@
     <MDBRow>
       <MDBCol col="12" class="align-self-center">
         <MDBCard text="center">
-          <MDBCol class="align-self-center" md="3">
+          <MDBCol class="align-self-center" md="3" style="margin: 2vh">
             <MDBCardImg
               :src="userProfile.profilePicture"
               top
@@ -310,7 +310,7 @@
       <MDBCol col="4">
         <MDBCard>
           <MDBCardBody>
-            <MDBCardTitle class="fs-3">Plan</MDBCardTitle>
+            <MDBCardTitle class="fs-3">Your Plan</MDBCardTitle>
             <MDBRow>
               <div
                 class="col-md d-flex align-items-center"
@@ -351,11 +351,24 @@
               </div>
             </MDBCardText> -->
           </MDBCardBody>
+          <div class="center" style="margin: 4vh">
+        <div class="pagination">
+          <a  @click="prev">&laquo;</a>
+          <a href="#" class="active">1</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a @click="nextPagination()">&raquo;</a>
+        </div>
+      </div>
         </MDBCard>
       </MDBCol>
       <MDBCol col="8">
         <MDBCard>
           <MDBCardBody>
+            <MDBCardTitle class="fs-3">Your Moment</MDBCardTitle>
             <MDBRow>
               <div v-for="data_moment in moment_list" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">
                 <MDBCard style="cursor: pointer" class="h-100" @click="openModalMoment(data_moment)">
@@ -379,6 +392,18 @@
             
             </MDBRow>
           </MDBCardBody>
+          <div class="center" style="margin: 4vh">
+        <div class="pagination">
+          <a  @click="prev">&laquo;</a>
+          <a href="#" class="active">1</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a @click="nextPagination()">&raquo;</a>
+        </div>
+      </div>
         </MDBCard>
       </MDBCol>
     </MDBRow>
@@ -790,4 +815,29 @@ body {
   background-color: #e5f7f0;
   border-color: #d8f7eb;
 }
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: rgb(50, 224, 196);
+  color: white;
+  border: 1px solid rgb(50, 224, 196);
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 </style>

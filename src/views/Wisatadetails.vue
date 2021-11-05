@@ -735,7 +735,7 @@
                       </MDBCol>
                     </MDBCol>
                      <div class="center">
-        <div class="pagination">
+        <div class="pagination" style="margin-top: 4vh">
           <a role="button" @click="prev">&laquo;</a>
           <a role="button" class="active">{{currentPage}}</a>
           <!-- <a href="#">2</a>
@@ -819,7 +819,7 @@
                     </MDBModal>
                     <MDBRow>
                       <template v-if="moment_list">
-                      <MDBCol md="3" v-for="data_moment in momentComputed" :key="data_moment._id">
+                      <MDBCol md="3" v-for="data_moment in momentComputed" :key="data_moment._id" style="margin-top: 4vh">
                         
                         <MDBCard @click="openModalMoment(data_moment)" style="cursor: pointer">
                           <MDBCardImg
@@ -830,7 +830,7 @@
                         </MDBCard>
                       </MDBCol>
                          <div class="center">
-        <div class="pagination">
+        <div class="pagination" style="margin-top: 4vh">
           <a role="button" @click="prev">&laquo;</a>
           <a role="button" class="active">{{currentPage}}</a>
           <!-- <a href="#">2</a>
@@ -1166,7 +1166,7 @@
                       </MDBModalBody>
                     </MDBModal>
                     <div class="center">
-        <div class="pagination">
+        <div class="pagination" style="margin-top: 4vh">
           <a role="button" @click="prev">&laquo;</a>
           <a role="button" class="active">{{currentPage}}</a>
           <!-- <a href="#">2</a>
@@ -1429,7 +1429,8 @@ export default {
         for(let i = 0 ; i <response.data.photos.length ; i++){
         const data = {
           'src' : response.data.photos[i],
-          'alt' : ".."
+          'alt' : "..",
+          interval: 86000
         }
         picture.value.push(data)
         }

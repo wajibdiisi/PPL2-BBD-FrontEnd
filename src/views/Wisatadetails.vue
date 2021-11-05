@@ -1425,7 +1425,8 @@ export default {
         for(let i = 0 ; i <response.data.photos.length ; i++){
         const data = {
           'src' : response.data.photos[i],
-          'alt' : ".."
+          'alt' : "..",
+          interval: 86000
         }
         picture.value.push(data)
         }

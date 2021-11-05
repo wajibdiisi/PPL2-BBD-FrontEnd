@@ -9,10 +9,19 @@
         />
       </MDBCol>
       <div class="search-box">
-        <p class="search-text">Cari Wisata</p>
-        <input class="form-control" type="text" placeholder="Cari Wisata" />
+         <MDBAutocomplete
+          class="search-bg"
+          v-model="autocompleteTemplate"
+          :filter="filterTemplate"
+          :displayValue="displayValueTemplate"
+          :itemContent="itemTemplate"
+          @update="redirect(autocompleteTemplate)"
+          style="width: 22rem"
+          label="Cari Tempat Wisata"
+        />
       </div>
     </div>
+    
   </MDBContainer>
   <div class="container" style="margin: 5vh auto">
     <div class="row">
@@ -129,7 +138,7 @@ import {
   MDBCardTitle,
   MDBCardText,
   MDBCardImg,
-  MDBBtn,
+  MDBBtn,MDBAutocomplete,
   mdbRipple,
 } from "mdb-vue-ui-kit";
 
@@ -146,6 +155,7 @@ export default {
     MDBCardText,
     MDBCardImg,
     MDBBtn,
+    MDBAutocomplete
   },
   data() {
     return {
@@ -205,6 +215,39 @@ export default {
     function redirect(data){
       router.push({name : 'WisataDetails', params : {slug : data}})
     }
+    
+
+      const filterTemplate = async (value) => {
+      const res = ref([])
+      res.value = await app.appContext.config.globalProperties.$http.get(
+        uri_wisata
+      )
+      const data = await res.value.data
+
+      return data.filter((wisata) => {
+        if (!wisata.nama.split(" ").length > 1)
+          return wisata.nama.toLowerCase().startsWith(value.toLowerCase())
+        else {
+          var words = wisata.nama.split(" ")
+          for (var i = 0; i < words.length; i + 1) {
+            return wisata.nama.toLowerCase().includes(value)
+          }
+        }
+      })
+    }
+    const autocompleteTemplate = ref("")
+     const itemTemplate = (result) => {
+      return `
+          <div class="autocomplete-custom-item-content">
+            <div class="autocomplete-custom-item-title">${result.nama}</div>
+            <div class="autocomplete-custom-item-subtitle">${result.kota} - ${result.provinsi}</div>
+          </div>
+        `
+    }
+    const displayValueTemplate = (value) => value.slug
+
+     
+
 
     return {
       momentCarousel,
@@ -216,7 +259,7 @@ export default {
       carousel7,
       diskusi_wisata,
       carousel8,stringToShow,
-      redirect
+      redirect,filterTemplate,displayValueTemplate,itemTemplate,autocompleteTemplate,
     };
   },
   directives: { mdbRipple },

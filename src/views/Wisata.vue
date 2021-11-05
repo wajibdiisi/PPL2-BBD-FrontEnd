@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -109,7 +110,7 @@
               <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
               <MDBCardText>
                 <template v-if="stringToShow[index] == 200">
-                {{ wisata.description.slice(0,stringToShow[index]) }}  <a class="" @click="stringToShow[index] = 0">
+                {{ wisata.description.slice(0,stringToShow[index]) }}  <a role="button" @click="stringToShow[index] = 0">
         Read more...
         </a>
                 </template>

@@ -1617,8 +1617,9 @@ export default {
             .delete(uri_deleteReview, config)
             .then(() => {
               Swal.fire("Review Deleted", "", "success")
+              get_review(review_list)
             })
-          get_review(review_list)
+          
         }
       })
     }

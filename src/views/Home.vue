@@ -18,60 +18,30 @@
     <div class="row">
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
-      <div class="col-md-4">
+      <div class="col-md-4" v-for="(wisata,index) in most_favourited" :key="wisata._id">
         <MDBCard class="h-100">
           <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+            :src="wisata.photos[0]"
             top
             alt="..."
           />
           <MDBCardBody>
-            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
+            <MDBCardTitle>{{wisata.nama}}</MDBCardTitle>
             <MDBCardText>
-              Candi Borobudur adalah candi Buddha terbesar di dunia. Candi
-              Borobudur adalah candi Buddha terbesar di dunia. Candi Borobudur
-              adalah candi Buddha terbesar di dunia. Candi Borobudur adalah
-              candi Buddha terbesar di dunia. Candi Borobudur adalah candi
-              Buddha terbesar di dunia. Candi Borobudur adalah candi Buddha
-              terbesar di dunia. Candi Borobudur adalah candi Buddha terbesar di
-              dunia. Candi Borobudur adalah candi Buddha terbesar di dunia.
+             <template v-if="stringToShow[index] == 200">
+                {{ wisata.description.slice(0,stringToShow[index]) }}  <a class="" role="button" @click="stringToShow[index] = 0">
+        Read more...
+        </a>
+                </template>
+                <template v-if="stringToShow[index] == 0">
+                  {{wisata.description}}
+                  </template>
             </MDBCardText>
-            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
+            <MDBBtn @click="redirect(wisata.slug)" color="primary">See Details</MDBBtn>
           </MDBCardBody>
         </MDBCard>
       </div>
-      <div class="col-md-4">
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-            <MDBCardText>
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-            </MDBCardText>
-            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </div>
-      <div class="col-md-4">
-        <MDBCard class="h-100">
-          <MDBCardImg
-            src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-            top
-            alt="..."
-          />
-          <MDBCardBody>
-            <MDBCardTitle>Candi Borobudur</MDBCardTitle>
-            <MDBCardText>
-              Candi Borobudur adalah candi Buddha terbesar di dunia.
-            </MDBCardText>
-            <MDBBtn tag="a" href="#!" color="primary">See Details</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </div>
+     
     </div>
   </div>
   <div class="container" style="margin-bottom: 5vh">
@@ -81,11 +51,11 @@
         Temukan pendapat orang yang pernah ke destinasi wisata yang akan anda
         kunjungi
       </p>
-      <div class="col-md-4">
+      <div class="col-md-4" v-for="wisata in diskusi_wisata" :key="wisata._id">
         <MDBCard bg="dark" text="white">
           <div class="bg-image" v-mdb-ripple="{ color: 'light' }">
             <MDBCardImg
-              src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+              :src="wisata.photos[0]"
               alt="..."
               overlay
             >
@@ -94,98 +64,53 @@
                   class="text-center fs-3 text-uppercase"
                   style="margin-top: 10vh"
                 >
-                  Candi Borobudur
+                  {{wisata.nama}}
                 </p>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                  <MDBBtn tag="a" href="#!" color="white" rounded
-                    >Lihat Diskusi
-                  </MDBBtn>
+                  <MDBBtn @click="redirect(wisata.slug)" color="white">Lihat Diskusi</MDBBtn>
                 </div>
               </div>
             </MDBCardImg>
           </div>
         </MDBCard>
       </div>
-      <div class="col-md-4">
-        <MDBCard bg="dark" text="white">
-          <div class="bg-image" v-mdb-ripple="{ color: 'light' }">
-            <MDBCardImg
-              src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-              alt="..."
-              overlay
-            >
-              <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
-                <p
-                  class="text-center fs-3 text-uppercase"
-                  style="margin-top: 10vh"
-                >
-                  Candi Borobudur
-                </p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <MDBBtn tag="a" href="#!" color="white" rounded
-                    >Lihat Diskusi
-                  </MDBBtn>
-                </div>
-              </div>
-            </MDBCardImg>
-          </div>
-        </MDBCard>
-      </div>
-      <div class="col-md-4">
-        <MDBCard bg="dark" text="white">
-          <div class="bg-image" v-mdb-ripple="{ color: 'light' }">
-            <MDBCardImg
-              src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
-              alt="..."
-              overlay
-            >
-              <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
-                <p
-                  class="text-center fs-3 text-uppercase"
-                  style="margin-top: 10vh"
-                >
-                  Candi Borobudur
-                </p>
-                <div class="d-grid gap-2 col-6 mx-auto">
-                  <MDBBtn tag="a" href="#!" color="white" rounded
-                    >Lihat Diskusi
-                  </MDBBtn>
-                </div>
-              </div>
-            </MDBCardImg>
-          </div>
-        </MDBCard>
-      </div>
+     
     </div>
   </div>
   <div class="container" style="margin-bottom: 10vh">
     <div class="row">
       <h5>Lihat Moment Mengenai Tempat Wisata</h5>
       <p>Temukan moment terbaik dari tempat wisata yang akan anda kunjungi</p>
+     <template v-if="momentCarousel.length">
       <div class="col-md-4">
         <MDBCarousel
           class="img-thumbnail"
           v-model="carousel6"
-          :items="items6"
+          :items="momentCarousel"
           :indicators="false"
         />
       </div>
+      </template>
+      <template v-if="momentCarousel2.length">
       <div class="col-md-4">
         <MDBCarousel
           class="img-thumbnail"
           v-model="carousel7"
-          :items="items7"
+          :items="momentCarousel2"
           :indicators="false"
         />
       </div>
+      </template>
+      <template v-if="momentCarousel3.length">
       <div class="col-md-4">
         <MDBCarousel
           class="img-thumbnail"
           v-model="carousel8"
-          :items="items8"
+          :items="momentCarousel3"
           :indicators="false"
         />
       </div>
+      </template>
     </div>
   </div>
   <Footer />
@@ -194,7 +119,8 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
-import { ref } from "vue";
+import { ref , getCurrentInstance } from "vue";
+import {useRouter} from 'vue-router'
 import {
   MDBCarousel,
   MDBContainer,
@@ -232,68 +158,65 @@ export default {
     },
   },
   setup() {
-    const items6 = [
-      {
-        src: "http://www.maioloo.com/maioloo/wp-content/uploads/2016/03/Candi-Prambanan-Yogyakarta-01.jpg.jpg",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "https://i2.wp.com/borobudurnews.com/wp-content/uploads/2020/06/tribun.jpg?fit=1081%2C610&ssl=1",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "https://cdn0-production-images-kly.akamaized.net/xrOIlX7j0Okz0tOIMpaO5wIZHVc=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/2837936/original/087054100_1561537719-borobudur.jpg",
-        alt: "...",
-        label: "First slide label",
-      },
-    ];
-    const items7 = [
-      {
-        src: "https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "https://i0.wp.com/www.agoda.com/wp-content/uploads/2020/01/Besakih-Temple-places-to-visit-in-Bali.jpg?ssl=1",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "http://www.justtravel.hr/wp-content/uploads/2017/08/bali-guide.jpg.jpg",
-        alt: "...",
-        label: "First slide label",
-      },
-    ];
-    const items8 = [
-      {
-        src: "https://www.harapanrakyat.com/wp-content/uploads/2019/11/tempat-wisata-di-Indonesia.jpg",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQH8IkxBoRXA4XZhsfJLD8-jjHXygQd_2RYlGPsBXPwe8GR3kLj26PmUF8Q033BxpE62E&usqp=CAU",
-        alt: "...",
-        label: "First slide label",
-      },
-      {
-        src: "https://d99i6ad9lbm5v.cloudfront.net/uploads/image/file/3702/tempat-wisata-di-indonesia-2.jpg",
-        alt: "...",
-        label: "First slide label",
-      },
-    ];
+    const diskusi_wisata = ref([])
+    const momentCarousel = ref([])
+    const momentCarousel2 = ref([])
+    const momentCarousel3 = ref([])
     const carousel6 = ref(0);
     const carousel7 = ref(0);
     const carousel8 = ref(0);
+    const router = useRouter()
+    const app = getCurrentInstance();
+    const wisata_list = ref()
+    const moment_wisata = ref()
+    const stringToShow = ref(Array(100).fill(200))
+    const most_favourited = ref()
+    let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
+     let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
+    let uri_wisataRandom = process.env.VUE_APP_ROOT_API + "wisata/random"
+    let uri_momentRandom = process.env.VUE_APP_ROOT_API + "moment/random/moment"
+    app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
+      wisata_list.value = response.data
+    
+    })
+    app.appContext.config.globalProperties.$http.get(uri_favourite).then((response)=> {
+      most_favourited.value = response.data
+    })
+    app.appContext.config.globalProperties.$http.get(uri_wisataRandom).then((response)=> {
+      diskusi_wisata.value = response.data
+    })
+    app.appContext.config.globalProperties.$http.get(uri_momentRandom).then((response)=> {
+      moment_wisata.value = response.data
+      for(let i = 0 ; i < response.data.length ; i++){
+        const data = {
+          'src' : response.data[i].photo,
+          'alt' : "..",
+        }
+        if(i <= 2 ){
+          momentCarousel.value.push(data)
+        }if(2 < i <= 5){
+          momentCarousel2.value.push(data)
+        }if(5 < i <= 8){
+          momentCarousel3.value.push(data)
+        }
+
+      }
+    })
+    function redirect(data){
+      router.push({name : 'WisataDetails', params : {slug : data}})
+    }
 
     return {
-      items6,
-      items7,
-      items8,
+      momentCarousel,
+      wisata_list,
+      most_favourited,moment_wisata,
+      momentCarousel2,
+      momentCarousel3,
       carousel6,
       carousel7,
-      carousel8,
+      diskusi_wisata,
+      carousel8,stringToShow,
+      redirect
     };
   },
   directives: { mdbRipple },

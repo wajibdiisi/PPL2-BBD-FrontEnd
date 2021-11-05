@@ -96,7 +96,7 @@
                                     </span>
                          </template>
                           <template v-if="notif.content == 'likeReview'">
-                         {{notif.ref_user.name}} Liked one of your Review about <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)"> {{notif.id_review}}</a>
+                         {{notif.ref_user.name}} Liked one of your Review about <a style="color: rgb(85, 172, 238);" role="button" @click="redirect(notif.id_review.id_wisata.slug,'wisata')"> {{notif.id_review.id_wisata.nama }}</a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -344,37 +344,20 @@
         <MDBCard>
           <MDBCardBody>
             <MDBCardTitle class="fs-3">Your Plan</MDBCardTitle>
-            <MDBRow>
-              <div
-                class="col-md d-flex align-items-center"
-                style="margin: 1vh auto"
-              >
-                <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
-              </div>
-              <div class="col-md d-flex justify-content-end">
-                <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                  >Details
-                </MDBBtn>
-              </div>
-              <div
+            <template v-if="planner_list">
+            <MDBRow v-for="planner in plannerComputed" :key="planner._id">
+             <div
                 class="d-flex justify-content-between"
                 style="margin: 1vh auto"
               >
-                <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
-                <MDBBtn tag="a" href="#!" color="link" outline="primary"
+                <MDBCardText class="fs-5"> {{planner.title}} </MDBCardText>
+                <MDBBtn color="link" outline="primary" @click="redirect(planner._id,'planner')"
                   >Details
                 </MDBBtn>
               </div>
-              <div
-                class="d-flex justify-content-between"
-                style="margin: 1vh auto"
-              >
-                <MDBCardText class="fs-5"> Plan 1 </MDBCardText>
-                <MDBBtn tag="a" href="#!" color="link" outline="primary"
-                  >Details
-                </MDBBtn>
-              </div>
+ 
             </MDBRow>
+            </template>
             <!-- <MDBCardText class="fs-5">
               Plan 1
               <div class="d-grid mx-auto justify-content-md-end">
@@ -386,14 +369,14 @@
           </MDBCardBody>
           <div class="center" style="margin: 4vh">
         <div class="pagination">
-          <a  @click="prev">&laquo;</a>
-          <a href="#" class="active">1</a>
+          <a  @click="prevPagination()">&laquo;</a>
+          <a href="#" class="active">{{currentPagePlanner}}</a>
           <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
           <a href="#">6</a> -->
-          <a @click="nextPagination()">&raquo;</a>
+          <a @click="nextPagination('planner')">&raquo;</a>
         </div>
       </div>
         </MDBCard>
@@ -403,7 +386,8 @@
           <MDBCardBody>
             <MDBCardTitle class="fs-3">Your Moment</MDBCardTitle>
             <MDBRow>
-              <div v-for="data_moment in moment_list" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">
+              <template v-if="moment_list">
+              <div v-for="data_moment in momentComputed" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">
                 <MDBCard style="cursor: pointer" class="h-100" @click="openModalMoment(data_moment)">
                   <MDBCardImg
                     :src="data_moment.photo"
@@ -421,6 +405,7 @@
                   
                 </MDBCard>
               </div>
+              </template>
               
             
             </MDBRow>
@@ -428,13 +413,13 @@
           <div class="center" style="margin: 4vh">
         <div class="pagination">
           <a  @click="prev">&laquo;</a>
-          <a href="#" class="active">1</a>
+          <a href="#" class="active">{{currentPage}}</a>
           <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
           <a href="#">6</a> -->
-          <a @click="nextPagination()">&raquo;</a>
+          <a @click="nextPagination('moment')">&raquo;</a>
         </div>
       </div>
         </MDBCard>
@@ -524,6 +509,7 @@ import { computed } from "vue";
 import authHeader from "../auth-header"
 import moment from "moment"
 import Swal from "sweetalert2"
+import { usePagination } from "vue-composable"
 import {
   MDBCol,
   MDBRow,
@@ -597,7 +583,17 @@ export default {
     const selectedSort = ref();
     const moment_list = ref();
     const modalMoment = ref(false)
+    const planner_list = ref()
+    const offsetPlanner = ref(0)
+    const pageSizePlanner = ref(5)
+    const currentPagePlanner = ref(1)
     const user = computed(() => store.getters.user);
+    const { currentPage, lastPage, next, prev, offset, pageSize, total } =
+      usePagination({
+        currentPage: 1,
+        pageSize: 6,
+        total: 1000
+      })
     const userProfile = ref({
       name: null,
       tglLahir : 'Data not available',
@@ -610,6 +606,7 @@ export default {
     app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
       moment_list.value = response.data
     })
+    get_plan( )
     app.appContext.config.globalProperties.$http
       .get(uri_profile)
       .then((response) => {
@@ -631,6 +628,23 @@ export default {
         notification.value = response.data
       })
     }
+    const momentComputed = computed({
+      get: () =>
+        moment_list.value?.slice(0,1500).sort((a,b) => {
+          let modifier = -1;
+          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
+            
+            return -1 * modifier;
+          }
+          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
+            return 1 * modifier
+          }
+        }).slice(offset.value,offset.value + pageSize.value)
+    });
+    const plannerComputed = computed({
+      get: () =>
+        planner_list.value?.slice(offsetPlanner.value,offsetPlanner.value + pageSizePlanner.value)
+    });
     const commentComputed = computed({
       get: () =>
         modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
@@ -645,7 +659,6 @@ export default {
         }).slice(0,listToShow.value)
     });
     function openModal(data,content) {
-      console.log('test')
       if(content == 'comment'){
         let uri_discussion =
       process.env.VUE_APP_ROOT_API +
@@ -663,6 +676,13 @@ export default {
 
     
       // get_comment(comment_list, modalData.value)
+    }
+    function get_plan(){
+        let uri_planner =  process.env.VUE_APP_ROOT_API  + "planner/plan_list/" + route.params.username
+       
+        app.appContext.config.globalProperties.$http.get(uri_planner,config).then(response => {
+        planner_list.value = response.data
+        })
     }
     function openModalMoment(data){
       modalDataMoment.value = data
@@ -694,7 +714,6 @@ export default {
           config
         )
         .then((response) => {
-          console.log(response.status)
           if (response.status == 201) {
             get_comment(modalData, data._id)
             Swal.fire({
@@ -807,6 +826,40 @@ export default {
       })
       
     }
+    function redirect(data,type){
+      if(type=='wisata'){
+      router.push({name : 'WisataDetails', params : {slug : data }})
+      }else if(type=='planner'){
+        router.push({name : 'PlannerDetails',params: { id: data } });
+      }
+    }
+    function nextPagination(type) {
+      console.log(type)
+      if(type == 'moment'){
+      if (moment_list.value.length > offset.value + momentComputed.value.length) {
+        next()
+     
+        if(momentComputed.value.length == 0) prev()
+        
+
+      }
+      }
+      else if(type =='planner'){
+        if(planner_list.value.length > offsetPlanner.value + plannerComputed.value.length){
+          offsetPlanner.value += 5
+          currentPagePlanner.value += 1
+        }
+        if(plannerComputed.value.length == 0){
+          currentPagePlanner.value -= 1
+          offsetPlanner.value -= 5
+        }
+      }
+    }
+    function prevPagination(){
+      if(offsetPlanner.value > 4){
+      currentPagePlanner.value -= 1
+      offsetPlanner.value -= 5}
+    }
 
     return {
       dropdown21,
@@ -832,7 +885,20 @@ export default {
       modalDataMoment,
       deleteMoment,
       likeMoment,
-      openModelMomentByID
+      openModelMomentByID,
+      redirect,
+      currentPage,
+      lastPage,
+      next,
+      prev,total,
+      nextPagination,
+      momentComputed,
+      planner_list,
+      plannerComputed,
+      prevPagination,
+      currentPagePlanner,
+      offsetPlanner
+      
 };
   },
 };

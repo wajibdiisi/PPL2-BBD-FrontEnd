@@ -170,7 +170,7 @@
         </MDBCol>
       </MDBRow> -->
    
-      <div class="center">
+      <div class="center" style="margin-top: 4vh">
         <div class="pagination">
           <a  @click="prev">&laquo;</a>
           <a href="#" class="active">{{currentPage}}</a>

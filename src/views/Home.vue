@@ -9,7 +9,7 @@
         />
       </MDBCol>
       <div class="search-box">
-         <MDBAutocomplete
+        <MDBAutocomplete
           class="search-bg"
           v-model="autocompleteTemplate"
           :filter="filterTemplate"
@@ -21,36 +21,37 @@
         />
       </div>
     </div>
-    
   </MDBContainer>
   <div class="container" style="margin: 5vh auto">
     <div class="row">
       <h5>Tempat yang sering di kunjungi</h5>
       <p>Jelajahi daftar pilihan tempat populer di Indonesia</p>
-      <div class="col-md-4" v-for="(wisata,index) in most_favourited" :key="wisata._id">
+      <div
+        class="col-md-4"
+        v-for="(wisata, index) in most_favourited"
+        :key="wisata._id"
+      >
         <MDBCard class="h-100">
-          <MDBCardImg
-            :src="wisata.photos[0]"
-            top
-            alt="..."
-          />
+          <MDBCardImg :src="wisata.photos[0]" top alt="..." />
           <MDBCardBody>
-            <MDBCardTitle>{{wisata.nama}}</MDBCardTitle>
+            <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
             <MDBCardText>
-             <template v-if="stringToShow[index] == 200">
-                {{ wisata.description.slice(0,stringToShow[index]) }}  <a class="" role="button" @click="stringToShow[index] = 0">
-        Read more...
-        </a>
-                </template>
-                <template v-if="stringToShow[index] == 0">
-                  {{wisata.description}}
-                  </template>
+              <template v-if="stringToShow[index] == 200">
+                {{ wisata.description.slice(0, stringToShow[index]) }}
+                <a class="" role="button" @click="stringToShow[index] = 0">
+                  Read more...
+                </a>
+              </template>
+              <template v-if="stringToShow[index] == 0">
+                {{ wisata.description }}
+              </template>
             </MDBCardText>
-            <MDBBtn @click="redirect(wisata.slug)" color="primary">See Details</MDBBtn>
+            <MDBBtn @click="redirect(wisata.slug)" color="primary"
+              >See Details</MDBBtn
+            >
           </MDBCardBody>
         </MDBCard>
       </div>
-     
     </div>
   </div>
   <div class="container" style="margin-bottom: 5vh">
@@ -61,64 +62,61 @@
         kunjungi
       </p>
       <div class="col-md-4" v-for="wisata in diskusi_wisata" :key="wisata._id">
-        <MDBCard bg="dark" text="white">
+        <MDBCard bg="dark" text="white" class="h-100">
           <div class="bg-image" v-mdb-ripple="{ color: 'light' }">
-            <MDBCardImg
-              :src="wisata.photos[0]"
-              alt="..."
-              overlay
-            >
+            <MDBCardImg :src="wisata.photos[0]" alt="..." overlay>
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
                 <p
                   class="text-center fs-3 text-uppercase"
                   style="margin-top: 10vh"
                 >
-                  {{wisata.nama}}
+                  {{ wisata.nama }}
                 </p>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                  <MDBBtn @click="redirect(wisata.slug)" color="white">Lihat Diskusi</MDBBtn>
+                  <MDBBtn @click="redirect(wisata.slug)" color="white"
+                    >Lihat Diskusi</MDBBtn
+                  >
                 </div>
               </div>
             </MDBCardImg>
           </div>
         </MDBCard>
       </div>
-     
     </div>
   </div>
   <div class="container" style="margin-bottom: 10vh">
     <div class="row">
       <h5>Lihat Moment Mengenai Tempat Wisata</h5>
       <p>Temukan moment terbaik dari tempat wisata yang akan anda kunjungi</p>
-     <template v-if="momentCarousel.length">
-      <div class="col-md-4">
-        <MDBCarousel
-          class="img-thumbnail"
-          v-model="carousel6"
-          :items="momentCarousel"
-          :indicators="false"
-        />
-      </div>
+      <template v-if="momentCarousel.length">
+        <div class="col-md-4">
+          <MDBCarousel
+            class="img-thumbnail"
+            v-model="carousel6"
+            :items="momentCarousel"
+            :indicators="false"
+          />
+        </div>
       </template>
       <template v-if="momentCarousel2.length">
-      <div class="col-md-4">
-        <MDBCarousel
-          class="img-thumbnail"
-          v-model="carousel7"
-          :items="momentCarousel2"
-          :indicators="false"
-        />
-      </div>
+        <div class="col-md-4">
+          <MDBCarousel
+            class="img-thumbnail"
+            v-model="carousel7"
+            :items="momentCarousel2"
+            :indicators="false"
+          />
+        </div>
       </template>
       <template v-if="momentCarousel3.length">
-      <div class="col-md-4">
-        <MDBCarousel
-          class="img-thumbnail"
-          v-model="carousel8"
-          :items="momentCarousel3"
-          :indicators="false"
-        />
-      </div>
+        <div class="col-md-4">
+          <MDBCarousel
+            class="img-thumbnail"
+            v-model="carousel8"
+            :items="momentCarousel3"
+            :indicators="false"
+          />
+        </div>
       </template>
     </div>
   </div>
@@ -126,10 +124,10 @@
 </template>
 
 <script>
-import Navbar from "../components/Navbarcopy.vue";
-import Footer from "../components/Footer copy.vue";
-import { ref , getCurrentInstance } from "vue";
-import {useRouter} from 'vue-router'
+import Navbar from "../components/Navbarcopy.vue"
+import Footer from "../components/Footer copy.vue"
+import { ref, getCurrentInstance } from "vue"
+import { useRouter } from "vue-router"
 import {
   MDBCarousel,
   MDBContainer,
@@ -138,9 +136,10 @@ import {
   MDBCardTitle,
   MDBCardText,
   MDBCardImg,
-  MDBBtn,MDBAutocomplete,
-  mdbRipple,
-} from "mdb-vue-ui-kit";
+  MDBBtn,
+  MDBAutocomplete,
+  mdbRipple
+} from "mdb-vue-ui-kit"
 
 export default {
   name: "Home",
@@ -159,30 +158,30 @@ export default {
   },
   data() {
     return {
-      email: "",
-    };
+      email: ""
+    }
   },
   methods: {
     notification: function () {
-      this.$store.dispatch("notificationMessage", this.email);
-    },
+      this.$store.dispatch("notificationMessage", this.email)
+    }
   },
   setup() {
     const diskusi_wisata = ref([])
     const momentCarousel = ref([])
     const momentCarousel2 = ref([])
     const momentCarousel3 = ref([])
-    const carousel6 = ref(0);
-    const carousel7 = ref(0);
-    const carousel8 = ref(0);
+    const carousel6 = ref(0)
+    const carousel7 = ref(0)
+    const carousel8 = ref(0)
     const router = useRouter()
-    const app = getCurrentInstance();
+    const app = getCurrentInstance()
     const wisata_list = ref()
     const moment_wisata = ref()
     const stringToShow = ref(Array(100).fill(200))
     const most_favourited = ref()
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
-     let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
+    let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
     let uri_wisataRandom = process.env.VUE_APP_ROOT_API + "wisata/random"
     let uri_momentRandom = process.env.VUE_APP_ROOT_API + "moment/random/moment"
     app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
@@ -219,15 +218,12 @@ export default {
         }if(5 < i <= 8){
           momentCarousel3.value.push(data)
         }
-
-      }
-    })
-    function redirect(data){
-      router.push({name : 'WisataDetails', params : {slug : data}})
+    }})
+    function redirect(data) {
+      router.push({ name: "WisataDetails", params: { slug: data } })
     }
-    
 
-      const filterTemplate = async (value) => {
+    const filterTemplate = async (value) => {
       const res = ref([])
       res.value = await app.appContext.config.globalProperties.$http.get(
         uri_wisata
@@ -246,7 +242,7 @@ export default {
       })
     }
     const autocompleteTemplate = ref("")
-     const itemTemplate = (result) => {
+    const itemTemplate = (result) => {
       return `
           <div class="autocomplete-custom-item-content">
             <div class="autocomplete-custom-item-title">${result.nama}</div>
@@ -256,24 +252,27 @@ export default {
     }
     const displayValueTemplate = (value) => value.slug
 
-     
-
-
     return {
       momentCarousel,
       wisata_list,
-      most_favourited,moment_wisata,
+      most_favourited,
+      moment_wisata,
       momentCarousel2,
       momentCarousel3,
       carousel6,
       carousel7,
       diskusi_wisata,
-      carousel8,stringToShow,
-      redirect,filterTemplate,displayValueTemplate,itemTemplate,autocompleteTemplate,
-    };
+      carousel8,
+      stringToShow,
+      redirect,
+      filterTemplate,
+      displayValueTemplate,
+      itemTemplate,
+      autocompleteTemplate
+    }
   },
-  directives: { mdbRipple },
-};
+  directives: { mdbRipple }
+}
 </script>
 <style>
 body {
@@ -292,6 +291,8 @@ body {
   transform: translateX(-50%);
   z-index: 2;
   width: 50%;
+  background-color: white;
+  border-radius: 10px;
 }
 .form-control {
   height: 60px;

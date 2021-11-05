@@ -74,7 +74,7 @@
                         <div class="font-weight-bold text-truncate">
                           
                           <template v-if="notif.content == 'comment'">
-                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)" >Discussion</a>
+                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion)" >Discussion</a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -85,7 +85,19 @@
                                     </span>
                          </template>
                           <template v-if="notif.content == 'likeDiscussion'">
-                         {{notif.ref_user.name}} Liked one of your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Discussion</a>
+                         {{notif.ref_user.name}} Liked one of your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion)">Discussion</a>
+                         <span class="me-2" style="cursor: pointer">
+                                      <a role="button" @click="deleteNotification(notif._id)">
+                                      <MDBIcon
+                                        icon="trash"
+                                        iconStyle="fas"
+                                      />
+                                      </a>
+                                    </span>
+                         </template>
+                              <template v-if="notif.content == 'likeComment'">
+                      
+                         {{notif.ref_user.name}} Liked one of your Comment on <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion)"> this discussion </a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -146,6 +158,19 @@
                             </MDBRow>
                             <MDBRow>
                               <MDBCol class="mb-3">
+                                <a
+                                  @click="likeDiscussion(modalData._id)"
+                                  class="m-1"
+                                  role="button"
+                                  style="color: rgb(0, 0, 255)"
+                                >
+                                  <MDBIcon
+                                    iconStyle="fas"
+                                    icon="thumbs-up"
+                                    size="xs"
+                                  ></MDBIcon>
+                                  Like ({{ modalData.thumbs_up.length }})
+                                </a>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
                                   Posted By {{ modalData.id_user.name }}
@@ -658,8 +683,8 @@ export default {
           }
         }).slice(0,listToShow.value)
     });
-    function openModal(data,content) {
-      if(content == 'comment'){
+    function openModal(data) {
+      
         let uri_discussion =
       process.env.VUE_APP_ROOT_API +
       "wisata/" +
@@ -671,7 +696,7 @@ export default {
         modalOpened.value = true
       })
       
-      }
+      
     
 
     
@@ -860,6 +885,57 @@ export default {
       currentPagePlanner.value -= 1
       offsetPlanner.value -= 5}
     }
+      function confirmDeleteComment(discussion_id, comment_id) {
+      Swal.fire({
+        title: "Do you want to delete your discussion?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save"
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          let uri_deleteDiscussion =
+            process.env.VUE_APP_ROOT_API +
+            "wisata/" +
+            route.params.slug +
+            "/discussion/" +
+            discussion_id +
+            "/" +
+            comment_id
+          app.appContext.config.globalProperties.$http.delete(uri_deleteDiscussion, config).then((response) => {
+            if (response.status == 201) {
+              Swal.fire("Comment Deleted", "", "success")
+              get_comment(modalData, discussion_id)
+            }
+          })
+        }
+      })
+    }
+    function likeDiscussion(id) {
+      let uri_likeDiscussion =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id +
+        "/thumbs"
+      app.appContext.config.globalProperties.$http.post(uri_likeDiscussion, config, config).then((response) => {
+        console.log(response.data)
+        getSpecificDiscussion(id, modalData)
+      })
+    }
+      function getSpecificDiscussion(id, data) {
+      let uri_discussion =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id
+      app.appContext.config.globalProperties.$http.get(uri_discussion).then((response) => {
+        data.value = response.data
+      })
+    }
+   
 
     return {
       dropdown21,
@@ -897,7 +973,9 @@ export default {
       plannerComputed,
       prevPagination,
       currentPagePlanner,
-      offsetPlanner
+      offsetPlanner,
+      confirmDeleteComment,
+      likeDiscussion,getSpecificDiscussion
       
 };
   },

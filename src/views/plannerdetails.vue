@@ -1,5 +1,6 @@
 <template>
   <Navbar />
+  
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="12">
@@ -50,11 +51,13 @@
     >
       <MDBModalHeader class="text-white" style="background-color: rgb(50, 224, 196)">
         <MDBModalTitle id="exampleSideModalLabel1">
+       
           Pilih Tempat Wisata
         </MDBModalTitle>
       </MDBModalHeader>
       <MDBModalBody>
         <p class="text-start">Pilih Tempat Wisata</p>
+           
         <div class="autocomplete">
           <!-- <p class="search-text">Cari Wisata</p> -->
           <MDBAutocomplete
@@ -101,7 +104,7 @@
         </MDBCol>
       </MDBModalBody>
       <MDBModalFooter>
-        <MDBBtn color="info" @click="addPlannerDetail()"> Add </MDBBtn>
+        <MDBBtn color="info" @click="addPlannerDetail()"> Add  </MDBBtn>
         <MDBBtn color="outline-info" @click="exampleSideModal1 = false">
           Cancel
         </MDBBtn>
@@ -144,6 +147,17 @@
             placeholder="20:05"
           />
         </MDBCol>
+         <MDBCol class="my-2">
+          <MDBTimepicker
+            label="Pilih Jam Selesai"
+            inline
+            v-model="data.end_time"
+            :hoursFormat="24"
+            :increment="5"
+            
+            placeholder="20:05"
+          />
+        </MDBCol>
         <MDBCol class="my-2">
           <MDBDatepicker
             v-model="data.date"
@@ -155,7 +169,7 @@
         </MDBCol>
       </MDBModalBody>
       <MDBModalFooter>
-        <MDBBtn color="info" @click="addPlannerDetail()"> Add </MDBBtn>
+        <MDBBtn color="info" @click="updatePlanner(selectedPlan)"> Update Plan  </MDBBtn>
         <MDBBtn color="outline-info" @click="exampleSideModal2 = false">
           Cancel
         </MDBBtn>
@@ -237,7 +251,7 @@ export default {
       title : null
     });
     
-    const selectedPlan = ref();
+    const selectedPlan = ref("");
     const app = getCurrentInstance()
     let uri_wisata =  process.env.VUE_APP_ROOT_API  + "wisata/all"
     
@@ -307,6 +321,7 @@ export default {
               selectedPlan.value = btn.attributes['data-mdb-email'].value
               data.value.wisata =  btn.attributes['data-mdb-title'].value
               data.value.time = btn.attributes['data-mdb-time'].value
+              data.value.end_time = btn.attributes['data-mdb-end-time'].value
               data.value.date = btn.attributes['data-mdb-date'].value
               exampleSideModal2.value = true
             });
@@ -338,10 +353,28 @@ export default {
         });
       };  function addPlannerDetail(){
         let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id
-        console.log(data.value)
+
         app.appContext.config.globalProperties.$http.post(uri_planner,data,config).then((response) =>{
           if(response.status == 200){
             Swal.fire(response.data.msg, "", "success");
+            exampleSideModal1.value = false
+            get_plan()
+          }
+        }
+        )
+      }
+       function updatePlanner(id){
+        let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id + '/' + id
+      
+        app.appContext.config.globalProperties.$http.patch(uri_planner,data,config).then((response) =>{
+          
+          console.log(response.data)
+          if(response.status == 200){
+            Swal.fire({
+              text : 'Data berhasil diubah',
+               icon : 'success',
+              title : 'Success'
+            });
             exampleSideModal1.value = false
             get_plan()
           }
@@ -358,7 +391,7 @@ export default {
           Date: `${planner.date}`,
           Action:  `
               
-              <button class="edit-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}" data-mdb-time="${planner.time}" 
+              <button class="edit-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}" data-mdb-time="${planner.time}" data-mdb-end-time="${planner.end_time}"
                data-mdb-date="${planner.date}" data-mdb-title="${planner.id_wisata.nama}"><i class="fa fa-edit"></i></button>
               <button class="delete-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}"><i class="fa fa-trash"></i></button>`}))
       }).catch((err) => {
@@ -376,6 +409,7 @@ export default {
       autocompleteTemplate,
       itemTemplate,
       addPlannerDetail,
+      updatePlanner,
       exampleSideModal2,
       data,
       selectedPlan,

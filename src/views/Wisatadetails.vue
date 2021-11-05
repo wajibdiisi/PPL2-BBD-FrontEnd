@@ -143,10 +143,22 @@
               <MDBTabs v-model="activeTabId1">
                 <!-- Tabs navs -->
                 <MDBTabNav tabsClasses="mb-3">
-                  <MDBTabItem tabId="ex1-1" href="ex1-1" >Overview</MDBTabItem>
-                  <MDBTabItem tabId="ex1-2" href="ex1-2" @click="resetPagination('review')">Review({{review_list?.length}})</MDBTabItem>
-                  <MDBTabItem tabId="ex1-3" href="ex1-3" >Moment({{moment_list?.length}})</MDBTabItem>
-                  <MDBTabItem tabId="ex1-4" href="ex1-4" @click="resetPagination('discussion')">Discussion({{discussion_list?.length}})</MDBTabItem>
+                  <MDBTabItem tabId="ex1-1" href="ex1-1">Overview</MDBTabItem>
+                  <MDBTabItem
+                    tabId="ex1-2"
+                    href="ex1-2"
+                    @click="resetPagination('review')"
+                    >Review({{ review_list?.length }})</MDBTabItem
+                  >
+                  <MDBTabItem tabId="ex1-3" href="ex1-3"
+                    >Moment({{ moment_list?.length }})</MDBTabItem
+                  >
+                  <MDBTabItem
+                    tabId="ex1-4"
+                    href="ex1-4"
+                    @click="resetPagination('discussion')"
+                    >Discussion({{ discussion_list?.length }})</MDBTabItem
+                  >
                   <MDBTabItem tabId="ex1-5" href="ex1-4"
                     >Favorited by
                     {{ data_wisata["bookmark_id_user"].length }}
@@ -186,7 +198,7 @@
                       <MDBRow>
                         <MDBCol>
                           <p style="font-size: 1rem">
-                      {{data_wisata["alamat"]}}
+                            {{ data_wisata["alamat"] }}
                           </p>
                         </MDBCol>
                         <MDBRow>
@@ -228,225 +240,224 @@
                       </MDBRow>
                     </MDBCol>
                   </MDBTabPane>
-                   <MDBModal
-                      id="AddReview"
-                      tabindex="-1"
-                      labelledby="AddReviewTitle"
-                      v-model="AddReview"
-                      centered
-                      scrollable
-                      size="lg"
-                    >
-                      <MDBModalHeader>
-                        <MDBModalTitle id="AddReviewTitle">
-                          Add Review
-                        </MDBModalTitle>
-                      </MDBModalHeader>
-                      <MDBModalBody>
-                        <MDBCol class="d-flex p-3 justify-content-center">
-                          <MDBRating v-model="review_content.rating">
-                            <MDBRatingItem title="Bad" :index="1">
-                              <div
-                                color="#24963F"
-                                height="2rem"
-                                width="2.6rem"
-                                font-size="1rem"
-                                class="sc-1q7bklc-10 kgIEjH"
-                              >
-                                <div class="sc-1q7bklc-6 liCXOR">
-                                  <div class="sc-1q7bklc-5 kHxpSk">
-                                    <div class="sc-1q7bklc-1 cILgox">1</div>
-                                    <div class="sc-1q7bklc-2 pxJGx">
-                                      <i
-                                        class="sc-rbbb40-1 iFnyeo"
-                                        color="#FFFFFF"
-                                        ><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="#FFFFFF"
-                                          width="0.8rem"
-                                          height="0.8rem"
-                                          viewBox="0 0 20 20"
-                                          aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                          role="img"
-                                          class="sc-rbbb40-0 fauQLv"
-                                        >
-                                          <title>star-fill</title>
-                                          <path
-                                            d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                          ></path></svg
-                                      ></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </MDBRatingItem>
-                            <MDBRatingItem title="Poor" :index="2">
-                              <div
-                                color="#24963F"
-                                height="2rem"
-                                width="2.6rem"
-                                font-size="1rem"
-                                class="sc-1q7bklc-10 kgIEjH"
-                              >
-                                <div class="sc-1q7bklc-6 liCXOR">
-                                  <div class="sc-1q7bklc-5 kHxpSk">
-                                    <div class="sc-1q7bklc-1 cILgox">2</div>
-                                    <div class="sc-1q7bklc-2 pxJGx">
-                                      <i
-                                        class="sc-rbbb40-1 iFnyeo"
-                                        color="#FFFFFF"
-                                      >
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="#FFFFFF"
-                                          width="0.8rem"
-                                          height="0.8rem"
-                                          viewBox="0 0 20 20"
-                                          aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                          role="img"
-                                          class="sc-rbbb40-0 fauQLv"
-                                        >
-                                          <title>star-fill</title>
-                                          <path
-                                            d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                          ></path></svg
-                                      ></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </MDBRatingItem>
-                            <MDBRatingItem title="OK" :index="3">
-                              <div
-                                color="#24963F"
-                                height="2rem"
-                                width="2.6rem"
-                                font-size="1rem"
-                                class="sc-1q7bklc-10 kgIEjH"
-                              >
-                                <div class="sc-1q7bklc-6 liCXOR">
-                                  <div class="sc-1q7bklc-5 kHxpSk">
-                                    <div class="sc-1q7bklc-1 cILgox">3</div>
-                                    <div class="sc-1q7bklc-2 pxJGx">
-                                      <i
-                                        class="sc-rbbb40-1 iFnyeo"
-                                        color="#FFFFFF"
-                                        ><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="#FFFFFF"
-                                          width="0.8rem"
-                                          height="0.8rem"
-                                          viewBox="0 0 20 20"
-                                          aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                          role="img"
-                                          class="sc-rbbb40-0 fauQLv"
-                                        >
-                                          <title>star-fill</title>
-                                          <path
-                                            d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                          ></path></svg
-                                      ></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </MDBRatingItem>
-                            <MDBRatingItem title="Good" :index="4">
-                              <div
-                                color="#24963F"
-                                height="2rem"
-                                width="2.6rem"
-                                font-size="1rem"
-                                class="sc-1q7bklc-10 kgIEjH"
-                              >
-                                <div class="sc-1q7bklc-6 liCXOR">
-                                  <div class="sc-1q7bklc-5 kHxpSk">
-                                    <div class="sc-1q7bklc-1 cILgox">4</div>
-                                    <div class="sc-1q7bklc-2 pxJGx">
-                                      <i
-                                        class="sc-rbbb40-1 iFnyeo"
-                                        color="#FFFFFF"
-                                        ><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="#FFFFFF"
-                                          width="0.8rem"
-                                          height="0.8rem"
-                                          viewBox="0 0 20 20"
-                                          aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                          role="img"
-                                          class="sc-rbbb40-0 fauQLv"
-                                        >
-                                          <title>star-fill</title>
-                                          <path
-                                            d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                          ></path></svg
-                                      ></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </MDBRatingItem>
-                            <MDBRatingItem title="Excellent" :index="5">
-                              <div
-                                color="#24963F"
-                                height="2rem"
-                                width="2.6rem"
-                                font-size="1rem"
-                                class="sc-1q7bklc-10 kgIEjH"
-                              >
-                                <div class="sc-1q7bklc-6 liCXOR">
-                                  <div class="sc-1q7bklc-5 kHxpSk">
-                                    <div class="sc-1q7bklc-1 cILgox">5</div>
-                                    <div class="sc-1q7bklc-2 pxJGx">
-                                      <i
-                                        class="sc-rbbb40-1 iFnyeo"
-                                        color="#FFFFFF"
-                                        ><svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          fill="#FFFFFF"
-                                          width="0.8rem"
-                                          height="0.8rem"
-                                          viewBox="0 0 20 20"
-                                          aria-labelledby="icon-svg-title- icon-svg-desc-"
-                                          role="img"
-                                          class="sc-rbbb40-0 fauQLv"
-                                        >
-                                          <title>star-fill</title>
-                                          <path
-                                            d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
-                                          ></path></svg
-                                      ></i>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </MDBRatingItem> </MDBRating
-                        ></MDBCol>
-                        <MDBCol>What did you love?</MDBCol>
-                        <MDBCol>
-                          <MDBTextarea
-                            label="Write Your Review"
-                            rows="10"
-                            class="my-1"
-                            v-model="review_content.content"
-                          />
-                        </MDBCol>
-                      </MDBModalBody>
-                      <MDBBtn
-                        style="
-                          background-color: rgb(13, 115, 119);
-                          color: white;
-                          width: 175px;
-                          height: 45px;
-                        "
-                        class="align-self-center my-4"
-                        @click="add_review(review_content)"
-                      >
+                  <MDBModal
+                    id="AddReview"
+                    tabindex="-1"
+                    labelledby="AddReviewTitle"
+                    v-model="AddReview"
+                    centered
+                    scrollable
+                    size="lg"
+                  >
+                    <MDBModalHeader>
+                      <MDBModalTitle id="AddReviewTitle">
                         Add Review
-                      </MDBBtn>
-                    </MDBModal>
+                      </MDBModalTitle>
+                    </MDBModalHeader>
+                    <MDBModalBody>
+                      <MDBCol class="d-flex p-3 justify-content-center">
+                        <MDBRating v-model="review_content.rating">
+                          <MDBRatingItem title="Bad" :index="1">
+                            <div
+                              color="#24963F"
+                              height="2rem"
+                              width="2.6rem"
+                              font-size="1rem"
+                              class="sc-1q7bklc-10 kgIEjH"
+                            >
+                              <div class="sc-1q7bklc-6 liCXOR">
+                                <div class="sc-1q7bklc-5 kHxpSk">
+                                  <div class="sc-1q7bklc-1 cILgox">1</div>
+                                  <div class="sc-1q7bklc-2 pxJGx">
+                                    <i
+                                      class="sc-rbbb40-1 iFnyeo"
+                                      color="#FFFFFF"
+                                      ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="#FFFFFF"
+                                        width="0.8rem"
+                                        height="0.8rem"
+                                        viewBox="0 0 20 20"
+                                        aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                        role="img"
+                                        class="sc-rbbb40-0 fauQLv"
+                                      >
+                                        <title>star-fill</title>
+                                        <path
+                                          d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                        ></path></svg
+                                    ></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </MDBRatingItem>
+                          <MDBRatingItem title="Poor" :index="2">
+                            <div
+                              color="#24963F"
+                              height="2rem"
+                              width="2.6rem"
+                              font-size="1rem"
+                              class="sc-1q7bklc-10 kgIEjH"
+                            >
+                              <div class="sc-1q7bklc-6 liCXOR">
+                                <div class="sc-1q7bklc-5 kHxpSk">
+                                  <div class="sc-1q7bklc-1 cILgox">2</div>
+                                  <div class="sc-1q7bklc-2 pxJGx">
+                                    <i
+                                      class="sc-rbbb40-1 iFnyeo"
+                                      color="#FFFFFF"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="#FFFFFF"
+                                        width="0.8rem"
+                                        height="0.8rem"
+                                        viewBox="0 0 20 20"
+                                        aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                        role="img"
+                                        class="sc-rbbb40-0 fauQLv"
+                                      >
+                                        <title>star-fill</title>
+                                        <path
+                                          d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                        ></path></svg
+                                    ></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </MDBRatingItem>
+                          <MDBRatingItem title="OK" :index="3">
+                            <div
+                              color="#24963F"
+                              height="2rem"
+                              width="2.6rem"
+                              font-size="1rem"
+                              class="sc-1q7bklc-10 kgIEjH"
+                            >
+                              <div class="sc-1q7bklc-6 liCXOR">
+                                <div class="sc-1q7bklc-5 kHxpSk">
+                                  <div class="sc-1q7bklc-1 cILgox">3</div>
+                                  <div class="sc-1q7bklc-2 pxJGx">
+                                    <i
+                                      class="sc-rbbb40-1 iFnyeo"
+                                      color="#FFFFFF"
+                                      ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="#FFFFFF"
+                                        width="0.8rem"
+                                        height="0.8rem"
+                                        viewBox="0 0 20 20"
+                                        aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                        role="img"
+                                        class="sc-rbbb40-0 fauQLv"
+                                      >
+                                        <title>star-fill</title>
+                                        <path
+                                          d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                        ></path></svg
+                                    ></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </MDBRatingItem>
+                          <MDBRatingItem title="Good" :index="4">
+                            <div
+                              color="#24963F"
+                              height="2rem"
+                              width="2.6rem"
+                              font-size="1rem"
+                              class="sc-1q7bklc-10 kgIEjH"
+                            >
+                              <div class="sc-1q7bklc-6 liCXOR">
+                                <div class="sc-1q7bklc-5 kHxpSk">
+                                  <div class="sc-1q7bklc-1 cILgox">4</div>
+                                  <div class="sc-1q7bklc-2 pxJGx">
+                                    <i
+                                      class="sc-rbbb40-1 iFnyeo"
+                                      color="#FFFFFF"
+                                      ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="#FFFFFF"
+                                        width="0.8rem"
+                                        height="0.8rem"
+                                        viewBox="0 0 20 20"
+                                        aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                        role="img"
+                                        class="sc-rbbb40-0 fauQLv"
+                                      >
+                                        <title>star-fill</title>
+                                        <path
+                                          d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                        ></path></svg
+                                    ></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </MDBRatingItem>
+                          <MDBRatingItem title="Excellent" :index="5">
+                            <div
+                              color="#24963F"
+                              height="2rem"
+                              width="2.6rem"
+                              font-size="1rem"
+                              class="sc-1q7bklc-10 kgIEjH"
+                            >
+                              <div class="sc-1q7bklc-6 liCXOR">
+                                <div class="sc-1q7bklc-5 kHxpSk">
+                                  <div class="sc-1q7bklc-1 cILgox">5</div>
+                                  <div class="sc-1q7bklc-2 pxJGx">
+                                    <i
+                                      class="sc-rbbb40-1 iFnyeo"
+                                      color="#FFFFFF"
+                                      ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="#FFFFFF"
+                                        width="0.8rem"
+                                        height="0.8rem"
+                                        viewBox="0 0 20 20"
+                                        aria-labelledby="icon-svg-title- icon-svg-desc-"
+                                        role="img"
+                                        class="sc-rbbb40-0 fauQLv"
+                                      >
+                                        <title>star-fill</title>
+                                        <path
+                                          d="M6.76 6.8l-6.38 0.96c-0.22 0.040-0.38 0.22-0.38 0.44 0 0.12 0.040 0.24 0.12 0.32v0l4.64 4.76-1.1 6.66c0 0.020 0 0.040 0 0.080 0 0.24 0.2 0.44 0.44 0.44 0.1 0 0.16-0.020 0.24-0.060v0l5.7-3.12 5.68 3.12c0.060 0.040 0.14 0.060 0.22 0.060 0.24 0 0.44-0.2 0.44-0.44 0-0.040 0-0.060 0-0.080v0l-1.1-6.66 4.64-4.76c0.080-0.080 0.12-0.2 0.12-0.32 0-0.22-0.16-0.4-0.36-0.44h-0.020l-6.38-0.96-2.96-6.18c-0.060-0.12-0.18-0.2-0.32-0.2s-0.26 0.080-0.32 0.2v0z"
+                                        ></path></svg
+                                    ></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </MDBRatingItem> </MDBRating
+                      ></MDBCol>
+                      <MDBCol>What did you love?</MDBCol>
+                      <MDBCol>
+                        <MDBTextarea
+                          label="Write Your Review"
+                          rows="10"
+                          class="my-1"
+                          v-model="review_content.content"
+                        />
+                      </MDBCol>
+                    </MDBModalBody>
+                    <MDBBtn
+                      style="
+                        background-color: rgb(13, 115, 119);
+                        color: white;
+                        width: 175px;
+                        height: 45px;
+                      "
+                      class="align-self-center my-4"
+                      @click="add_review(review_content)"
+                    >
+                      Add Review
+                    </MDBBtn>
+                  </MDBModal>
                   <MDBTabPane tabId="ex1-2">
-                   
                     <MDBRow class="d-flex align-content-center">
                       <MDBCol md="12" class="text-center">
                         <h5 style="font-weight: 500">
@@ -634,8 +645,11 @@
                           All Review ({{ review_list.length }})
                         </h6>
                       </MDBCol>
-                      <MDBCol md="3"  class="text-end">
-                    <MDBSelect  v-model:options="sortType" v-model:selected="selectedSort" />
+                      <MDBCol md="3" class="text-end">
+                        <MDBSelect
+                          v-model:options="sortType"
+                          v-model:selected="selectedSort"
+                        />
                       </MDBCol>
                     </MDBRow>
                     <MDBCol v-for="review in reviewComputed" :key="review._id">
@@ -728,18 +742,18 @@
                         </p>
                       </MDBCol>
                     </MDBCol>
-                     <div class="center">
-        <div class="pagination">
-          <a role="button" @click="prev">&laquo;</a>
-          <a role="button" class="active">{{currentPage}}</a>
-          <!-- <a href="#">2</a>
+                    <div class="center">
+                      <div class="pagination">
+                        <a role="button" @click="prev">&laquo;</a>
+                        <a role="button" class="active">{{ currentPage }}</a>
+                        <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
           <a href="#">6</a> -->
-          <a role="button" @click="nextPagination()">&raquo;</a>
-        </div>
-      </div>
+                        <a role="button" @click="nextPagination()">&raquo;</a>
+                      </div>
+                    </div>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-3">
                     <MDBModal
@@ -775,37 +789,75 @@
                               </MDBCol>
                               <MDBCol md="9">
                                 <MDBCol>
-                                  <p style="margin-bottom: 4px">{{modalDataMoment.id_user.name}}</p>
+                                  <p style="margin-bottom: 4px">
+                                    {{ modalDataMoment.id_user.name }}
+                                  </p>
                                 </MDBCol>
                                 <MDBCol>
-                                  <p class="fw-light">{{moment(modalDataMoment.created_at).fromNow()}}</p>
+                                  <p class="fw-light">
+                                    {{
+                                      moment(
+                                        modalDataMoment.created_at
+                                      ).fromNow()
+                                    }}
+                                  </p>
                                 </MDBCol>
                               </MDBCol>
                             </MDBRow>
                             <MDBCol>
                               <p style="margin-top: 8px">
-                               {{modalDataMoment.description}}
+                                {{ modalDataMoment.description }}
                               </p>
-                              <p>
-                              Tanggal : {{modalDataMoment.date}}
-                            </p>
-                            <p>
-                              waktu : {{modalDataMoment.time}}
-                            </p>
-                             <MDBBtn size="sm" outline="dark" v-for="wisata in modalDataMoment.id_wisata" :key="wisata._id">
-                                  <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
-                                  <p style="margin-bottom: 4px">{{wisata.nama}}</p>
-                                  </router-link>
-                                </MDBBtn>
+                              <p>Tanggal : {{ modalDataMoment.date }}</p>
+                              <p>waktu : {{ modalDataMoment.time }}</p>
+                              <MDBBtn
+                                size="sm"
+                                outline="dark"
+                                v-for="wisata in modalDataMoment.id_wisata"
+                                :key="wisata._id"
+                              >
+                                <router-link
+                                  :to="{
+                                    name: 'WisataDetails',
+                                    params: { slug: wisata.slug }
+                                  }"
+                                >
+                                  <p style="margin-bottom: 4px">
+                                    {{ wisata.nama }}
+                                  </p>
+                                </router-link>
+                              </MDBBtn>
                             </MDBCol>
                             <hr />
                             <MDBCol>
                               <p>
-                               <a role="button"  style="color: rgb(0, 0, 255)" @click="likeMoment(modalDataMoment._id)"><MDBIcon icon="thumbs-up" iconStyle="fas" />Like ({{modalDataMoment.thumbs_up.length}}) </a>
-                               <template v-if="modalDataMoment.id_user._id == user.user?._id">
-                                <a role="button" @click="deleteMoment(modalDataMoment._id)"><MDBIcon icon="trash" iconStyle="fas" />Delete </a>
+                                <a
+                                  role="button"
+                                  style="color: rgb(0, 0, 255)"
+                                  @click="likeMoment(modalDataMoment._id)"
+                                  ><MDBIcon
+                                    icon="thumbs-up"
+                                    iconStyle="fas"
+                                  />Like ({{
+                                    modalDataMoment.thumbs_up.length
+                                  }})
+                                </a>
+                                <template
+                                  v-if="
+                                    modalDataMoment.id_user._id ==
+                                    user.user?._id
+                                  "
+                                >
+                                  <a
+                                    role="button"
+                                    @click="deleteMoment(modalDataMoment._id)"
+                                    ><MDBIcon
+                                      icon="trash"
+                                      iconStyle="fas"
+                                    />Delete
+                                  </a>
                                 </template>
-                               </p>
+                              </p>
                             </MDBCol>
                           </MDBCol>
                         </MDBRow>
@@ -813,17 +865,23 @@
                     </MDBModal>
                     <MDBRow>
                       <template v-if="moment_list">
-                      <MDBCol md="3" v-for="data_moment in moment_list" :key="data_moment._id">
-                        
-                        <MDBCard @click="openModalMoment(data_moment)" style="cursor: pointer">
-                          <MDBCardImg
-                            top
-                           :src="data_moment.photo"
-                            alt="..."
-                          />
-                        </MDBCard>
-                      </MDBCol>
-                    </template>
+                        <MDBCol
+                          md="3"
+                          v-for="data_moment in moment_list"
+                          :key="data_moment._id"
+                        >
+                          <MDBCard
+                            @click="openModalMoment(data_moment)"
+                            style="cursor: pointer"
+                          >
+                            <MDBCardImg
+                              top
+                              :src="data_moment.photo"
+                              alt="..."
+                            />
+                          </MDBCard>
+                        </MDBCol>
+                      </template>
                     </MDBRow>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-4">
@@ -835,7 +893,10 @@
                           </h6>
                         </MDBCol>
                         <MDBCol md="3" class="text-end">
-                           <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
+                          <MDBSelect
+                            v-model:options="sortType"
+                            v-model:selected="selectedSort"
+                          />
                         </MDBCol>
                       </MDBRow>
                       <MDBCol
@@ -860,16 +921,16 @@
                             <MDBRow>
                               <MDBCol class="d-flex justify-content-start">
                                 <span>{{ discussion.title }}</span>
-                                
                               </MDBCol>
                               <MDBCol md="8" class="d-flex justify-content-end">
-                               
                                 <span class="pe-2">
-                                  <MDBIcon icon="comment" iconStyle="fas" /> {{discussion.id_comments.length}}
+                                  <MDBIcon icon="comment" iconStyle="fas" />
+                                  {{ discussion.id_comments.length }}
                                 </span>
-                                 <span class="pe-2">
-                              <MDBIcon icon="time" iconStyle="fas" /> {{ moment(discussion.created_at).fromNow() }}
-                            </span>
+                                <span class="pe-2">
+                                  <MDBIcon icon="time" iconStyle="fas" />
+                                  {{ moment(discussion.created_at).fromNow() }}
+                                </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="user" iconStyle="fas" />
                                   <span>This discussion is created by you</span>
@@ -890,9 +951,7 @@
                           >
                             Add Discussion
                           </MDBBtn>
-                          
                         </MDBCol>
-                        
                       </MDBRow>
                     </MDBRow>
                     <MDBModal
@@ -918,9 +977,7 @@
                             <MDBRow>
                               <MDBCol class="mb-3">
                                 <a
-                                  @click="
-                                    likeDiscussion(modalData._id)
-                                  "
+                                  @click="likeDiscussion(modalData._id)"
                                   class="m-1"
                                   role="button"
                                   style="color: rgb(0, 0, 255)"
@@ -930,7 +987,7 @@
                                     icon="thumbs-up"
                                     size="xs"
                                   ></MDBIcon>
-                                  Like ({{modalData.thumbs_up.length}})
+                                  Like ({{ modalData.thumbs_up.length }})
                                 </a>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
@@ -948,22 +1005,24 @@
                                   <MDBIcon icon="share" iconStyle="fas" />
                                   Share
                                 </span>
-                                <template v-if="modalData.id_user._id == user.user?._id">
-                                <a
-                                  @click="
-                                    confirmDeleteDiscussion(modalData._id)
-                                  "
-                                  class="m-1"
-                                  role="button"
-                                  style="color: rgb(255, 0, 0)"
+                                <template
+                                  v-if="modalData.id_user._id == user.user?._id"
                                 >
-                                  <MDBIcon
-                                    iconStyle="fas"
-                                    icon="trash"
-                                    size="xs"
-                                  ></MDBIcon>
-                                  Delete
-                                </a>
+                                  <a
+                                    @click="
+                                      confirmDeleteDiscussion(modalData._id)
+                                    "
+                                    class="m-1"
+                                    role="button"
+                                    style="color: rgb(255, 0, 0)"
+                                  >
+                                    <MDBIcon
+                                      iconStyle="fas"
+                                      icon="trash"
+                                      size="xs"
+                                    ></MDBIcon>
+                                    Delete
+                                  </a>
                                 </template>
                               </MDBCol>
                             </MDBRow>
@@ -996,10 +1055,13 @@
                                 Submit
                               </MDBBtn>
                               <MDBCol md="3" class="text-end">
-                    <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
-                  </MDBCol>
+                                <MDBSelect
+                                  v-model:options="sortType"
+                                  v-model:selected="selectedSort"
+                                />
+                              </MDBCol>
                             </MDBRow>
-                            
+
                             <hr />
                             <MDBRow
                               v-for="comment in commentComputed"
@@ -1033,12 +1095,12 @@
                               </MDBCol>
                               <MDBRow>
                                 <MDBCol>
-                                  <p>
+                                  <p class="mb-2">
                                     {{ comment.content }}
                                   </p>
                                 </MDBCol>
                                 <MDBRow class="d-flex justify-content-evenly">
-                                  <MDBCol>
+                                  <MDBCol class="mb-3">
                                     <span class="me-2" style="cursor: pointer">
                                       <MDBIcon
                                         icon="thumbs-up"
@@ -1046,43 +1108,47 @@
                                       />
                                       20
                                     </span>
-                                    <template v-if="comment.id_user._id == user.user?._id">
-                                    <a
-                                      @click="
-                                        confirmDeleteComment(
-                                          modalData._id,
-                                          comment._id
-                                        )
+                                    <template
+                                      v-if="
+                                        comment.id_user._id == user.user?._id
                                       "
-                                      class="m-1"
-                                      role="button"
-                                      style="color: rgb(255, 0, 0)"
                                     >
-                                      <MDBIcon
-                                        iconStyle="fas"
-                                        icon="trash"
-                                        size="xs"
-                                      ></MDBIcon>
-                                      Delete
-                                    </a>
+                                      <a
+                                        @click="
+                                          confirmDeleteComment(
+                                            modalData._id,
+                                            comment._id
+                                          )
+                                        "
+                                        class="m-1"
+                                        role="button"
+                                        style="color: rgb(255, 0, 0)"
+                                      >
+                                        <MDBIcon
+                                          iconStyle="fas"
+                                          icon="trash"
+                                          size="xs"
+                                        ></MDBIcon>
+                                        Delete
+                                      </a>
                                     </template>
                                   </MDBCol>
                                 </MDBRow>
                               </MDBRow>
                             </MDBRow>
                             <MDBBtn
-                        @click="listToShow +=5"
-                            style="
-                              background-color: white;
-                              color: primary;
-                              border: 1px solid black;
-                              width: 400px;
-                              height: 40px;
-                            "
-                            class="mt-2 align-content-end"
-                          >
-                            Load More Comments
-                          </MDBBtn>
+                              @click="listToShow += 5"
+                              style="
+                                background-color: white;
+                                color: primary;
+                                border: 1px solid black;
+                                width: 400px;
+                                height: 40px;
+                              "
+                              class="mt-2 align-content-end"
+                            >
+                              Load More Comments
+                            </MDBBtn>
                           </MDBCol>
                         </MDBRow>
                       </MDBModalBody>
@@ -1148,22 +1214,26 @@
                       </MDBModalBody>
                     </MDBModal>
                     <div class="center">
-        <div class="pagination">
-          <a role="button" @click="prev">&laquo;</a>
-          <a role="button" class="active">{{currentPage}}</a>
-          <!-- <a href="#">2</a>
+                      <div class="pagination">
+                        <a role="button" @click="prev">&laquo;</a>
+                        <a role="button" class="active">{{ currentPage }}</a>
+                        <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
           <a href="#">5</a>
           <a href="#">6</a> -->
-          <a role="button" @click="nextPagination()">&raquo;</a>
-        </div>
-      </div>
+                        <a role="button" @click="nextPagination()">&raquo;</a>
+                      </div>
+                    </div>
                   </MDBTabPane>
                   <MDBTabPane tabId="ex1-5">
                     <MDBRow>
-                      <MDBCol md="2" class="mb-3 justify-content-center" v-for="userFavourited in data_wisata.bookmark_id_user"
-                      :key ="userFavourited._id">
+                      <MDBCol
+                        md="2"
+                        class="mb-3 justify-content-center"
+                        v-for="userFavourited in data_wisata.bookmark_id_user"
+                        :key="userFavourited._id"
+                      >
                         <MDBCol class="d-flex justify-content-center">
                           <img
                             :src="userFavourited.profilePicture"
@@ -1173,19 +1243,20 @@
                           />
                         </MDBCol>
                         <MDBCol class="d-flex justify-content-center">
-                          <p class="mb-0" style="font-weight: 500">{{userFavourited.name}}</p>
+                          <p class="mb-0" style="font-weight: 500">
+                            {{ userFavourited.name }}
+                          </p>
                         </MDBCol>
                         <MDBCol class="d-flex justify-content-center">
                           <p
                             class="mb-0"
                             style="font-weight: 400; font-size: small"
                           >
-                           {{userFavourited.kota}} , {{userFavourited.provinsi}}
+                            {{ userFavourited.kota }} ,
+                            {{ userFavourited.provinsi }}
                           </p>
                         </MDBCol>
                       </MDBCol>
-    
-
                     </MDBRow>
                   </MDBTabPane>
                 </MDBTabContent>
@@ -1201,7 +1272,7 @@
 </template>
 <script>
 import Navbar from "../components/Navbarcopy.vue"
-import { useRoute,useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { GoogleMap, Marker } from "vue3-google-map"
 import Footer from "../components/Footer copy.vue"
 import { getCurrentInstance } from "vue"
@@ -1277,14 +1348,13 @@ export default {
   },
   setup() {
     const sortType = ref([
-        { text: "Newest First", value: "desc" },
-        { text: "Oldest First", value: "asc" },
-       
-      ]);
+      { text: "Newest First", value: "desc" },
+      { text: "Oldest First", value: "asc" }
+    ])
     const config = {
-            headers: authHeader()
+      headers: authHeader()
     }
-    const selectedSort = ref("");
+    const selectedSort = ref("")
     const modalDataMoment = ref()
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
@@ -1292,17 +1362,16 @@ export default {
         pageSize: 10,
         total: 1000
       })
-    
-    
+
     const checkForm = async (e) => {
       e.target.classList.add("was-validated")
-      if(localStorage.getItem('token') == null){
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can make a discussion",
+          icon: "error"
         })
-        return router.push('/login')
+        return router.push("/login")
       }
       if (
         discussion_content.value.content != null &&
@@ -1313,13 +1382,13 @@ export default {
     }
     const checkFormComment = async (e) => {
       e.target.classList.add("was-validated")
-      if(localStorage.getItem('token') == null){
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can add comment",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can add comment",
+          icon: "error"
         })
-        return router.push('/login')
+        return router.push("/login")
       }
       if (comment_content.value != null) {
         create_comment(comment_content.value, modalData.value)
@@ -1358,7 +1427,8 @@ export default {
     const carousel1 = ref(0)
     const route = useRoute()
     const router = useRouter()
-    const fetch_data = getCurrentInstance().appContext.config.globalProperties.$http
+    const fetch_data =
+      getCurrentInstance().appContext.config.globalProperties.$http
     const mapLoaded = ref(false)
     const bookmark_list = []
     const center = { lat: 40.689247, lng: -74.044502 }
@@ -1377,7 +1447,8 @@ export default {
     const listToShow = ref(5)
     const currentPagination = ref()
     const moment_list = ref()
-    let uri_moment = process.env.VUE_APP_ROOT_API + "moment/wisata/" + route.params.slug
+    let uri_moment =
+      process.env.VUE_APP_ROOT_API + "moment/wisata/" + route.params.slug
     let uri_wisata =
       process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug
     let uri_review =
@@ -1387,32 +1458,28 @@ export default {
       "wisata/" +
       route.params.slug +
       "/discussion"
-    fetch_data
-      .get(uri_review)
-      .then((response) => {
-        review_list.value = response.data.data
-        reviewRating.value = response.data.count.map((item) => item.rating)
-        review_list.value.totalRating = sum_rating(reviewRating)
-        console.log(review_list.value.totalRating)
-      })
-    fetch_data
-      .get(uri_discussion)
-      .then((response) => {
-        discussion_list.value = response.data
-      })
-    fetch_data
-      .get(uri_wisata)
-      .then((response) => {
-        data_wisata.value = response.data
-        mapLoaded.value = true
-        center.lat = response.data.coordinate[0]
-        center.lng = response.data.coordinate[1]
-        document.title = data_wisata.value.nama + ' - Mytour'
-        bookmark_list.value = data_wisata.value.bookmark_id_user.map((user) => user._id)
-        isFavourited.value = bookmark_list.value.includes(
-          JSON.parse(JSON.stringify(user.value.user._id))
-        )
-      })
+    fetch_data.get(uri_review).then((response) => {
+      review_list.value = response.data.data
+      reviewRating.value = response.data.count.map((item) => item.rating)
+      review_list.value.totalRating = sum_rating(reviewRating)
+      console.log(review_list.value.totalRating)
+    })
+    fetch_data.get(uri_discussion).then((response) => {
+      discussion_list.value = response.data
+    })
+    fetch_data.get(uri_wisata).then((response) => {
+      data_wisata.value = response.data
+      mapLoaded.value = true
+      center.lat = response.data.coordinate[0]
+      center.lng = response.data.coordinate[1]
+      document.title = data_wisata.value.nama + " - Mytour"
+      bookmark_list.value = data_wisata.value.bookmark_id_user.map(
+        (user) => user._id
+      )
+      isFavourited.value = bookmark_list.value.includes(
+        JSON.parse(JSON.stringify(user.value.user._id))
+      )
+    })
     fetch_data.get(uri_moment).then((response) => {
       moment_list.value = response.data
     })
@@ -1424,21 +1491,19 @@ export default {
       // get_comment(comment_list, modalData.value)
     }
 
-    function openModalMoment(data){
+    function openModalMoment(data) {
       modalDataMoment.value = data
       Moment.value = true
     }
-    
+
     function get_review(data) {
-      return fetch_data
-        .get(uri_review)
-        .then(async (response) => {
-          data.value = await response.data.data
-          reviewRating.value = await response.data.count.map(
-            (item) => item.rating
-          )
-          data.value.totalRating = sum_rating(reviewRating)
-        })
+      return fetch_data.get(uri_review).then(async (response) => {
+        data.value = await response.data.data
+        reviewRating.value = await response.data.count.map(
+          (item) => item.rating
+        )
+        data.value.totalRating = sum_rating(reviewRating)
+      })
     }
     function sum_rating(data) {
       var temp = 0
@@ -1449,11 +1514,9 @@ export default {
       return temp / data.value?.length
     }
     function get_discussion(data) {
-      return fetch_data
-        .get(uri_discussion)
-        .then((response) => {
-          data.value = response.data
-        })
+      return fetch_data.get(uri_discussion).then((response) => {
+        data.value = response.data
+      })
     }
     function get_comment(data, id_disc) {
       let uri_comment =
@@ -1472,13 +1535,13 @@ export default {
         })
     }
     function add_favourite(slug) {
-      if(localStorage.getItem('token') == null){
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can make a discussion",
+          icon: "error"
         })
-        return router.push('/login')
+        return router.push("/login")
       }
       let uri_favourite =
         process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/add_bookmark"
@@ -1507,7 +1570,6 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          
           let uri_favourite =
             process.env.VUE_APP_ROOT_API + "wisata/" + slug + "/remove_bookmark"
           fetch_data
@@ -1529,13 +1591,13 @@ export default {
       })
     }
     function add_review(review_content) {
-      if(localStorage.getItem('token') == null){
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can make a discussion",
+          icon: "error"
         })
-        return router.push('/login')
+        return router.push("/login")
       }
       if (review_content.rating == null) {
         Swal.fire({
@@ -1544,7 +1606,6 @@ export default {
           icon: "error"
         })
       } else {
-      
         let uri_addReview =
           process.env.VUE_APP_ROOT_API +
           "wisata/" +
@@ -1580,17 +1641,14 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          
           let uri_deleteReview =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
             "/review"
-          fetch_data
-            .delete(uri_deleteReview, config)
-            .then(() => {
-              Swal.fire("Review Deleted", "", "success")
-            })
+          fetch_data.delete(uri_deleteReview, config).then(() => {
+            Swal.fire("Review Deleted", "", "success")
+          })
           get_review(review_list)
         }
       })
@@ -1603,7 +1661,6 @@ export default {
           icon: "error"
         })
       } else {
-       
         fetch_data
           .post(uri_discussion, discussion, config)
           .then(() => {
@@ -1636,7 +1693,7 @@ export default {
         route.params.slug +
         "/discussion/" +
         data._id
-      
+
       fetch_data
         .post(
           uri_comment,
@@ -1662,19 +1719,16 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
             route.params.slug +
             "/discussion/" +
             discussion_id
-          fetch_data
-            .delete(uri_deleteDiscussion, config)
-            .then(() => {
-              discussionModal.value = false
-              Swal.fire("Discussion Deleted", "", "success")
-            })
+          fetch_data.delete(uri_deleteDiscussion, config).then(() => {
+            discussionModal.value = false
+            Swal.fire("Discussion Deleted", "", "success")
+          })
           get_discussion(discussion_list)
         }
       })
@@ -1688,7 +1742,6 @@ export default {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          
           let uri_deleteDiscussion =
             process.env.VUE_APP_ROOT_API +
             "wisata/" +
@@ -1697,119 +1750,134 @@ export default {
             discussion_id +
             "/" +
             comment_id
-          fetch_data
-            .delete(uri_deleteDiscussion, config)
-            .then((response) => {
-              if (response.status == 201) {
-                Swal.fire("Comment Deleted", "", "success")
-                get_comment(modalData, discussion_id)
-              }
-            })
+          fetch_data.delete(uri_deleteDiscussion, config).then((response) => {
+            if (response.status == 201) {
+              Swal.fire("Comment Deleted", "", "success")
+              get_comment(modalData, discussion_id)
+            }
+          })
           get_discussion(discussion_list)
         }
       })
-      
     }
 
-    function getSpecificDiscussion(id,data){
-      let uri_discussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug + "/discussion/" + id
+    function getSpecificDiscussion(id, data) {
+      let uri_discussion =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id
       fetch_data.get(uri_discussion).then((response) => {
         data.value = response.data
       })
     }
-     function getSpecificMoment(id,data){
-      let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id 
+    function getSpecificMoment(id, data) {
+      let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id
       fetch_data.get(uri_moment).then((response) => {
         data.value = response.data
       })
     }
 
-    function likeDiscussion(id){
-      
-      let uri_likeDiscussion = process.env.VUE_APP_ROOT_API + "wisata/" + route.params.slug +
-      "/discussion/" + 
-     id + "/thumbs"
-     fetch_data.post(uri_likeDiscussion,config,config).then((response) => {
-       console.log(response.data)
-       getSpecificDiscussion(id,modalData)
-     })
+    function likeDiscussion(id) {
+      let uri_likeDiscussion =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id +
+        "/thumbs"
+      fetch_data.post(uri_likeDiscussion, config, config).then((response) => {
+        console.log(response.data)
+        getSpecificDiscussion(id, modalData)
+      })
     }
-    function likeMoment(id){
-      if(localStorage.getItem('token') == null){
+    function likeMoment(id) {
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can do this action",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can do this action",
+          icon: "error"
         })
-        return router.push('/login')
-      }else{
-         let uri_thumbsMoment = process.env.VUE_APP_ROOT_API + "moment/" + id +"/thumbs"
-         fetch_data.post(uri_thumbsMoment,config,config).then(()=> {
-           getSpecificMoment(id,modalDataMoment)
-         })
+        return router.push("/login")
+      } else {
+        let uri_thumbsMoment =
+          process.env.VUE_APP_ROOT_API + "moment/" + id + "/thumbs"
+        fetch_data.post(uri_thumbsMoment, config, config).then(() => {
+          getSpecificMoment(id, modalDataMoment)
+        })
       }
     }
-     const commentComputed = computed({
+    const commentComputed = computed({
       get: () =>
-        modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
-          let modifier = 1;
-          if(selectedSort.value == "desc")modifier = -1
-          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
-            return -1 * modifier;
-          }
-          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
-            return 1 * modifier
-          }
-        }).slice(0, listToShow.value)
-    });
-     const reviewComputed = computed({
+        modalData.value?.id_comments
+          .slice(0, 1500)
+          .sort((a, b) => {
+            let modifier = 1
+            if (selectedSort.value == "desc") modifier = -1
+            if (a["created_at"].valueOf() < b["created_at"].valueOf()) {
+              return -1 * modifier
+            }
+            if (a["created_at"].valueOf() > b["created_at"].valueOf()) {
+              return 1 * modifier
+            }
+          })
+          .slice(0, listToShow.value)
+    })
+    const reviewComputed = computed({
       get: () =>
-        review_list.value?.slice(0,1500).sort((a,b) => {
-          let modifier = 1;
-          if(selectedSort.value == "desc")modifier = -1
-          if(a['date'].valueOf() < b['date'].valueOf()){
-            return -1 * modifier;
-          }
-          if(a['date'].valueOf() > b['date'].valueOf()){
-            return 1 * modifier
-          }
-        }).slice(offset.value,offset.value + pageSize.value)
-    });
+        review_list.value
+          ?.slice(0, 1500)
+          .sort((a, b) => {
+            let modifier = 1
+            if (selectedSort.value == "desc") modifier = -1
+            if (a["date"].valueOf() < b["date"].valueOf()) {
+              return -1 * modifier
+            }
+            if (a["date"].valueOf() > b["date"].valueOf()) {
+              return 1 * modifier
+            }
+          })
+          .slice(offset.value, offset.value + pageSize.value)
+    })
 
     const discussionComputed = computed({
       get: () =>
-        discussion_list.value?.slice(0,1500).sort((a,b) => {
-          let modifier = 1;
-          if(selectedSort.value == "desc"){
-            modifier = -1
-          }
-          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
-            
-            return -1 * modifier;
-          }
-          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
-            return 1 * modifier
-          }
-        }).slice(offset.value,offset.value + pageSize.value)
-    });
+        discussion_list.value
+          ?.slice(0, 1500)
+          .sort((a, b) => {
+            let modifier = 1
+            if (selectedSort.value == "desc") {
+              modifier = -1
+            }
+            if (a["created_at"].valueOf() < b["created_at"].valueOf()) {
+              return -1 * modifier
+            }
+            if (a["created_at"].valueOf() > b["created_at"].valueOf()) {
+              return 1 * modifier
+            }
+          })
+          .slice(offset.value, offset.value + pageSize.value)
+    })
 
     function nextPagination() {
-    
-      if (discussion_list.value.length > offset.value + discussionComputed.value.length) {
+      if (
+        discussion_list.value.length >
+        offset.value + discussionComputed.value.length
+      ) {
         next()
-        if(currentPagination.value == 'discussion'){
-        if(discussionComputed.value.length == 0) prev()
-        }else if(currentPagination.value == 'review'){
-          if(reviewComputed.value.length == 0) prev()
+        if (currentPagination.value == "discussion") {
+          if (discussionComputed.value.length == 0) prev()
+        } else if (currentPagination.value == "review") {
+          if (reviewComputed.value.length == 0) prev()
         }
-
       } else {
         return
       }
     }
-    function resetPagination(pagination){
+    function resetPagination(pagination) {
       currentPagination.value = pagination
-      currentPage.value = 1;
+      currentPage.value = 1
       offset.value = 0
     }
     return {
@@ -1851,7 +1919,8 @@ export default {
       commentComputed,
       discussionComputed,
       carousel1,
-      selectedSort,likeDiscussion,
+      selectedSort,
+      likeDiscussion,
       currentPage,
       lastPage,
       next,
@@ -1959,7 +2028,7 @@ export default {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   border: 1px solid #ddd;
   margin: 0 4px;
 }
@@ -1970,5 +2039,7 @@ export default {
   border: 1px solid rgb(50, 224, 196);
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
 </style>

@@ -822,8 +822,11 @@
                               <p style="margin-top: 8px">
                                 {{ modalDataMoment.description }}
                               </p>
-                              <p>Tanggal : {{ modalDataMoment.date }}</p>
-                              <p>waktu : {{ modalDataMoment.time }}</p>
+                              <p class="text-end">
+                                {{ modalDataMoment.time }} ;
+                                {{ modalDataMoment.date }}
+                              </p>
+
                               <MDBBtn
                                 size="sm"
                                 outline="dark"

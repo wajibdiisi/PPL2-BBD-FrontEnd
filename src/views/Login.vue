@@ -100,15 +100,29 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then((response) => {
-          console.log(response.data);
-          this.$router.push("/");
+          if(response.status == 200){
           Swal.fire({
-            title: "Login Successful",
-            text: "Welcome back",
-            icon: "success",
-          });
+            title: 'Login Berhasil',
+            text:   "Selamat datang kembali",
+            icon: 'success',
+          
+        }).then((result) => {
+          if(result.isConfirmed){
+            this.$router.push('/')
+          }
         })
-        .catch((error) => (this.errors = error.response.data.message));
+        }
+        })
+        .catch((err) => {
+          if(err.response.status == 404){
+             Swal.fire({
+            title: 'Action Failed',
+            text:   err.response.data.msg,
+            icon: 'error',  
+          
+            })
+          }
+        });
     },
   },
   data() {

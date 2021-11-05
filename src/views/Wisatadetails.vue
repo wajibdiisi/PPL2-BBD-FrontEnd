@@ -722,7 +722,11 @@
                               </div>
                             </div>
                           </div>
+                          
                         </MDBCol>
+                        <MDBCol md="3">
+                          <a role="button"  style="color: rgb(0, 0, 255)" @click="likeReview(review._id)"><MDBIcon icon="thumbs-up" iconStyle="fas" />Like ({{review.thumbs_up.length}}) </a>
+                          </MDBCol>
                       </MDBRow>
                       <MDBCol md="8" class="ps-3">
                         <p>
@@ -1771,6 +1775,22 @@ export default {
          })
       }
     }
+    function likeReview(id){
+      if(localStorage.getItem('token') == null){
+        Swal.fire({
+          title : "Action Failed",
+          text : "You need to login first before you can do this action",
+          icon : "error"
+        })
+        return router.push('/login')
+      }else{
+         let uri_thumbsReview = process.env.VUE_APP_ROOT_API + "wisata/" +  route.params.slug + "/review/" + id +"/thumbs"
+         console.log(uri_thumbsReview)
+         fetch_data.post(uri_thumbsReview,config.value,config).then(()=> {
+           get_review(review_list)
+         })
+      }
+    }
      const commentComputed = computed({
       get: () =>
         modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
@@ -1911,7 +1931,7 @@ export default {
       currentPagination,
       openModalMoment,
       modalDataMoment,
-      likeMoment,
+      likeMoment,likeReview,
       getSpecificMoment
     }
   }

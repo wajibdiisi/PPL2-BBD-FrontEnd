@@ -74,7 +74,18 @@
                         <div class="font-weight-bold text-truncate">
                           
                           <template v-if="notif.content == 'comment'">
-                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Post</a>
+                         {{notif.ref_user.name}} Commented on your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Discussion</a>
+                         <span class="me-2" style="cursor: pointer">
+                                      <a role="button" @click="deleteNotification(notif._id)">
+                                      <MDBIcon
+                                        icon="trash"
+                                        iconStyle="fas"
+                                      />
+                                      </a>
+                                    </span>
+                         </template>
+                          <template v-if="notif.content == 'likeDiscussion'">
+                         {{notif.ref_user.name}} Liked one of your <a style="color: rgb(85, 172, 238);" role="button" @click="openModal(notif.id_discussion,notif.content)">Discussion</a>
                          <span class="me-2" style="cursor: pointer">
                                       <a role="button" @click="deleteNotification(notif._id)">
                                       <MDBIcon
@@ -85,6 +96,17 @@
                                     </span>
                          </template>
                          
+                           <template v-if="notif.content == 'likeMoment'">
+                         {{notif.ref_user.name}} Liked one of your <a style="color: rgb(85, 172, 238);" role="button" @click="openModelMomentByID(notif.id_moment)">Moment</a>
+                         <span class="me-2" style="cursor: pointer">
+                                      <a role="button" @click="deleteNotification(notif._id)">
+                                      <MDBIcon
+                                        icon="trash"
+                                        iconStyle="fas"
+                                      />
+                                      </a>
+                                    </span>
+                         </template>
                         </div>
                         <div class="small">
                           {{moment(notif.created_at).fromNow()}}
@@ -609,6 +631,14 @@ export default {
       modalDataMoment.value = data
       modalMoment.value = true
     }
+    function openModelMomentByID(id){
+    let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id
+    app.appContext.config.globalProperties.$http.get(uri_moment).then((response)=> {
+      modalDataMoment.value = response.data
+      modalMoment.value = true
+    })
+     
+    }
     function create_comment(comment_content, data) {
      
       let uri_comment =
@@ -764,7 +794,8 @@ export default {
       modalMoment,
       modalDataMoment,
       deleteMoment,
-      likeMoment
+      likeMoment,
+      openModelMomentByID
 };
   },
 };

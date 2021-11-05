@@ -14,7 +14,7 @@
           </MDBCol>
           <MDBCardBody>
             <MDBCardTitle class="fs-1">{{ userProfile.name }}</MDBCardTitle>
-            <MDBCardText class="fs-4">
+            <MDBCardText class="fs-4" v-if="userProfile.kota && userProfile.provinsi">
              {{userProfile.kota}}, {{userProfile.provinsi}}
             </MDBCardText>
             <MDBCardText class="fs-4">
@@ -562,8 +562,10 @@ export default {
           router.push('/404')
         }
       });
+    if(localStorage.getItem('token') != null){
     if(user.value?.user.username == route.params.username){
        get_notification()
+    }
     }
     function get_notification(){
       let uri_notification = process.env.VUE_APP_ROOT_API + "notification"

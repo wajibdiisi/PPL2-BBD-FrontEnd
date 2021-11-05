@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  {{checkbox5}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -48,7 +47,7 @@
         <MDBCollapse id="collapsibleContent1" v-model="collapse1">
           <MDBRow>
             <MDBCol col="6" style="margin-top: 2vh">
-              <MDBSelect v-model:options="options1" label="Type" clearButton />
+              <MDBSelect v-model:options="options1" v-model:selected="filteredType" label="Type" clearButton />
             </MDBCol>
             <MDBCol col="6" style="margin-top: 2vh">
               <MDBSelect
@@ -102,7 +101,7 @@
         <MDBCol v-for="(wisata,index) in search_wisata" :key="index">
           <MDBCard border="light" shadow="0" bg="white" class="h-100">
             <MDBCardImg
-              src="https://www.akseleran.co.id/blog/wp-content/uploads/2020/08/Ilustrasi-Wisata-Bali-Sumber-The-Jakarta-Post.png"
+              :src="wisata.photos[0]"
               top
               alt="..."
             />
@@ -261,12 +260,15 @@ export default {
     const sortType = ref("nameAsc")
     const optionsProvinsi = ref([])
     const store = useStore()
+    const filteredType = ref()
     const user = computed(() => store.getters.user)
     const options1 = ref([
-      { text: "Pantai", value: 1 },
-      { text: "Gunung", value: 2 },
-      { text: "Bangunan Bersejarah", value: 3 },
-      { text: "Other", value: 4 }
+      { text: "Select All", value : "Select All"},
+      { text: "Pantai", value: "Pantai" },
+      { text: "Gunung", value: "Gunung" },
+      { text: "Bangunan Bersejarah", value: "Bangunan Bersejarah" },
+      { text: "Candi", value: "Candi"},
+      { text: "Other", value: "Other" }
     ])
     const options2 = ref([
       {text : "Select All", value : "Select All"},
@@ -355,6 +357,14 @@ export default {
               return wisata.nama != null
             }
           }).
+          filter((wisata) => {
+            if(filteredType.value != "Select All"){
+              return wisata.tipe.includes(filteredType.value)
+            }else{
+              return wisata.nama != null
+            }
+          })
+          .
           filter((wisata)=> {
             if(checkbox5.value == true){
               return wisata.bookmark_id_user.includes(user.value.user._id)
@@ -469,7 +479,8 @@ export default {
       sortType,
       optionsProvinsi,
       onlyShowFavourite,
-      user
+      user,
+      filteredType
     }
   }
   // setup() {

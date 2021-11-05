@@ -6,11 +6,13 @@
         <MDBRow start class="mb-6">
           <MDBCol sm="12" md="12">
             <MDBCol md="12">
+              <template v-if="picture.length">
               <MDBCarousel
                 v-model="carousel1"
                 :items="picture"
                 :indicators="false"
               />
+              </template>
 
               <MDBCol md="12" class="mt-3">
                 <MDBRow>
@@ -145,7 +147,7 @@
                 <MDBTabNav tabsClasses="mb-3">
                   <MDBTabItem tabId="ex1-1" href="ex1-1" >Overview</MDBTabItem>
                   <MDBTabItem tabId="ex1-2" href="ex1-2" @click="resetPagination('review')">Review({{review_list?.length}})</MDBTabItem>
-                  <MDBTabItem tabId="ex1-3" href="ex1-3" >Moment({{moment_list?.length}})</MDBTabItem>
+                  <MDBTabItem tabId="ex1-3" href="ex1-3" @click="resetPagination('moment')">Moment({{moment_list?.length}})</MDBTabItem>
                   <MDBTabItem tabId="ex1-4" href="ex1-4" @click="resetPagination('discussion')">Discussion({{discussion_list?.length}})</MDBTabItem>
                   <MDBTabItem tabId="ex1-5" href="ex1-4"
                     >Favorited by
@@ -813,7 +815,7 @@
                     </MDBModal>
                     <MDBRow>
                       <template v-if="moment_list">
-                      <MDBCol md="3" v-for="data_moment in moment_list" :key="data_moment._id">
+                      <MDBCol md="3" v-for="data_moment in momentComputed" :key="data_moment._id">
                         
                         <MDBCard @click="openModalMoment(data_moment)" style="cursor: pointer">
                           <MDBCardImg
@@ -823,6 +825,18 @@
                           />
                         </MDBCard>
                       </MDBCol>
+                         <div class="center">
+        <div class="pagination">
+          <a role="button" @click="prev">&laquo;</a>
+          <a role="button" class="active">{{currentPage}}</a>
+          <!-- <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+          <a href="#">6</a> -->
+          <a role="button" @click="nextPagination()">&raquo;</a>
+        </div>
+      </div>
                     </template>
                     </MDBRow>
                   </MDBTabPane>
@@ -835,7 +849,7 @@
                           </h6>
                         </MDBCol>
                         <MDBCol md="3" class="text-end">
-                           <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
+                           <MDBSelect v-model:options="sortTypeDiscussion" v-model:selected="selectedSortDiscussion" />
                         </MDBCol>
                       </MDBRow>
                       <MDBCol
@@ -996,7 +1010,7 @@
                                 Submit
                               </MDBBtn>
                               <MDBCol md="3" class="text-end">
-                    <MDBSelect v-model:options="sortType" v-model:selected="selectedSort" />
+                    <MDBSelect v-model:options="sortTypeComment" v-model:selected="selectedSortComment" />
                   </MDBCol>
                             </MDBRow>
                             
@@ -1281,10 +1295,22 @@ export default {
         { text: "Oldest First", value: "asc" },
        
       ]);
+      const sortTypeDiscussion = ref([
+        { text: "Newest First", value: "desc" },
+        { text: "Oldest First", value: "asc" },
+       
+      ]);
+      const sortTypeComment = ref([
+        { text: "Newest First", value: "desc" },
+        { text: "Oldest First", value: "asc" },
+       
+      ]);
     const config = {
             headers: authHeader()
     }
     const selectedSort = ref("");
+    const selectedSortDiscussion = ref("");
+    const selectedSortComment = ref("");
     const modalDataMoment = ref()
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
@@ -1341,20 +1367,7 @@ export default {
       slug: null,
       bookmark_id_user: []
     })
-    const picture = [
-      {
-        src: "https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg",
-        alt: "..."
-      },
-      {
-        src: "https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg",
-        alt: "..."
-      },
-      {
-        src: "https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg",
-        alt: "..."
-      }
-    ]
+    const picture =  ref([ ])
     const carousel1 = ref(0)
     const route = useRoute()
     const router = useRouter()
@@ -1408,6 +1421,15 @@ export default {
         center.lat = response.data.coordinate[0]
         center.lng = response.data.coordinate[1]
         document.title = data_wisata.value.nama + ' - Mytour'
+
+        for(let i = 0 ; i <response.data.photos.length ; i++){
+        const data = {
+          'src' : response.data.photos[i],
+          'alt' : ".."
+        }
+        picture.value.push(data)
+        }
+      
         bookmark_list.value = data_wisata.value.bookmark_id_user.map((user) => user._id)
         isFavourited.value = bookmark_list.value.includes(
           JSON.parse(JSON.stringify(user.value.user._id))
@@ -1753,7 +1775,7 @@ export default {
       get: () =>
         modalData.value?.id_comments.slice(0,1500).sort((a,b) => {
           let modifier = 1;
-          if(selectedSort.value == "desc")modifier = -1
+          if(selectedSortComment.value == "desc")modifier = -1
           if(a['created_at'].valueOf() < b['created_at'].valueOf()){
             return -1 * modifier;
           }
@@ -1780,7 +1802,7 @@ export default {
       get: () =>
         discussion_list.value?.slice(0,1500).sort((a,b) => {
           let modifier = 1;
-          if(selectedSort.value == "desc"){
+          if(selectedSortDiscussion.value == "desc"){
             modifier = -1
           }
           if(a['created_at'].valueOf() < b['created_at'].valueOf()){
@@ -1792,6 +1814,20 @@ export default {
           }
         }).slice(offset.value,offset.value + pageSize.value)
     });
+    const momentComputed = computed({
+      get: () =>
+        moment_list.value?.slice(0,1500).sort((a,b) => {
+          let modifier = -1;
+          console.log(a)
+          if(a['created_at'].valueOf() < b['created_at'].valueOf()){
+            
+            return -1 * modifier;
+          }
+          if(a['created_at'].valueOf() > b['created_at'].valueOf()){
+            return 1 * modifier
+          }
+        }).slice(offset.value,offset.value + pageSize.value + 2)
+    });
 
     function nextPagination() {
     
@@ -1799,12 +1835,18 @@ export default {
         next()
         if(currentPagination.value == 'discussion'){
         if(discussionComputed.value.length == 0) prev()
-        }else if(currentPagination.value == 'review'){
-          if(reviewComputed.value.length == 0) prev()
         }
 
-      } else {
-        return
+      } else if(moment_list.value.length > offset.value + momentComputed.value.length) {
+        next()
+          if(currentPagination.value == 'moment'){
+          if(momentComputed.value.length == 0) prev()
+        }
+      }else if (review_list.value.length > offset.value + reviewComputed.value.length){
+        next()
+        if(currentPagination.value =='review'){
+          if(reviewComputed.value.length == 0 ) prev()
+        }
       }
     }
     function resetPagination(pagination){
@@ -1847,11 +1889,17 @@ export default {
       confirmDeleteComment,
       picture,
       sortType,
+      sortTypeComment,
+      sortTypeDiscussion,
       listToShow,
       commentComputed,
       discussionComputed,
+      momentComputed,
       carousel1,
-      selectedSort,likeDiscussion,
+      selectedSort,
+      selectedSortDiscussion,
+      selectedSortComment,
+      likeDiscussion,
       currentPage,
       lastPage,
       next,

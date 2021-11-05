@@ -161,9 +161,11 @@ export default {
     const notification = ref();
     const app = getCurrentInstance();
     let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
+    if(localStorage.getItem('token') != null){
       app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response) => {
         notification.value = response.data
     })
+    }
     return {
       isLoggedIn,
       toast1,

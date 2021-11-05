@@ -2,7 +2,8 @@
   <Navbar />
   <MDBContainer class="d-flex justify-content-center" style="margin: 17vh auto">
     <MDBCard class="w-50 p-3" style="border: 1px solid black">
-      <MDBCardBody>
+      <MDBCardBody tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
+        <div >
         <MDBCol class="d-flex justify-content-center">
           <img
             src="https://i.ibb.co/T8wDGBV/Logo-removebg-preview-Copy-removebg-preview.png"
@@ -10,12 +11,14 @@
             class="w-50"
           />
         </MDBCol>
-        <MDBCol class="my-4">
+        <MDBCol  class="my-4">
           <MDBInput
             v-model="name"
             label="Name"
             class="my-4"
             type="text"
+            isValid
+            tooltipFeedback
             invalidFeedback="Please input your name"
             required
           />
@@ -26,6 +29,7 @@
             label="Email"
             class="my-4"
             type="email"
+            tooltipFeedback
             invalidFeedback="Please input your email"
             required
           />
@@ -36,30 +40,15 @@
             label="Username"
             class="my-4"
             type="text"
-            invalidFeedback="Please input your username (you won't be able to change it later)"
+            tooltipFeedback
+            pattern="^[A-Za-z0-9\s]*$"
+            invalidFeedback="Please input your username(atleast 5 letters and without space)"
             required
+            minLength="5"
+          maxLength="30"
           />
         </MDBCol>
-        <MDBCol class="my-4">
-          <MDBInput
-            v-model="username"
-            label="Provinsi"
-            class="my-4"
-            type="text"
-            invalidFeedback="Please input your username (you won't be able to change it later)"
-            required
-          />
-        </MDBCol>
-        <MDBCol class="my-4">
-          <MDBInput
-            v-model="username"
-            label="Kota"
-            class="my-4"
-            type="text"
-            invalidFeedback="Please input your username (you won't be able to change it later)"
-            required
-          />
-        </MDBCol>
+      
         <MDBCol class="my-4">
           <MDBInput
             v-model="password"
@@ -68,6 +57,7 @@
             type="password"
             invalidFeedback="Please input your password"
             required
+            tooltipFeedback
           />
         </MDBCol>
          <MDBCol class="my-4">
@@ -78,14 +68,7 @@
             type="password"
             invalidFeedback="Please input your password"
             required
-          />
-        </MDBCol>
-        
-        <MDBCol class="my-4 d-flex justify-content-between">
-          <MDBCheckbox
-            label="I agree to the Terms and Conditions"
-            required
-            class="ml-0"
+            tooltipFeedback
           />
         </MDBCol>
         <MDBCol class="my-4">
@@ -96,11 +79,11 @@
             size="lg"
             style="background-color: rgb(50, 224, 196)"
             type="submit"
-            @click="register()"
           >
             Sign Up
           </MDBBtn>
         </MDBCol>
+        </div>
       </MDBCardBody>
     </MDBCard>
   </MDBContainer>
@@ -114,7 +97,7 @@ import {
   MDBCol,
   //MDBRow,
   MDBInput,
-  MDBCheckbox,
+ // MDBCheckbox,
   MDBBtn,
   MDBContainer,
   MDBCard,
@@ -134,13 +117,29 @@ export default {
     MDBCol,
     //MDBRow,
     MDBInput,
-    MDBCheckbox,
+  //  MDBCheckbox,
     MDBBtn,
     MDBContainer,
     MDBCard,
     MDBCardBody,
   },
 methods :{
+  preg_match : function (regex, str) {
+  return (new RegExp(regex).test(str))
+  },
+  
+  checkForm(event) {
+        event.preventDefault();
+        event.target.classList.add('was-validated');
+        const rePassword = /^.{6,}$/
+        /* eslint-disable-next-line */
+        const reEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        /* eslint-disable-next-line */
+        if(this.preg_match("^[A-Za-z0-9-\s]+$",this.username) && 
+        this.preg_match(reEmail,this.email) && this.preg_match(rePassword,this.password) && this.password == this.confirm_password){
+          this.register()
+        }
+      },
   register: function () {
       let data = {
         name: this.name,
@@ -151,15 +150,31 @@ methods :{
       };
       this.$store
         .dispatch("register", data)
-        .then(() => 
+        .then((response) =>{
+        if(response.status == 201){
         Swal.fire({
             title: 'Registrasi Berhasil',
             text:   "Registrasi berhasil",
             icon: 'success',
           
-        }),
-        this.$router.push("/login?msg=register_success"))
-        .catch((err) => (this.errors = err.response.data));
+        }).then((result) => {
+          if(result.isConfirmed){
+            this.$router.push('/login')
+          }
+        })
+        }
+        })
+        .catch((err) => {
+          console.log(err.response.status)
+          if(err.response.status == 406){
+             Swal.fire({
+            title: 'Action Failed',
+            text:   err.response.data.msg,
+            icon: 'error',  
+          
+            })
+          }
+        });
     },
   
 }

@@ -168,7 +168,7 @@
 import Navbar from "../components/Navbarcopy.vue";
 // import Footer from "../components/Footer copy.vue";
 import { ref,getCurrentInstance,onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 import authHeader from "../auth-header";
 import Swal from 'sweetalert2'
 import {
@@ -229,6 +229,7 @@ export default {
         headers: authHeader(),
       };
     const route = useRoute();
+    const router = useRouter();
     const title = ref();
     const exampleSideModal1 = ref(false);
     const exampleSideModal2 = ref(false);
@@ -245,6 +246,16 @@ export default {
       app.appContext.config.globalProperties.$http.get(uri_plan,config).then((response) => {
         planner.value = response.data
         document.title = planner.value.title + ' - Mytour'
+      }).catch((err) => {
+        if(err.response.status == 404){
+          Swal.fire({
+            icon : 'error',
+            title : 'Action Failed',
+            text : 'Page Not Found'
+          }).then(() => {
+            router.push('/')
+          })
+        }
       })
       dataset3.value.rows = await []
       get_plan()
@@ -350,6 +361,8 @@ export default {
               <button class="edit-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}" data-mdb-time="${planner.time}" 
                data-mdb-date="${planner.date}" data-mdb-title="${planner.id_wisata.nama}"><i class="fa fa-edit"></i></button>
               <button class="delete-btn btn ms-2 btn-outline-dark btn-floating btn-sm" data-mdb-email="${planner._id}"><i class="fa fa-trash"></i></button>`}))
+      }).catch((err) => {
+        console.log(err.response.status)
       })
     }
      

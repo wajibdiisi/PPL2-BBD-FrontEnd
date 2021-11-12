@@ -41,12 +41,13 @@
                   required
                 />
               </MDBCol>
+              <!---
               <MDBCol class="my-4 d-flex justify-content-between">
                 <MDBRow class="m-lg-0">
                   <MDBCheckbox label="Remember Me" required />
                 </MDBRow>
                 <MDBRow><MDBText> Forgot Password?</MDBText></MDBRow>
-              </MDBCol>
+              </MDBCol>--->
               <MDBCol class="my-4">
                 <MDBBtn
                   color="primary"
@@ -85,7 +86,6 @@ import {
   MDBCol,
   MDBRow,
   MDBInput,
-  MDBCheckbox,
   MDBBtn,
   MDBContainer,
   MDBCard,
@@ -136,7 +136,6 @@ export default {
     MDBCol,
     MDBRow,
     MDBInput,
-    MDBCheckbox,
     MDBBtn,
     MDBContainer,
     MDBCard,

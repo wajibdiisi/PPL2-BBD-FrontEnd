@@ -1962,7 +1962,7 @@ export default {
         "/discussion/" +
         id +
         "/thumbs"
-      fetch_data.post(uri_likeDiscussion, config, config).then((response) => {
+      fetch_data.post(uri_likeDiscussion, config, config).then(() => {
 
         getSpecificDiscussion(id, modalData)
       })
@@ -1976,7 +1976,7 @@ export default {
         "/discussion/" +
         id + "/" + id_comment + 
         "/thumbs"
-      fetch_data.post(uri_likeComment, config, config).then((response) => {
+      fetch_data.post(uri_likeComment, config, config).then(() => {
 
         getSpecificDiscussion(id, modalData)
       })

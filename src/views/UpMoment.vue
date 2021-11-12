@@ -193,7 +193,6 @@ export default {
       };
      const handleFileUpload = async( ) => {
            url.value = URL.createObjectURL(file.value.files[0]);
-            console.log("selected file",file.value.files[0])
         }
     const app = getCurrentInstance()
     const data = ref({

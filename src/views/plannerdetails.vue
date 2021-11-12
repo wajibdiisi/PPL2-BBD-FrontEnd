@@ -364,6 +364,7 @@ export default {
         )
       }
        function updatePlanner(id){
+        console.log(data)
         let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id + '/' + id
       
         app.appContext.config.globalProperties.$http.patch(uri_planner,data,config).then((response) =>{

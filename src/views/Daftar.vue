@@ -55,7 +55,8 @@
             label="Password"
             class="my-4"
             type="password"
-            invalidFeedback="Please input your password"
+            pattern="^.{6,}$"
+            invalidFeedback="Please input your password (minimal 6 characters)"
             required
             tooltipFeedback
           />
@@ -66,7 +67,8 @@
             label="Confirm Password"
             class="my-4"
             type="password"
-            invalidFeedback="Please input your password"
+            pattern="^.{6,}$"
+            invalidFeedback="Please input your password (minimal 6 characters)"
             required
             tooltipFeedback
           />
@@ -138,6 +140,12 @@ methods :{
         if(this.preg_match("^[A-Za-z0-9-\s]+$",this.username) && 
         this.preg_match(reEmail,this.email) && this.preg_match(rePassword,this.password) && this.password == this.confirm_password){
           this.register()
+        }else if( this.password != this.confirm_password){
+          Swal.fire({
+            'title' : 'Action failed',
+            'text' : 'Your password & confirm password are not the same',
+            'icon' : 'error'
+          })
         }
       },
   register: function () {

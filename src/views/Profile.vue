@@ -158,6 +158,8 @@
                             </MDBRow>
                             <MDBRow>
                               <MDBCol class="mb-3">
+                                <MDBTooltip v-model="tooltip1" tag="a">
+                                <template #reference>
                                 <a
                                   @click="likeDiscussion(modalData._id)"
                                   class="m-1"
@@ -171,10 +173,22 @@
                                   ></MDBIcon>
                                   Like ({{ modalData.thumbs_up.length }})
                                 </a>
+                                </template>
+                                <template #tip>
+                                  <div v-for="thumbs_user in modalData.thumbs_up" :key="thumbs_user._id">
+                                    <span>{{thumbs_user.name}}</span>
+                                    </div>
+                                  </template>
+                                </MDBTooltip>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  Posted By {{ modalData.id_user.name }}
-                                </span>
+                                  Posted By <router-link
+                                  :to="{
+                                    name: 'Profile',
+                                    params: { username: modalData.id_user.username }
+                                  }"
+                                >{{ modalData.id_user.name }}
+                                </router-link> </span>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
                                   {{modalData.id_comments.length}} Comments
@@ -258,7 +272,13 @@
                               <MDBCol md="2">
                                 <MDBRow>
                                   <p class="mb-0 ms-2" style="font-weight: 500">
-                                    {{ comment.id_user.name }}
+                                 <router-link
+                                  :to="{
+                                    name: 'Profile',
+                                    params: { username: comment.id_user.username }
+                                  }"
+                                >{{ comment.id_user.name }}
+                                </router-link>
                                   </p>
                                 </MDBRow>
                                 <MDBRow>
@@ -279,11 +299,17 @@
                                 <MDBRow class="d-flex justify-content-evenly">
                                   <MDBCol>
                                     <span class="me-2" style="cursor: pointer">
-                                      <MDBIcon
-                                        icon="thumbs-up"
-                                        iconStyle="fas"
-                                      />
-                                      20
+                                      <a
+                                  role="button"
+                                  style="color: rgb(0, 0, 255)"
+                                  @click="likeComment(comment.id_discussion,comment._id)"
+                                  ><MDBIcon
+                                    icon="thumbs-up"
+                                    iconStyle="fas"
+                                  />Like ({{
+                                    comment.thumbs_up.length
+                                  }})
+                                </a>
                                     </span>
                                     <template v-if="comment.id_user._id == user.user?._id">
                                     <a
@@ -413,6 +439,7 @@
             <MDBRow>
               <template v-if="moment_list">
               <div v-for="data_moment in momentComputed" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">
+                
                 <MDBCard style="cursor: pointer" class="h-100" @click="openModalMoment(data_moment)">
                   <MDBCardImg
                     :src="data_moment.photo"
@@ -420,7 +447,7 @@
                     alt="..."
                   />
                   <MDBCardBody>
-                    <MDBCardTitle>{{data_moment.title}}<small class="text-end"> {{moment(data_moment.created_at).fromNow()}}</small></MDBCardTitle>
+                    <MDBCardTitle>{{data_moment.title}}<small class="text-end"> - {{moment(data_moment.created_at).fromNow()}}</small></MDBCardTitle>
                     <MDBBtn size="sm" outline="dark" v-for="wisata in data_moment.id_wisata" :key="wisata._id">
                                   <router-link :to="{name : 'WisataDetails', params :{ slug :  wisata.slug} }">
                                   {{wisata.nama}}
@@ -512,8 +539,20 @@
                             <hr />
                             <MDBCol>
                               <p>
+                                <MDBTooltip v-model="tooltip2" tag="a">
+                                <template #reference>
                                 <a role="button"  style="color: rgb(0, 0, 255)" @click="likeMoment(modalDataMoment._id)"><MDBIcon icon="thumbs-up" iconStyle="fas" />Like ({{modalDataMoment.thumbs_up.length}}) </a>
-                                <a role="button" @click="deleteMoment(modalDataMoment._id)"><MDBIcon icon="trash" iconStyle="fas" />Delete </a>
+                                </template>
+                                <template #tip>
+                                  <div v-for="thumbs_user in modalDataMoment.thumbs_up" :key="thumbs_user._id">
+                                  <span>{{thumbs_user.name}} </span>
+                                  </div>
+                                </template>
+                                </MDBTooltip>
+                                <template v-if="user.user?._id == modalDataMoment.id_user._id">
+                                <a role="button" style="color:rgb(0,0,255)" @click="editMoment(modalDataMoment._id)"><MDBIcon icon="pencil-alt" iconStyle="fas" />Edit </a>
+                                <a role="button" style="color:rgb(255,0,0)" @click="deleteMoment(modalDataMoment._id)"><MDBIcon icon="trash" iconStyle="fas" />Delete </a>
+                                </template>
                               </p>
                               
                             </MDBCol>
@@ -548,7 +587,7 @@ import {
   MDBIcon,
   MDBModal,
   MDBTextarea,
-  MDBSelect,
+  MDBSelect,MDBTooltip,
     MDBModalBody,
 } from "mdb-vue-ui-kit";
 export default {
@@ -568,7 +607,8 @@ export default {
     MDBModal,
     MDBTextarea,
     MDBModalBody,
-    MDBSelect
+    MDBSelect,
+    MDBTooltip
   
   },
   setup() {
@@ -598,7 +638,7 @@ export default {
     const route = useRoute();
     const comment_content = ref();
      const router = useRouter();
-    const app = getCurrentInstance();
+    const fetch_data = getCurrentInstance().appContext.config.globalProperties.$http
     const store = useStore();
     const notification = ref([])
     const modalOpened = ref(false)
@@ -612,6 +652,8 @@ export default {
     const offsetPlanner = ref(0)
     const pageSizePlanner = ref(5)
     const currentPagePlanner = ref(1)
+    const tooltip1 = ref(false)
+    const tooltip2 = ref(false)
     const user = computed(() => store.getters.user);
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
@@ -628,11 +670,11 @@ export default {
       process.env.VUE_APP_ROOT_API + "users/profile/" + route.params.username;
     let uri_moment = 
     process.env.VUE_APP_ROOT_API + "moment/user/" + route.params.username;
-    app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+    fetch_data.get(uri_moment).then((response) => {
       moment_list.value = response.data
     })
     get_plan( )
-    app.appContext.config.globalProperties.$http
+    fetch_data
       .get(uri_profile)
       .then((response) => {
         userProfile.value = response.data;
@@ -649,7 +691,7 @@ export default {
     }
     function get_notification(){
       let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
-      app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response) => {
+      fetch_data.get(uri_notification,config).then((response) => {
         notification.value = response.data
       })
     }
@@ -690,7 +732,7 @@ export default {
       "wisata/" +
       route.params.slug +
       "/discussion/" + data
-      app.appContext.config.globalProperties.$http.get(uri_discussion).then((response) => {
+      fetch_data.get(uri_discussion).then((response) => {
         modalData.value = response.data
         listToShow.value = 5
         modalOpened.value = true
@@ -705,7 +747,7 @@ export default {
     function get_plan(){
         let uri_planner =  process.env.VUE_APP_ROOT_API  + "planner/plan_list/" + route.params.username
        
-        app.appContext.config.globalProperties.$http.get(uri_planner,config).then(response => {
+        fetch_data.get(uri_planner,config).then(response => {
         planner_list.value = response.data
         })
     }
@@ -715,7 +757,7 @@ export default {
     }
     function openModelMomentByID(id){
     let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id
-    app.appContext.config.globalProperties.$http.get(uri_moment).then((response)=> {
+    fetch_data.get(uri_moment).then((response)=> {
       modalDataMoment.value = response.data
       modalMoment.value = true
     })
@@ -732,7 +774,7 @@ export default {
       const config = {
         headers: authHeader()
       }
-      app.appContext.config.globalProperties.$http
+      fetch_data
         .post(
           uri_comment,
           { content: comment_content, id_discussion: data._id },
@@ -757,7 +799,7 @@ export default {
         route.params.slug +
         "/discussion/" +
         id_disc
-      return app.appContext.config.globalProperties.$http
+      return fetch_data
         .get(uri_comment)
         .then((response) => {
           data.value = response.data
@@ -767,7 +809,7 @@ export default {
         })
     }
     function get_moment(){
-      return app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+      return fetch_data.get(uri_moment).then((response) => {
         moment_list.value = response.data
       })
     }
@@ -787,7 +829,7 @@ export default {
       }else{
       uri = process.env.VUE_APP_ROOT_API + 'notification/' + id
       }
-      app.appContext.config.globalProperties.$http.delete(uri,config).then((response) => {
+      fetch_data.delete(uri,config).then((response) => {
         if(response.status == 201){
           get_notification()
           Swal.fire({
@@ -805,7 +847,7 @@ export default {
 
     function getSpecificMoment(id,data){
       let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + id 
-      app.appContext.config.globalProperties.$http.get(uri_moment).then((response) => {
+      fetch_data.get(uri_moment).then((response) => {
         data.value = response.data
       })
     }
@@ -820,7 +862,7 @@ export default {
         return router.push('/login')
       }else{
          let uri_thumbsMoment = process.env.VUE_APP_ROOT_API + "moment/" + id +"/thumbs"
-         app.appContext.config.globalProperties.$http.post(uri_thumbsMoment,config,config).then(()=> {
+         fetch_data.post(uri_thumbsMoment,config,config).then(()=> {
            getSpecificMoment(id,modalDataMoment)
          })
       }
@@ -839,7 +881,7 @@ export default {
             headers: authHeader()
           }
           let uri_singleMoment = process.env.VUE_APP_ROOT_API + "moment/" + id
-          app.appContext.config.globalProperties.$http
+          fetch_data
             .delete(uri_singleMoment, config)
             .then(() => {
               modalMoment.value = false
@@ -902,7 +944,7 @@ export default {
             discussion_id +
             "/" +
             comment_id
-          app.appContext.config.globalProperties.$http.delete(uri_deleteDiscussion, config).then((response) => {
+          fetch_data.delete(uri_deleteDiscussion, config).then((response) => {
             if (response.status == 201) {
               Swal.fire("Comment Deleted", "", "success")
               get_comment(modalData, discussion_id)
@@ -919,7 +961,7 @@ export default {
         "/discussion/" +
         id +
         "/thumbs"
-      app.appContext.config.globalProperties.$http.post(uri_likeDiscussion, config, config).then((response) => {
+      fetch_data.post(uri_likeDiscussion, config, config).then((response) => {
         console.log(response.data)
         getSpecificDiscussion(id, modalData)
       })
@@ -931,14 +973,31 @@ export default {
         route.params.slug +
         "/discussion/" +
         id
-      app.appContext.config.globalProperties.$http.get(uri_discussion).then((response) => {
+      fetch_data.get(uri_discussion).then((response) => {
         data.value = response.data
       })
+    }
+    function likeComment(id,id_comment) {
+      console.log(id)
+      let uri_likeComment =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        id + "/" + id_comment + 
+        "/thumbs"
+      fetch_data.post(uri_likeComment, config, config).then((response) => {
+        console.log(response.data)
+        getSpecificDiscussion(id, modalData)
+      })
+    }
+    function editMoment(id){
+      router.push({name : 'EdMoment',params: { id: id } });
     }
    
 
     return {
-      dropdown21,
+      dropdown21,editMoment,
       userProfile,
       user,
       notification,
@@ -975,7 +1034,8 @@ export default {
       currentPagePlanner,
       offsetPlanner,
       confirmDeleteComment,
-      likeDiscussion,getSpecificDiscussion
+      likeDiscussion,getSpecificDiscussion,likeComment,
+      tooltip1,tooltip2
       
 };
   },

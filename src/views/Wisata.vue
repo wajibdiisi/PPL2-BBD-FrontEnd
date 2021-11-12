@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  
+  {{selectedProv}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">
@@ -55,7 +55,7 @@
                 v-model:options="optionsProvinsi"
                 label="Location"
                 clearButton
-                placeholder="Example placeholder"
+                placeholder="Pilih Provinsi"
                 v-model:selected="selectedProv"
               />
             </MDBCol>
@@ -351,15 +351,14 @@ export default {
               return wisata.nama != null
             }
           }).filter((wisata) => {
-            if(selectedProv.value != "Select All"){
-      
+            if(selectedProv.value != "Select All" && selectedProv.value != ""){
               return wisata.provinsi.includes(selectedProv.value)
             }else{
               return wisata.nama != null
             }
           }).
           filter((wisata) => {
-            if(filteredType.value != "Select All"){
+            if(filteredType.value != "Select All" && filteredType.value != ""){
               return wisata.tipe.includes(filteredType.value)
             }else{
               return wisata.nama != null

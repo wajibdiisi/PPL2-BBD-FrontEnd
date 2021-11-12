@@ -6,25 +6,26 @@
         <MDBCard class="upload-box text-white" text="center">
           <MDBCardBody>
             <MDBCardTitle class="fs-1"
-              >You can upload up to X images
+              >You can't change your moment photo please make a new moment if you want to upload new photo
             </MDBCardTitle>
-            <MDBCardTitle class="fs-1">Select your images here </MDBCardTitle>
+            
             <MDBCol col="6" class="photo-box" style="margin: 3vh auto">
-              <MDBFile v-model="files2" multiple inputClass="png" />
+           
+                
+               <div v-if="data.photo != null">
+                 
+    <img  :src="data.photo" class="img-fluid"/>
+       </div>
+
             </MDBCol>
-            <MDBCardText class="fs-4">
-              Please upload your photos with ‘16:9’ ratio otherwise,
-            </MDBCardText>
-            <MDBCardText class="fs-4">
-              your photo will possibly turn blurry
-            </MDBCardText>
+        
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
   <MDBContainer style="margin: 5vh auto">
-    <MDBRow>
+    <MDBRow tag="form" class="needs-validation" novalidate @submit.prevent="checkForm">
       <MDBCol col="12" class="align-self-center">
         <MDBCard>
           <MDBCardBody>
@@ -32,49 +33,55 @@
               <MDBContainer>
                 <MDBCardText class="fs-4"> Moment Title </MDBCardText>
                 <MDBInput
-                  label="Email"
+                  label="Moment Title"
                   class="my-1"
-                  type="email"
-                  v-model="email"
-                  invalidFeedback="Please input your email"
+                  type="text"
+                  v-model="data.title"
+                  invalidFeedback="Please provide moment title"
                   required
                 />
-                <MDBCardText class="fs-4"> Moment Description </MDBCardText>
-                <MDBInput
-                  label="Email"
-                  class="my-1"
-                  type="email"
-                  v-model="email"
-                  invalidFeedback="Please input your email"
-                  required
-                />
+                <MDBCardText class="fs-4"> Moment Description</MDBCardText>
+              <MDBTextarea
+                            label="Moment Description"
+                            rows="10"
+                            class="my-1"
+                            invalidFeedback="Please provide moment description"
+                            v-model="data.description"
+                            required
+                          />
+             
                 <MDBCardText class="fs-4"> Location </MDBCardText>
-                <MDBInput
-                  label="Email"
-                  class="my-1"
-                  type="email"
-                  v-model="email"
-                  invalidFeedback="Please input your email"
-                  required
-                />
-                <MDBCardText class="fs-4"> Date and Time </MDBCardText>
-                <MDBInput
-                  label="Email"
-                  class="my-1"
-                  type="email"
-                  v-model="email"
-                  invalidFeedback="Please input your email"
-                  required
-                />
+                 <MDBInput
+                 v-model="selectedWisata"
+            disabled
+          ></MDBInput>
+    <MDBCardText class="fs-4"> Date</MDBCardText>
+      <MDBInput
+            v-model="data.date"
+            label="Date"
+            class="my-4"
+            type="text"
+            tooltipFeedback
+            disabled
+          />
+          <MDBCardText class="fs-4"> Time </MDBCardText>
+               <MDBTimepicker
+            label="Pilih Jam"
+            inline
+            v-model="data.time"
+            :hoursFormat="24"
+            :increment="5"
+            placeholder="20:05"
+          />
                 <div style="margin-top: 2vh">
                   <MDBBtn size="lg"> Cancel </MDBBtn>
                   <MDBBtn
-                    tag="a"
                     size="lg"
-                    @click="updateProfile()"
+                    
                     color="primary"
+                    type="submit"
                     style="background-color: rgb(50, 224, 196)"
-                    >Update Profile
+                    >Upload Moment
                   </MDBBtn>
                 </div>
               </MDBContainer>
@@ -89,8 +96,9 @@
 <script>
 import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
-import { MDBFile } from "mdb-vue-ui-kit";
-import { ref } from "vue";
+import {  useRouter,useRoute} from "vue-router"
+import Swal from 'sweetalert2'
+import { ref,getCurrentInstance } from "vue";
 import {
   MDBCol,
   MDBRow,
@@ -100,7 +108,9 @@ import {
   MDBCardText,
   MDBContainer,
   MDBInput,
+  MDBTextarea,
   MDBBtn,
+  MDBTimepicker,
 } from "mdb-vue-ui-kit";
 export default {
   components: {
@@ -113,17 +123,99 @@ export default {
     MDBCardTitle,
     MDBCardText,
     MDBContainer,
-    MDBFile,
+    //MDBFile,
     MDBInput,
-    MDBBtn,
+    MDBBtn,MDBTextarea,
+    MDBTimepicker
   },
   setup() {
-    const files2 = ref([]);
+    const checkForm = async (e) => {
+      validate()
+      isValidated.value = true
+       e.target.classList.add("was-validated")
+       if(localStorage.getItem('token') == null){
+         Swal.fire({
+           title : "Action Failed",
+           text : "You need to login first to do this action",
+           icon : "error"
+         })
+         return router.push('/login')
+       }
+       if(isValid.value == true && data.value.title != null && data.value.description != null && data.value.time != null &&data.value.date != null){
+         createMoment()
+       }else {
+        
+           Swal.fire({
+           title : "Action Failed",
+           text : "Please input atleast one location to create a moment",
+           icon : "error"
+         })
+         
+       }
+    }
+     const config = {
+      headers: {'Authorization': `${localStorage.getItem('token')}`,
+      'Accept': 'application/json',
+      }
+    };
+    const router = useRouter()
+    const route = useRoute()
     const input1 = ref("");
+    const wisata_list = ref([ ])
+    const isValidated = ref(false);
+      const isValid = ref(false);
+      const validate = () => {
+        if (data.value?.id_wisata.length <1) {
+          
+          isValid.value = false;
+        } else {
+          isValid.value = true;
+        }
+      };
+   
+    const app = getCurrentInstance()
+    const data = ref([])
+    let uri_moment = process.env.VUE_APP_ROOT_API + "moment/edit/" + route.params.id
+   
+    let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
+    app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
 
+      for(let i = 0 ; i <response.data.length ; i++){
+        const data = {
+          'text' : response.data[i].nama,
+          'mdbKey': i,
+          'value' : response.data[i]._id
+        }
+        wisata_list.value.push(data)
+      }
+    })
+     app.appContext.config.globalProperties.$http.get(uri_moment,config).then((response)=> {
+      data.value = response.data
+      selectedWisata.value = response.data.id_wisata.map((wisata) => wisata.nama)
+    })
+    const selectedWisata = ref("27, Nov, 2021")
+    
+    function createMoment(){
+      let uri_moment = process.env.VUE_APP_ROOT_API + "moment/" + route.params.id
+      app.appContext.config.globalProperties.$http.patch(uri_moment,data,config).then((response) => {
+        if(response.status == 201){
+          Swal.fire({
+            title : response.data.msg,
+            icon : 'success'
+          })
+          router.push('/')
+        }
+      })
+    }
     return {
-      files2,
       input1,
+      data,
+      wisata_list,createMoment,
+      selectedWisata,
+      checkForm,
+      isValid,
+        isValidated,
+        validate
     };
   },
 };

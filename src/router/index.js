@@ -72,6 +72,15 @@ const routes = [
     }
   },
   {
+    path: '/editmoment/:id',
+    name: 'EdMoment',
+    component: () => import('../views/EdMoment.vue'),
+    meta : {
+      title : 'Edit Moment - Mytour',
+      requiresAuth: true
+    }
+  },
+  {
     path: '/aboutus',
     name: 'Abousus',
     component: () => import('../views/aboutus.vue'),

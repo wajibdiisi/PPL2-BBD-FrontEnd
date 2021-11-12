@@ -859,6 +859,8 @@
                             <hr />
                             <MDBCol>
                               <p>
+                                <MDBTooltip v-model="tooltip1" tag="a">
+                                <template #reference>
                                 <a
                                   role="button"
                                   style="color: rgb(0, 0, 255)"
@@ -870,6 +872,13 @@
                                     modalDataMoment.thumbs_up.length
                                   }})
                                 </a>
+                                </template>
+                                <template #tip>
+                                  <div v-for="thumbs_user in modalDataMoment.thumbs_up" :key ="thumbs_user._id">
+                                    <span>{{thumbs_user.name}}</span>
+                                    </div>
+                                  </template>
+                                </MDBTooltip>
                                 <template
                                   v-if="
                                     modalDataMoment.id_user._id ==
@@ -974,11 +983,14 @@
                                 </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="time" iconStyle="fas" />
-                                  {{ moment(discussion.created_at).fromNow() }}
+                                  
+                                  {{ moment(discussion.created_at).fromNow() }} 
                                 </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="user" iconStyle="fas" />
+                                  <template v-if="user.user?._id == discussion.id_user._id">
                                   <span>This discussion is created by you</span>
+                                  </template>
                                 </span>
                               </MDBCol>
                             </MDBRow>
@@ -1020,7 +1032,10 @@
                               </p>
                             </MDBRow>
                             <MDBRow>
+                              
                               <MDBCol class="mb-3">
+                                <MDBTooltip v-model="tooltip1" tag="a">
+                                <template #reference>
                                 <a
                                   @click="likeDiscussion(modalData._id)"
                                   class="m-1"
@@ -1034,9 +1049,23 @@
                                   ></MDBIcon>
                                   Like ({{ modalData.thumbs_up.length }})
                                 </a>
+                                </template>
+
+                              <template #tip>
+                                  <div v-for="thumbs_user in modalData.thumbs_up" :key="thumbs_user._id">
+                                    <span>{{thumbs_user.name}}</span>
+                                    </div>
+                                  </template>
+                                </MDBTooltip>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  Posted By {{ modalData.id_user.name }}
+                                  Posted By <router-link
+                                  :to="{
+                                    name: 'Profile',
+                                    params: { username: modalData.id_user.username }
+                                  }"
+                                >{{ modalData.id_user.name }}
+                                </router-link>
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
@@ -1045,14 +1074,29 @@
                                 <span class="me-2">
                                   <MDBIcon icon="clock" iconStyle="fas" />
                                   {{ moment(modalData.created_at).fromNow() }}
+                                  <template v-if="modalData.created_at != modalData.updated_at">
+                                    (Last Edited {{ moment(modalData.updated_at).fromNow() }})
+                                    </template>
                                 </span>
-                                <span class="me-2" style="cursor: pointer">
-                                  <MDBIcon icon="share" iconStyle="fas" />
-                                  Share
-                                </span>
+                               
                                 <template
                                   v-if="modalData.id_user._id == user.user?._id"
                                 >
+                                <a
+                                    @click="
+                                      openEditDiscussion(modalData)
+                                    "
+                                    class="m-1"
+                                    role="button"
+                                   
+                                  >
+                                    <MDBIcon
+                                      iconStyle="fas"
+                                      icon="pencil-alt"
+                                      size="xs"
+                                    ></MDBIcon>
+                                    Edit
+                                  </a>
                                   <a
                                     @click="
                                       confirmDeleteDiscussion(modalData._id)
@@ -1126,7 +1170,13 @@
                               <MDBCol md="2">
                                 <MDBRow>
                                   <p class="mb-0 ms-2" style="font-weight: 500">
-                                    {{ comment.id_user.name }}
+                                   <router-link
+                                  :to="{
+                                    name: 'Profile',
+                                    params: { username: comment.id_user.username }
+                                  }"
+                                >{{ comment.id_user.name }}
+                                </router-link>
                                   </p>
                                 </MDBRow>
                                 <MDBRow>
@@ -1146,6 +1196,7 @@
                                 </MDBCol>
                                 <MDBRow class="d-flex justify-content-evenly">
                                   <MDBCol class="mb-3">
+                                    
                                     <a
                                   role="button"
                                   style="color: rgb(0, 0, 255)"
@@ -1157,6 +1208,8 @@
                                     comment.thumbs_up.length
                                   }})
                                 </a>
+                                   
+                          
                                     <template
                                       v-if="
                                         comment.id_user._id == user.user?._id
@@ -1185,6 +1238,7 @@
                                 </MDBRow>
                               </MDBRow>
                             </MDBRow>
+                            <template v-if="listToShow < modalData.id_comments.length">
                             <MDBBtn
                               @click="listToShow += 5"
                               style="
@@ -1198,6 +1252,7 @@
                             >
                               Load More Comments
                             </MDBBtn>
+                            </template>
                           </MDBCol>
                         </MDBRow>
                       </MDBModalBody>
@@ -1258,6 +1313,67 @@
                             type="submit"
                           >
                             Post Discussion
+                          </MDBBtn>
+                        </MDBRow>
+                      </MDBModalBody>
+                    </MDBModal>
+                     <MDBModal
+                      id="add_discussion"
+                      tabindex="-1"
+                      labelledby="add_discussion"
+                      v-model="edit_discussion"
+                      centered
+                      scrollable
+                      size="xl"
+                    >
+                      <MDBModalBody>
+                        <MDBRow
+                          class="p-3 needs-validation"
+                          tag="form"
+                          novalidate
+                          @submit.prevent="editDiscussion"
+                        >
+                          <MDBCol md="12">
+                            <MDBRow>
+                              <MDBCol>
+                                <h5>Edit a discussion</h5>
+                              </MDBCol>
+                            </MDBRow>
+                            <MDBRow class="py-2">
+                              <MDBInput
+                                label="Title"
+                                class="my-1"
+                                style="height: 60px"
+                                v-model="discussion_content.title"
+                                readonly
+                                invalidFeedback="Please provide discussion content"
+                                validFeedback="Looks good!"
+                                required
+                              />
+                            </MDBRow>
+                            <MDBRow class="py-2">
+                              <MDBTextarea
+                                label="What are your thoughts?"
+                                rows="10"
+                                class="my-1"
+                                v-model="discussion_content.content"
+                                invalidFeedback="Please provide discussion content"
+                                validFeedback="Looks good!"
+                                required
+                              />
+                            </MDBRow>
+                          </MDBCol>
+                          <MDBBtn
+                            style="
+                              background-color: rgb(13, 115, 119);
+                              color: white;
+                              width: 175px;
+                              height: 45px;
+                            "
+                            class="align-self-end m-4"
+                            type="submit"
+                          >
+                            Edit Discussion
                           </MDBBtn>
                         </MDBRow>
                       </MDBModalBody>
@@ -1333,7 +1449,7 @@ import moment from "moment"
 import Swal from "sweetalert2"
 import {
   MDBIcon,
-  MDBBtn,
+  MDBBtn,MDBTooltip,
   MDBCol,
   MDBRow,
   MDBContainer,
@@ -1373,7 +1489,7 @@ export default {
     Footer,
     MDBIcon,
     MDBBtn,
-    MDBCol,
+    MDBCol,MDBTooltip,
     MDBRow,
     MDBContainer,
     MDBTabs,
@@ -1416,6 +1532,9 @@ export default {
     const selectedSortDiscussion = ref("")
     const selectedSortComment = ref("")
     const modalDataMoment = ref()
+    const tooltip1 = ref(false);
+    const tooltip2 = ref(false);
+    const edit_discussion = ref(false)
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
         currentPage: 1,
@@ -1460,7 +1579,7 @@ export default {
     })
     const discussion_content = ref({
       content: null,
-      title: null
+      title: null,
     })
     const comment_content = ref()
     const data_wisata = ref({
@@ -2007,8 +2126,61 @@ export default {
       copyText.setAttribute('type', 'text')
       navigator.clipboard.writeText(copyText.value);
     }
+
+    function openEditDiscussion(data){
+      edit_discussion.value = true
+      discussion_content.value.title = data.title
+      discussion_content.value.content = data.content 
+      discussion_content.value._id = data._id
+    }
+    function editDiscussion(){
+        let uri_discussion =
+        process.env.VUE_APP_ROOT_API +
+        "wisata/" +
+        route.params.slug +
+        "/discussion/" +
+        discussion_content.value._id
+         fetch_data.patch(uri_discussion, discussion_content, config).then((response) => {
+          get_discussion(discussion_list)
+          discussion_content.value = {}
+          discussionModal.value = false
+          edit_discussion.value = false
+          Swal.fire({
+          title: "Action Success",
+          text: response.data.msg,
+          icon: "success"
+        })
+        })
+    }
+    function deleteMoment(id){
+       Swal.fire({
+        title: "Do you want to delete your Moment?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save"
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          const config = {
+            headers: authHeader()
+          }
+          let uri_singleMoment = process.env.VUE_APP_ROOT_API + "moment/" + id
+          fetch_data
+            .delete(uri_singleMoment, config)
+            .then(() => {
+              Moment.value = false
+              Swal.fire("Moment Deleted", "", "success")
+               fetch_data.get(uri_moment).then((response) => {
+      moment_list.value = response.data
+    })
+            })
+         
+        }
+      })
+      
+    }
     return {
-      mapLoaded,copyClipboard,
+      mapLoaded,copyClipboard,openEditDiscussion,edit_discussion,editDiscussion,
       user,
       confirm_deletion,
       isFavourited,
@@ -2068,7 +2240,9 @@ export default {
       likeReview,
       getSpecificMoment,
       likeComment,
-      clipboard
+      clipboard,tooltip1,
+      tooltip2,
+      deleteMoment
     }
   }
 }

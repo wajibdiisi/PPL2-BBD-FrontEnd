@@ -195,9 +195,9 @@ export default {
       
     }
 
-    function updatePlan(id){
-      console.log(id)
-     let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id + "/" + id
+    function updatePlan(id_plan){
+      console.log(id_plan)
+     let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + id_plan
      app.appContext.config.globalProperties.$http.patch(uri_planner,title,config).then(
         Swal.fire("Plan Successfully Changed", "", "success"),
         exampleSideModal2.value = false,
@@ -236,7 +236,7 @@ export default {
               }).then((result) => {
                 if(result.isConfirmed){
                 let uri_planner =  process.env.VUE_APP_ROOT_API  + "planner/plan/" +  btn.attributes['data-mdb-email'].value
-                console.log(uri_planner)
+         
                 app.appContext.config.globalProperties.$http
                 .delete(uri_planner, config)
                 .then(() => {

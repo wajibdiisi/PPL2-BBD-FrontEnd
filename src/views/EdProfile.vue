@@ -200,7 +200,6 @@ export default {
     const handleFileUpload = async( ) => {
            // debugger;
            url.value = URL.createObjectURL(file.value.files[0]);
-            console.log("selected file",file.value.files[0])
             //Upload to server
         }
     function updateProfile() {

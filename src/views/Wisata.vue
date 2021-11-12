@@ -1,6 +1,5 @@
 <template>
   <Navbar />
-  {{selectedProv}}
   <MDBContainer fluid style="margin-bottom: 1vh">
     <div class="text-center">
       <MDBCol col="12">

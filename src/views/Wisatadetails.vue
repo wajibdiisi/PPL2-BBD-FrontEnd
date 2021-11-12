@@ -1628,7 +1628,6 @@ export default {
       review_list.value = response.data.data
       reviewRating.value = response.data.count.map((item) => item.rating)
       review_list.value.totalRating = sum_rating(reviewRating)
-      console.log(review_list.value.totalRating)
     })
     fetch_data.get(uri_discussion).then((response) => {
       discussion_list.value = response.data
@@ -1684,7 +1683,7 @@ export default {
     function sum_rating(data) {
       var temp = 0
       for (var i = 0; i < data.value.length; i++) {
-        console.log(data.value)
+      
         temp += data.value[i]
       }
       return temp / data.value?.length
@@ -1964,12 +1963,12 @@ export default {
         id +
         "/thumbs"
       fetch_data.post(uri_likeDiscussion, config, config).then((response) => {
-        console.log(response.data)
+
         getSpecificDiscussion(id, modalData)
       })
     }
     function likeComment(id,id_comment) {
-      console.log(id)
+
       let uri_likeComment =
         process.env.VUE_APP_ROOT_API +
         "wisata/" +
@@ -1978,7 +1977,7 @@ export default {
         id + "/" + id_comment + 
         "/thumbs"
       fetch_data.post(uri_likeComment, config, config).then((response) => {
-        console.log(response.data)
+
         getSpecificDiscussion(id, modalData)
       })
     }
@@ -2014,7 +2013,6 @@ export default {
           "/review/" +
           id +
           "/thumbs"
-        console.log(uri_thumbsReview)
         fetch_data.post(uri_thumbsReview, config.value, config).then(() => {
           get_review(review_list)
         })
@@ -2077,7 +2075,6 @@ export default {
           ?.slice(0, 1500)
           .sort((a, b) => {
             let modifier = -1
-            console.log(a)
             if (a["created_at"].valueOf() < b["created_at"].valueOf()) {
               return -1 * modifier
             }

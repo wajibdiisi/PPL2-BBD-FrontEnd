@@ -61,6 +61,7 @@
             label="Date"
             class="my-4"
             type="text"
+            required
             tooltipFeedback
             disabled
           />
@@ -71,6 +72,7 @@
             v-model="data.time"
             :hoursFormat="24"
             :increment="5"
+            required
             placeholder="20:05"
           />
                 <div style="margin-top: 2vh">
@@ -144,13 +146,28 @@ export default {
        if(isValid.value == true && data.value.title != null && data.value.description != null && data.value.time != null &&data.value.date != null){
          createMoment()
        }else {
-        
+         if(data.value.id_wisata == null){
+           console.log('sss' + data.value.id_wisata)
            Swal.fire({
            title : "Action Failed",
            text : "Please input atleast one location to create a moment",
            icon : "error"
          })
-         
+         }
+         else if(data.value.date == null){
+           Swal.fire({
+           title : "Action Failed",
+           text : "Please input date",
+           icon : "error"
+         })
+         }
+         else if (data.value.time == null){
+           Swal.fire({
+           title : "Action Failed",
+           text : "Please input time",
+           icon : "error"
+         })
+         }
        }
     }
      const config = {

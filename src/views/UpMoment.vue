@@ -60,7 +60,7 @@
     :isValid="isValid"
     required
     validFeedback="This value is valid"
-    invalidFeedback="This value is invalid"
+    invalidFeedback="Please input atleast one wisata"
     @change="validate" />
                 <MDBCardText class="fs-4"> Date </MDBCardText>
                <MDBDatepicker
@@ -68,6 +68,7 @@
             inline
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
+            required
             format="DD, MMM, YYYY"
             placeholder="DD, MMM, YYYY"
           />
@@ -75,6 +76,7 @@
                <MDBTimepicker
             label="Pilih Jam"
             inline
+            required
             v-model="data.time"
             :hoursFormat="24"
             :increment="5"
@@ -161,10 +163,25 @@ export default {
            text : "Please upload image to create a moment",
            icon : "error"
          })
-         }else{
+         }else if(data.value.id_wisata == null){
+           console.log('sss' + data.value.id_wisata)
            Swal.fire({
            title : "Action Failed",
            text : "Please input atleast one location to create a moment",
+           icon : "error"
+         })
+         }
+         else if(data.value.date == null){
+           Swal.fire({
+           title : "Action Failed",
+           text : "Please input date",
+           icon : "error"
+         })
+         }
+         else if (data.value.time == null){
+           Swal.fire({
+           title : "Action Failed",
+           text : "Please input time",
            icon : "error"
          })
          }

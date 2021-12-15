@@ -20,11 +20,18 @@
       <MDBNavbarItem to="/Aboutus"> About Us </MDBNavbarItem>
       <MDBNavbarItem to="/Help"> Help </MDBNavbarItem>
       <MDBNavbarNav right class="mb-2 mb-lg-0">
-        <MDBNavbarItem to="#">
+        <MDBNavbarItem>
+          <router-link
+                :to="{
+                  name: 'Profile',
+                  params: { username: user.user.username },
+                }"
+              >
           <MDBIcon icon="bell"></MDBIcon>
           <template v-if="notification?.length">
           <MDBBadge notification color="danger" pill>{{notification?.length}}</MDBBadge>
           </template>
+          </router-link>
         </MDBNavbarItem>
         <MDBNavbarItem>
           <MDBDropdown

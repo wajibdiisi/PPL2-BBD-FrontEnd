@@ -135,10 +135,11 @@ methods :{
         event.preventDefault();
         event.target.classList.add('was-validated');
         const rePassword = /^.{6,}$/
+        const reUsername = /[0-9a-zA-Z]{5,}/
         /* eslint-disable-next-line */
         const reEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         /* eslint-disable-next-line */
-        if(this.preg_match("^[A-Za-z0-9-\s]+$",this.username) && 
+        if(this.preg_match(reUsername,this.username) && 
         this.preg_match(reEmail,this.email) && this.preg_match(rePassword,this.password) && this.password == this.confirm_password){
           this.register()
         }else if( this.password != this.confirm_password){

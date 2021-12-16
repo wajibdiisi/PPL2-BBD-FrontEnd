@@ -151,7 +151,7 @@ export default {
         headers: authHeader(),
       };
     
-    const title = ref();
+    const title = ref("");
     const picker1 = ref("");
     const picker2 = ref("");
     const selectedPlan = ref();
@@ -186,13 +186,17 @@ export default {
     const search3 = ref("");
 
     function addPlanner(){
-      let uri_planner = process.env.VUE_APP_ROOT_API + "planner/new_plan"
-      app.appContext.config.globalProperties.$http.post(uri_planner,title,config).then(
-        Swal.fire("Plan Created", "", "success"),
-        exampleSideModal1.value = false,
-        get_plan()
-        )
-      
+      const rePattern = /[0-9a-zA-Z]{1,}/
+      if(new RegExp(rePattern).test(title.value)){
+        let uri_planner = process.env.VUE_APP_ROOT_API + "planner/new_plan"
+        app.appContext.config.globalProperties.$http.post(uri_planner,title,config).then(
+          Swal.fire("Plan Created", "", "success"),
+          exampleSideModal1.value = false,
+          get_plan()
+          )
+      }else {
+        Swal.fire("Please Input Plan Title", "", "error")
+      }
     }
 
     function updatePlan(id_plan){

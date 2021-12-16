@@ -36,10 +36,11 @@
     <MDBRow>
       <MDBCol col="12" class="align-self-center">
         <MDBCard>
+             <form class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
           <MDBCardBody>
             <MDBContainer>
-                 <form class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
               <MDBContainer>
+              
                 <MDBCardText class="fs-4"> Email </MDBCardText>
                 <MDBInput
                   label=""
@@ -47,7 +48,6 @@
                   type="email"
                   readonly
                   v-model="user.user.email"
-                  invalidFeedback="Please input your email"
                   required
                 />
                
@@ -57,7 +57,6 @@
                   class="my-1"
                   type="name"
                   v-model="user.user.name"
-                  invalidFeedback="Please input your email"
                   required
                 />
                 <MDBCardText class="fs-4"> Provinsi </MDBCardText>
@@ -94,7 +93,6 @@
                 <div style="margin-top: 2vh">
                   <MDBBtn size="lg"> Cancel </MDBBtn>
                   <MDBBtn
-                    tag="a"
                     size="lg"
                     type="submit"
                                         color="primary"
@@ -103,9 +101,9 @@
                   </MDBBtn>
                 </div>
               </MDBContainer>
-              </form>
             </MDBContainer>
           </MDBCardBody>
+              </form>
         </MDBCard>
       </MDBCol>
     </MDBRow>
@@ -156,6 +154,7 @@ export default {
       }
     };
     const checkForm = e => {
+      
         e.target.classList.add("was-validated");
          if(localStorage.getItem('token') == null){
          Swal.fire({
@@ -165,13 +164,14 @@ export default {
          })
          return router.push('/login')
        }
-       if(!user.value.user.email || !user.value.user.name || !user.value.user.provinsi || !user.value.user.kota || user.value.user.tglLahir){
+       if(!user.value.user.email || !user.value.user.name || !user.value.user.provinsi || !user.value.user.kota || !user.value.user.tglLahir){
          Swal.fire({
            title : "Action Failed",
            text : "Please input all required information",
            icon : "error"
          })
        }else{
+         
          updateProfile()
        }
       };

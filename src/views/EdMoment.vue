@@ -73,6 +73,7 @@
             :hoursFormat="24"
             :increment="5"
             required
+            readonly
             placeholder="20:05"
           />
                 <div style="margin-top: 2vh">

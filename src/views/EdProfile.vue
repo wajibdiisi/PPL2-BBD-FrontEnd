@@ -38,6 +38,7 @@
         <MDBCard>
           <MDBCardBody>
             <MDBContainer>
+                 <form class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
               <MDBContainer>
                 <MDBCardText class="fs-4"> Email </MDBCardText>
                 <MDBInput
@@ -67,6 +68,7 @@
       :itemContent="itemTemplate"
       style="width: 22rem"
       label="Pilih Provinsi"
+      required
     />
                 <MDBCardText class="fs-4"> Kota </MDBCardText>
                 <MDBAutocomplete
@@ -76,14 +78,16 @@
       :itemContent="itemTemplateKota"
       style="width: 22rem"
       label="Pilih Provinsi"
+      required
     />
                 <MDBCardText class="fs-4"> Birth </MDBCardText>
                 <MDBDatepicker
             v-model="user.user.tglLahir"
             inline
+            readonly
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
-       
+        required
             format="DD MMMM YYYY"
             placeholder="DD, MMM, YYYY"
           />
@@ -92,13 +96,14 @@
                   <MDBBtn
                     tag="a"
                     size="lg"
-                    @click="updateProfile()"
-                    color="primary"
+                    type="submit"
+                                        color="primary"
                     style="background-color: rgb(50, 224, 196)"
                     >Update Profile
                   </MDBBtn>
                 </div>
               </MDBContainer>
+              </form>
             </MDBContainer>
           </MDBCardBody>
         </MDBCard>
@@ -150,6 +155,26 @@ export default {
       'Content-Type': 'multipart/form-data'
       }
     };
+    const checkForm = e => {
+        e.target.classList.add("was-validated");
+         if(localStorage.getItem('token') == null){
+         Swal.fire({
+           title : "Action Failed",
+           text : "You need to login first to do this action",
+           icon : "error"
+         })
+         return router.push('/login')
+       }
+       if(!user.value.user.email || !user.value.user.name || !user.value.user.provinsi || !user.value.user.kota || user.value.user.tglLahir){
+         Swal.fire({
+           title : "Action Failed",
+           text : "Please input all required information",
+           icon : "error"
+         })
+       }else{
+         updateProfile()
+       }
+      };
     const provinsi = ref("");
     const router = useRouter()
     const user = computed(() => store.getters.user);
@@ -235,7 +260,7 @@ export default {
       isLoggedIn,itemTemplate,itemTemplateKota,
       autocompleteAsync,autocompleteAsyncKota,
       url,filterAsync,filterAsyncKota,
-      input1,
+      input1,checkForm,
       provinsi,displayValueAsync,displayValueAsyncKota
     };
   },

@@ -39,7 +39,7 @@
                 <MDBCardText class="fs-4"> Moment Title </MDBCardText>
                 <MDBInput
                   label="Moment Title"
-                  class="my-1"
+                  class="my-2"
                   type="text"
                   v-model="data.title"
                   invalidFeedback="Please provide moment title"
@@ -50,9 +50,8 @@
                             label="Moment Description"
                             rows="10"
                             class="my-1"
-                            invalidFeedback="Please provide moment description"
                             v-model="data.description"
-                            required
+                           
                           />
              
                 <MDBCardText class="fs-4"> Location </MDBCardText>
@@ -68,6 +67,7 @@
             inline
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
+            readonly
             required
             format="DD, MMM, YYYY"
             placeholder="DD, MMM, YYYY"
@@ -80,6 +80,7 @@
             v-model="data.time"
             :hoursFormat="24"
             :increment="5"
+            readonly
             placeholder="20:05"
           />
                 <div style="margin-top: 2vh">

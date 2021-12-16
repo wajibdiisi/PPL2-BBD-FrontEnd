@@ -82,11 +82,11 @@ const routes = [
   },
   {
     path: '/aboutus',
-    name: 'Abousus',
+    name: 'Aboutus',
     component: () => import('../views/aboutus.vue'),
     meta : {
       title : 'About Us - Mytour',
-      requiresAuth: true
+
     }
   },
   {
@@ -103,7 +103,6 @@ const routes = [
     name: 'Help',
     component: () => import('../views/Help.vue'),
     meta:{
-      requiresAuth : true,
       title : 'Help - Mytour'
     }
   },

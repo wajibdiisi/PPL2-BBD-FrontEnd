@@ -20,21 +20,25 @@
             <MDBCardText class="fs-4">
             {{userProfile.tglLahir}}
             </MDBCardText>
+            <template v-if="userProfile._id == user.user?._id">
             <router-link to="/uploadmoment">
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Upload Moment
             </MDBBtn>
             </router-link>
+            
             <router-link to="/profile/edit">
             <MDBBtn tag="a" href="#!" color="link" outline="primary"
               >Edit Profile
             </MDBBtn>
             </router-link>
+            </template>
           </MDBCardBody>
         </MDBCard>
       </MDBCol>
     </MDBRow>
   </MDBContainer>
+  <template v-if="user.user?._id == userProfile._id">
   <MDBContainer>
     <MDBCard>
       <MDBCardBody>
@@ -389,12 +393,18 @@
       </MDBCardBody>
     </MDBCard>
   </MDBContainer>
+  </template>
   <MDBContainer style="margin: 5vh auto">
     <MDBRow>
       <MDBCol col="4">
         <MDBCard>
           <MDBCardBody>
+            <template v-if="user.user?._id == userProfile._id">
             <MDBCardTitle class="fs-3">Your Plan</MDBCardTitle>
+            </template>
+            <template v-if="user.user?._id != userProfile._id">
+              <MDBCardTitle class="fs-3">{{userProfile.name}}'s Plan</MDBCardTitle>
+              </template>
             <template v-if="planner_list">
             <MDBRow v-for="planner in plannerComputed" :key="planner._id">
              <div
@@ -402,9 +412,12 @@
                 style="margin: 1vh auto"
               >
                 <MDBCardText class="fs-5"> {{planner.title}} </MDBCardText>
-                <MDBBtn color="link" outline="primary" @click="redirect(planner._id,'planner')"
+                <template v-if="user.user?._id == userProfile._id">
+             <MDBBtn color="link" outline="primary" @click="redirect(planner._id,'planner')"
                   >Details
                 </MDBBtn>
+            </template>
+               
               </div>
  
             </MDBRow>
@@ -435,7 +448,13 @@
       <MDBCol col="8">
         <MDBCard>
           <MDBCardBody>
+            
+            <template v-if="user.user?._id == userProfile._id">
             <MDBCardTitle class="fs-3">Your Moment</MDBCardTitle>
+            </template>
+            <template v-if="user.user?._id != userProfile._id">
+              <MDBCardTitle class="fs-3">{{userProfile.name}}'s Moment(s)</MDBCardTitle>
+              </template>
             <MDBRow>
               <template v-if="moment_list">
               <div v-for="data_moment in momentComputed" :key="data_moment._id" class="col-md-6" style="margin: 2vh auto">

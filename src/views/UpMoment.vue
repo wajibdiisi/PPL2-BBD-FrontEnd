@@ -84,7 +84,7 @@
             placeholder="20:05"
           />
                 <div style="margin-top: 2vh">
-                  <MDBBtn size="lg"> Cancel </MDBBtn>
+                  <MDBBtn size="lg" @click="router.back()"> Cancel </MDBBtn>
                   <MDBBtn
                     size="lg"
                     
@@ -263,7 +263,7 @@ export default {
       checkForm,
       isValid,
         isValidated,
-        validate
+        validate,router
     };
   },
 };

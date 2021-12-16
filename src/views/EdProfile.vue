@@ -91,7 +91,7 @@
             placeholder="DD, MMM, YYYY"
           />
                 <div style="margin-top: 2vh">
-                  <MDBBtn size="lg"> Cancel </MDBBtn>
+                  <MDBBtn size="lg" @click="router.back()"> Cancel </MDBBtn>
                   <MDBBtn
                     size="lg"
                     type="submit"
@@ -260,7 +260,7 @@ export default {
       isLoggedIn,itemTemplate,itemTemplateKota,
       autocompleteAsync,autocompleteAsyncKota,
       url,filterAsync,filterAsyncKota,
-      input1,checkForm,
+      input1,checkForm,router,
       provinsi,displayValueAsync,displayValueAsyncKota
     };
   },

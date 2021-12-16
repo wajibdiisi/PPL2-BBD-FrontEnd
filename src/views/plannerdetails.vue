@@ -55,10 +55,11 @@
           Pilih Tempat Wisata
         </MDBModalTitle>
       </MDBModalHeader>
+      <form class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
       <MDBModalBody>
         <p class="text-start">Pilih Tempat Wisata</p>
-           
-        <div class="autocomplete">
+         <MDBRow>  
+        <div id="validation">
           <!-- <p class="search-text">Cari Wisata</p> -->
           <MDBAutocomplete
             v-model="data.wisata"
@@ -67,31 +68,44 @@
             :itemContent="itemTemplate"
             style="width: 22rem;z-index : 9999999 !important"
             label="Pilih Tempat Wisata"
+            validFeedback="Looks good!"
+          invalidFeedback="Input value is required!"
+            required
           />
         </div>
-        <MDBCol class="my-2">
+        <MDBCol md="6" class="my-2">
+          
           <MDBTimepicker
             label="Pilih Jam Mulai"
             inline
             v-model="data.time"
             :hoursFormat="24"
             :increment="5"
+            isValidated="true"
             readonly
+            validFeedback="Looks good!"
+            
+            validLabel="Looks Good"
+            invalidLabel="Input value is required!"
             placeholder="20:05"
           />
         </MDBCol>
-         <MDBCol class="my-2">
+         <MDBCol  md="6" class="my-2">
           <MDBTimepicker
             label="Pilih Jam Selesai"
             inline
             v-model="data.end_time"
             :hoursFormat="24"
             :increment="5"
+            isValidated="true"
             readonly
+            validLabel="Looks Good"
+            invalidLabel="Input value is required!"
+  
             placeholder="20:05"
           />
         </MDBCol>
-        <MDBCol class="my-2">
+        <MDBCol  md="12" class="my-3">
           <MDBDatepicker
             v-model="data.date"
             inline
@@ -102,13 +116,15 @@
             placeholder="DD, MMM, YYYY"
           />
         </MDBCol>
+         </MDBRow>
       </MDBModalBody>
       <MDBModalFooter>
-        <MDBBtn color="info" @click="addPlannerDetail()"> Add  </MDBBtn>
+        <MDBBtn type ="submit" color="info" > Add  </MDBBtn>
         <MDBBtn color="outline-info" @click="exampleSideModal1 = false">
           Cancel
         </MDBBtn>
       </MDBModalFooter>
+      </form>
     </MDBModal>
      <MDBModal
       side
@@ -232,6 +248,27 @@ export default {
     MDBDatepicker,
   },
   setup() {
+    const checkForm = e => {
+        e.target.classList.add("was-validated");
+         if(localStorage.getItem('token') == null){
+         Swal.fire({
+           title : "Action Failed",
+           text : "You need to login first to do this action",
+           icon : "error"
+         })
+         return router.push('/login')
+       }
+       if(!data.value.time || !data.value.end_time || !data.value.wisata || !data.value.date){
+         Swal.fire({
+           title : "Action Failed",
+           text : "Please input all required information",
+           icon : "error"
+         })
+       }else{
+         addPlannerDetail()
+       }
+      };
+      
     const search3 = ref("");
     const data = ref({
       wisata : '',
@@ -417,6 +454,7 @@ export default {
       filterTemplate,
       displayValueTemplate,
       setActions,
+      checkForm
     };
   },
 };

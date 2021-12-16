@@ -47,7 +47,12 @@
         <MDBCollapse id="collapsibleContent1" v-model="collapse1">
           <MDBRow>
             <MDBCol col="6" style="margin-top: 2vh">
-              <MDBSelect v-model:options="options1" v-model:selected="filteredType" label="Type" clearButton />
+              <MDBSelect
+                v-model:options="options1"
+                v-model:selected="filteredType"
+                label="Type"
+                clearButton
+              />
             </MDBCol>
             <MDBCol col="6" style="margin-top: 2vh">
               <MDBSelect
@@ -83,39 +88,57 @@
               <p>Popular</p>
             </MDBCol>
             <MDBCol col="4" style="margin-top: 2vh">
-               <MDBBtn color="primary" @click="onlyShowFavourite" >Only Show Favourited</MDBBtn>
-              
+              <MDBBtn color="primary" @click="onlyShowFavourite"
+                >Only Show Favourited</MDBBtn
+              >
             </MDBCol>
             <MDBCol col="4">
-              <MDBRadio value="nameAsc" label="Ascending" v-model="sortType" inline />
-              <MDBRadio value="nameDesc" label="Descending" v-model="sortType" inline />
+              <MDBRadio
+                value="nameAsc"
+                label="Ascending"
+                v-model="sortType"
+                inline
+              />
+              <MDBRadio
+                value="nameDesc"
+                label="Descending"
+                v-model="sortType"
+                inline
+              />
             </MDBCol>
             <MDBCol col="4">
-              <MDBRadio value="popDesc" label="Most Popular" v-model="sortType" inline />
-               <MDBRadio value="popAsc" label="Least Popular" v-model="sortType" inline />
+              <MDBRadio
+                value="popDesc"
+                label="Most Popular"
+                v-model="sortType"
+                inline
+              />
+              <MDBRadio
+                value="popAsc"
+                label="Least Popular"
+                v-model="sortType"
+                inline
+              />
             </MDBCol>
           </MDBRow>
         </MDBCollapse>
       </MDBCol>
-      <MDBRow :cols="['1', 'md-3']" class="g-4">
-        <MDBCol v-for="(wisata,index) in search_wisata" :key="index">
+      <MDBRow :cols="['1', 'md-3 mx-2']" class="g-4">
+        <MDBCol v-for="(wisata, index) in search_wisata" :key="index">
           <MDBCard border="light" shadow="0" bg="white" class="h-100">
-            <MDBCardImg
-              :src="wisata.photos[0]"
-              top
-              alt="..."
-            />
+            <MDBCardImg :src="wisata.photos[0]" top alt="..." />
             <MDBCardBody>
               <MDBCardTitle>{{ wisata.nama }}</MDBCardTitle>
               <MDBCardText>
                 <template v-if="stringToShow[index] == 200">
-                {{ wisata.description.slice(0,stringToShow[index]) }}  <a role="button" class="" @click="stringToShow[index] = 0">
-        Read more...
-        </a>
+                  {{ wisata.description.slice(0, stringToShow[index]) }}
+                  <a role="button" class="" @click="stringToShow[index] = 0">
+                    Read more...
+                  </a>
                 </template>
                 <template v-if="stringToShow[index] == 0">
-                  {{wisata.description}}
-                  </template>
+                  {{ wisata.description }}
+                </template>
               </MDBCardText>
               <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <router-link
@@ -124,9 +147,10 @@
                     params: { slug: wisata.slug }
                   }"
                 >
-                 <span class="pe-2">
-                                  <MDBIcon icon="heart" iconStyle="fas" /> {{wisata.bookmark_id_user.length}}
-                                </span>
+                  <span class="pe-2">
+                    <MDBIcon icon="heart" iconStyle="fas" />
+                    {{ wisata.bookmark_id_user.length }}
+                  </span>
                   <MDBBtn tag="a" color="link" outline="primary"
                     >See Details
                   </MDBBtn>
@@ -169,11 +193,11 @@
           </MDBCard>
         </MDBCol>
       </MDBRow> -->
-   
+
       <div class="center" style="margin-top: 4vh">
         <div class="pagination">
-          <a  @click="prev">&laquo;</a>
-          <a href="#" class="active">{{currentPage}}</a>
+          <a @click="prev">&laquo;</a>
+          <a href="#" class="active">{{ currentPage }}</a>
           <!-- <a href="#">2</a>
           <a href="#">3</a>
           <a href="#">4</a>
@@ -194,7 +218,7 @@ import Navbar from "../components/Navbarcopy.vue"
 import Footer from "../components/Footer copy.vue"
 import { getCurrentInstance } from "vue"
 import { usePagination } from "vue-composable"
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2"
 import { useStore } from "vuex"
 //import Wisatadetails from "../components/Wisatadetails.vue";
 import { ref, onMounted, computed } from "vue"
@@ -221,7 +245,7 @@ import {
   //MDBPageNav,
   //MDBPageItem,
 } from "mdb-vue-ui-kit"
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router"
 
 export default {
   name: "Home",
@@ -246,7 +270,7 @@ export default {
     MDBIcon,
     MDBSelect,
     //MDBCheckbox,
-    MDBRadio,
+    MDBRadio
     //MDBPageNav,
     //MDBPageItem,
     // MDBInput,
@@ -263,15 +287,15 @@ export default {
     const filteredType = ref()
     const user = computed(() => store.getters.user)
     const options1 = ref([
-      { text: "Select All", value : "Select All"},
+      { text: "Select All", value: "Select All" },
       { text: "Pantai", value: "Pantai" },
       { text: "Gunung", value: "Gunung" },
       { text: "Bangunan Bersejarah", value: "Bangunan Bersejarah" },
-      { text: "Candi", value: "Candi"},
+      { text: "Candi", value: "Candi" },
       { text: "Other", value: "Other" }
     ])
     const options2 = ref([
-      {text : "Select All", value : "Select All"},
+      { text: "Select All", value: "Select All" },
       { text: "Sumatra Selatan", value: "Sumatra Selatan" },
       { text: "Jawa Barat", value: 2 },
       { text: "Bali", value: "Bali" },
@@ -287,39 +311,45 @@ export default {
     const collapse1 = ref(false)
     const collapse2 = ref(false)
     const checkbox5 = ref(false)
-    
+
     let uri_wisata = process.env.VUE_APP_ROOT_API + "wisata/all"
 
     onMounted(async () => {
       try {
-      const dataTemp = ref([])
-       app.appContext.config.globalProperties.$http.get(
-          uri_wisata
-        ).then((response) => {
-          wisata_list.value =  response.data
-          const dataInit = {
-            'text' : 'Select All',
-            'mdbKey' : 0,
-            'value' : 'Select All'
-          }
-          dataTemp.value.push(dataInit)
-          for(let i = 0; i < response.data.length; i++){
-            const data = {
-              'text' : response.data[i].provinsi,
-              'mdbKey' : i + 1,
-              'value' : response.data[i].provinsi
+        const dataTemp = ref([])
+        app.appContext.config.globalProperties.$http
+          .get(uri_wisata)
+          .then((response) => {
+            wisata_list.value = response.data
+            const dataInit = {
+              text: "Select All",
+              mdbKey: 0,
+              value: "Select All"
             }
-            dataTemp.value.push(data)
+            dataTemp.value.push(dataInit)
+            for (let i = 0; i < response.data.length; i++) {
+              const data = {
+                text: response.data[i].provinsi,
+                mdbKey: i + 1,
+                value: response.data[i].provinsi
+              }
+              dataTemp.value.push(data)
+            }
 
-          }
-
-       optionsProvinsi.value =  dataTemp.value.filter(function(item,pos,array){
-          return array.map(function(mapItem){
-            return mapItem['text'];
-          }).indexOf(item['text']) == pos;
-        })
-
-        })
+            optionsProvinsi.value = dataTemp.value.filter(function (
+              item,
+              pos,
+              array
+            ) {
+              return (
+                array
+                  .map(function (mapItem) {
+                    return mapItem["text"]
+                  })
+                  .indexOf(item["text"]) == pos
+              )
+            })
+          })
       } catch (e) {
         console.log("Error Loading Wisata")
       }
@@ -349,44 +379,55 @@ export default {
             } else {
               return wisata.nama != null
             }
-          }).filter((wisata) => {
-            if(selectedProv.value != "Select All" && selectedProv.value != ""){
+          })
+          .filter((wisata) => {
+            if (
+              selectedProv.value != "Select All" &&
+              selectedProv.value != ""
+            ) {
               return wisata.provinsi.includes(selectedProv.value)
-            }else{
-              return wisata.nama != null
-            }
-          }).
-          filter((wisata) => {
-            if(filteredType.value != "Select All" && filteredType.value != ""){
-              return wisata.tipe.includes(filteredType.value)
-            }else{
+            } else {
               return wisata.nama != null
             }
           })
-          .
-          filter((wisata)=> {
-            if(checkbox5.value == true){
-              return wisata.bookmark_id_user.includes(user.value.user._id)
-            }else{
+          .filter((wisata) => {
+            if (
+              filteredType.value != "Select All" &&
+              filteredType.value != ""
+            ) {
+              return wisata.tipe.includes(filteredType.value)
+            } else {
               return wisata.nama != null
             }
-            }).sort((a,b) => {
+          })
+          .filter((wisata) => {
+            if (checkbox5.value == true) {
+              return wisata.bookmark_id_user.includes(user.value.user._id)
+            } else {
+              return wisata.nama != null
+            }
+          })
+          .sort((a, b) => {
             let modifier = 1
-            if(sortType.value == 'nameDesc' || sortType.value =='popDesc'){
-               modifier = -1
+            if (sortType.value == "nameDesc" || sortType.value == "popDesc") {
+              modifier = -1
             }
-            if(sortType.value == 'nameAsc' || sortType.value == 'nameDesc'){
-            if(a['nama'] < b['nama']){
-              return -1 * modifier;
+            if (sortType.value == "nameAsc" || sortType.value == "nameDesc") {
+              if (a["nama"] < b["nama"]) {
+                return -1 * modifier
+              }
+              if (a["nama"] > b["nama"]) {
+                return 1 * modifier
+              }
+            } else if (
+              sortType.value == "popAsc" ||
+              sortType.value == "popDesc"
+            ) {
+              if (a["bookmark_id_user"].length < b["bookmark_id_user"].length)
+                return -1 * modifier
+              if (a["bookmark_id_user"].length > b["bookmark_id_user"].length)
+                return 1 * modifier
             }
-            if(a['nama'] > b['nama']){
-              return 1 * modifier
-            }
-            }else if (sortType.value == 'popAsc' || sortType.value == 'popDesc'){
-              if(a['bookmark_id_user'].length < b['bookmark_id_user'].length) return -1 * modifier
-              if(a['bookmark_id_user'].length > b['bookmark_id_user'].length) return 1 * modifier
-            }
-
           })
           .slice(offset.value, offset.value + pageSize.value)
     })
@@ -433,26 +474,28 @@ export default {
       })*/
 
     function nextPagination() {
-    
-      if (wisata_list.value.length > offset.value + search_wisata.value.length) {
+      if (
+        wisata_list.value.length >
+        offset.value + search_wisata.value.length
+      ) {
         next()
-        if(search_wisata.value.length == 0) prev()
+        if (search_wisata.value.length == 0) prev()
       } else {
         return
       }
     }
 
-    function onlyShowFavourite(){
-     if(localStorage.getItem('token') == null){
+    function onlyShowFavourite() {
+      if (localStorage.getItem("token") == null) {
         Swal.fire({
-          title : "Action Failed",
-          text : "You need to login first before you can make a discussion",
-          icon : "error"
+          title: "Action Failed",
+          text: "You need to login first before you can make a discussion",
+          icon: "error"
         })
-        return router.push('/login')
-      }else{
+        return router.push("/login")
+      } else {
         checkbox5.value = !checkbox5.value
-      } 
+      }
     }
     return {
       stringToShow,
@@ -539,7 +582,7 @@ body {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   border: 1px solid #ddd;
   margin: 0 4px;
 }
@@ -550,5 +593,7 @@ body {
   border: 1px solid rgb(50, 224, 196);
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
 </style>

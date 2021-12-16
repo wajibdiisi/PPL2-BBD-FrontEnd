@@ -209,17 +209,25 @@ export default {
           else 
           label = label + response.data[i].id_wisata[j].nama + ' '
         }
-        const data = {
+    
+        if(i <= 2 ){
+          momentCarousel.value.push({
           'src' : response.data[i].photo,
           'alt' : "..",
           'label' : label
-        }
-        if(i <= 2 ){
-          momentCarousel.value.push(data)
+        })
         }if(2 < i <= 5){
-          momentCarousel2.value.push(data)
+          momentCarousel2.value.push({
+          'src' : response.data[i+3].photo,
+          'alt' : "..",
+          'label' : label
+        })
         }if(5 < i <= 8){
-          momentCarousel3.value.push(data)
+          momentCarousel3.value.push({
+          'src' : response.data[i+6].photo,
+          'alt' : "..",
+          'label' : label
+        })
         }
     }})
     function redirect(data) {

@@ -2,20 +2,20 @@
   <Navbar />
   <MDBContainer class="d-flex justify-content-center" style="margin: 17vh auto">
     <MDBCard class="w-50 p-3" style="border: 1px solid black">
-      <MDBCardBody tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
-        <div >
-        <MDBCol class="d-flex justify-content-center">
+      <MDBCardBody >
+        <MDBRow tag="form" class="g-3 needs-validation" novalidate @submit.prevent="checkForm">
+        
+        <MDBCol md="12" class="d-flex justify-content-center">
           <img
             src="https://i.ibb.co/T8wDGBV/Logo-removebg-preview-Copy-removebg-preview.png"
             alt="MyTour"
             class="w-50"
           />
         </MDBCol>
-        <MDBCol  class="my-4">
+        <MDBCol md="12" class="my-2">
           <MDBInput
             v-model="name"
             label="Name"
-            class="my-4"
             type="text"
             isValid
             tooltipFeedback
@@ -23,22 +23,22 @@
             required
           />
         </MDBCol>
-        <MDBCol class="my-4">
+        <MDBCol md="12" class="my-2">
           <MDBInput
             v-model="email"
             label="Email"
-            class="my-4"
             type="email"
             tooltipFeedback
+            pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$"
             invalidFeedback="Please input your email"
             required
           />
         </MDBCol>
-         <MDBCol class="my-4">
+         <MDBCol md="12" class="my-2">
           <MDBInput
             v-model="username"
             label="Username"
-            class="my-4"
+          
             type="text"
             tooltipFeedback
             pattern="^[A-Za-z0-9\s]*$"
@@ -49,11 +49,11 @@
           />
         </MDBCol>
       
-        <MDBCol class="my-4">
+        <MDBCol md="12" class="my-2">
           <MDBInput
             v-model="password"
             label="Password"
-            class="my-4"
+            
             type="password"
             pattern="^.{6,}$"
             invalidFeedback="Please input your password (minimal 6 characters)"
@@ -61,11 +61,11 @@
             tooltipFeedback
           />
         </MDBCol>
-         <MDBCol class="my-4">
+         <MDBCol  md="12" class="my-2">
           <MDBInput
             v-model="confirm_password"
             label="Confirm Password"
-            class="my-4"
+            
             type="password"
             pattern="^.{6,}$"
             invalidFeedback="Please input your password (minimal 6 characters)"
@@ -73,7 +73,7 @@
             tooltipFeedback
           />
         </MDBCol>
-        <MDBCol class="my-4">
+        <MDBCol md="12" class="my-2">
           <MDBBtn
             color="primary"
             class="text.nowrap w-100"
@@ -85,7 +85,8 @@
             Sign Up
           </MDBBtn>
         </MDBCol>
-        </div>
+       
+        </MDBRow>
       </MDBCardBody>
     </MDBCard>
   </MDBContainer>
@@ -97,7 +98,7 @@ import Swal from 'sweetalert2'
 
 import {
   MDBCol,
-  //MDBRow,
+  MDBRow,
   MDBInput,
  // MDBCheckbox,
   MDBBtn,
@@ -117,7 +118,7 @@ export default {
   components: {
     Navbar,
     MDBCol,
-    //MDBRow,
+    MDBRow,
     MDBInput,
   //  MDBCheckbox,
     MDBBtn,

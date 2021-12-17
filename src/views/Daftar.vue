@@ -41,7 +41,7 @@
           
             type="text"
             tooltipFeedback
-            pattern="^[A-Za-z0-9\s]*$"
+            pattern="^[-a-zA-Z0-9@\.+_]+$"
             invalidFeedback="Please input your username(atleast 5 letters and without space)"
             required
             minLength="5"
@@ -135,7 +135,7 @@ methods :{
         event.preventDefault();
         event.target.classList.add('was-validated');
         const rePassword = /^.{6,}$/
-        const reUsername = /[0-9a-zA-Z]{5,}/
+        const reUsername = /[0-9a-zA-Z\\s]{5,}/
         /* eslint-disable-next-line */
         const reEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         /* eslint-disable-next-line */

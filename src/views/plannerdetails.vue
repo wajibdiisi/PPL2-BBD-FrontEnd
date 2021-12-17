@@ -414,7 +414,14 @@ export default {
         )
       }
        function updatePlanner(id){
-        console.log(data)
+         if(!data.value.wisata){
+           Swal.fire({
+             text : 'Tempat wisata tidak boleh kosong',
+             icon : 'error',
+             title : 'Action Failed'
+           })
+         }
+        else {
         let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + route.params.id + '/' + id
       
         app.appContext.config.globalProperties.$http.patch(uri_planner,data,config).then((response) =>{
@@ -431,7 +438,8 @@ export default {
           }
         }
         )
-      }
+       }
+       }
       function get_plan(){
         let uri_planner =  process.env.VUE_APP_ROOT_API  + "planner/plan/" + route.params.id + "/details"
       app.appContext.config.globalProperties.$http.get(uri_planner,config).then(response => {

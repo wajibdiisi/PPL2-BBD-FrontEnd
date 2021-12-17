@@ -210,13 +210,20 @@ export default {
     }
 
     function updatePlan(id_plan){
-      console.log(id_plan)
+     if(!title.value){
+        Swal.fire({
+             text : 'Judul liburan tidak boleh kosong',
+             icon : 'error',
+             title : 'Action Failed'
+           })
+     }else {
      let uri_planner = process.env.VUE_APP_ROOT_API + "planner/plan/" + id_plan
      app.appContext.config.globalProperties.$http.patch(uri_planner,title,config).then(
         Swal.fire("Plan Successfully Changed", "", "success"),
         exampleSideModal2.value = false,
         get_plan()
         )
+    }
     }
     const setActions = () => {
         document.getElementsByClassName("details-btn").forEach(btn => {

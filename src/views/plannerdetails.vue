@@ -480,4 +480,7 @@ body {
 .modal-backdrop{
     z-index: 10;        
 }
+input:read-only {
+  background-color: white;
+}
 </style>

@@ -22,6 +22,16 @@
                   class="d-grid gap-2 d-md-flex justify-content-md-end"
                   style="margin: 2vh auto"
                 >
+                 <MDBBtn
+                    aria-controls="exampleSideModal1"
+                    class="text.nowrap"
+                    size="lg"
+                    
+                    type="submit"
+                    @click="route.back()"
+                  >
+                   Back
+                  </MDBBtn>
                   <MDBBtn
                     color="primary"
                     class="text.nowrap"
@@ -268,6 +278,7 @@ export default {
       picker2,
       get_plan,
       exampleSideModal2,
+      route
       // setActions,
     };
   },

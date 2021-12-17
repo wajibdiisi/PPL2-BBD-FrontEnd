@@ -22,6 +22,16 @@
                   class="d-grid gap-2 d-md-flex justify-content-md-end"
                   style="margin: 2vh auto"
                 >
+                <MDBBtn
+                    aria-controls="exampleSideModal1"
+                    class="text.nowrap"
+                    size="lg"
+                    
+                    type="submit"
+                    @click="router.back()"
+                  >
+                   Back
+                  </MDBBtn>
                   <MDBBtn
                     color="primary"
                     aria-controls="exampleSideModal1"
@@ -160,6 +170,7 @@
             v-model="data.time"
             :hoursFormat="24"
             :increment="5"
+            readonly
             placeholder="20:05"
           />
         </MDBCol>
@@ -167,6 +178,7 @@
           <MDBTimepicker
             label="Pilih Jam Selesai"
             inline
+            readonly
             v-model="data.end_time"
             :hoursFormat="24"
             :increment="5"
@@ -180,6 +192,7 @@
             inline
             label="Pilih Tanggal"
             format="DD, MMM, YYYY"
+            readonly
             placeholder="DD, MMM, YYYY"
           />
         </MDBCol>
@@ -454,7 +467,8 @@ export default {
       filterTemplate,
       displayValueTemplate,
       setActions,
-      checkForm
+      checkForm,
+      router
     };
   },
 };

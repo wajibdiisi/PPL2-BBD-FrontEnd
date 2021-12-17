@@ -124,21 +124,7 @@
                       />
                       Review
                     </MDBBtn>
-                    <MDBBtn
-                      style="
-                        background-color: white;
-                        color: black;
-                        border: 1px solid black;
-                      "
-                    >
-                      <MDBIcon
-                        icon="share-alt"
-                        iconStyle="fas"
-                        style="color: rgb(50, 224, 196)"
-                        class="pe-1"
-                      />
-                      Share
-                    </MDBBtn>
+                 
                   </MDBCol>
                 </MDBRow>
               </MDBCol>
@@ -680,9 +666,17 @@
                         </MDBCol>
                         <MDBCol md="2">
                           <MDBCol>
-                            <p class="mb-0 ms-2" style="font-weight: 500">
+                            <router-link
+                                  :to="{
+                                    name: 'Profile',
+                                    params: { username: review.id_user.username }
+                                  }"
+                                >
+                                <p class="mb-0 ms-2" style="font-weight: 500">
                               {{ review.id_user.name }}
                             </p>
+                                </router-link>
+                            
                           </MDBCol>
                           <MDBCol>
                             <p

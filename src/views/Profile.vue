@@ -44,9 +44,16 @@
       <MDBCardBody>
         <MDBCardTitle class="text-uppercase">notification</MDBCardTitle>
         <MDBCardText class="text-uppercase fs-6 fw-light text-end">
+          <template v-if="notification == ''">
+          <a role="button">
+          No Notification
+          </a>
+            </template>
+          <template v-if="notification != ''">
           <a role="button" @click="deleteNotification('all')">
           Clear all notification
           </a>
+          </template>
         </MDBCardText>
         <MDBRow>
           <div class="container">
@@ -201,10 +208,7 @@
                                   <MDBIcon icon="clock" iconStyle="fas" />
                                   {{ moment(modalData.created_at).fromNow() }}
                                 </span>
-                                <span class="me-2" style="cursor: pointer">
-                                  <MDBIcon icon="share" iconStyle="fas" />
-                                  Share
-                                </span>
+                               
                                 <template v-if="modalData.id_user._id == user.user?._id">
                                 <a
                                   @click="

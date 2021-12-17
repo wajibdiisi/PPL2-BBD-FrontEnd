@@ -19,6 +19,7 @@
             type="text"
             isValid
             tooltipFeedback
+            validFeedback="Looks Good"
             invalidFeedback="Please input your name"
             required
           />
@@ -29,6 +30,7 @@
             label="Email"
             type="email"
             tooltipFeedback
+            validFeedback="Looks Good"
             pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$"
             invalidFeedback="Please input your email"
             required
@@ -38,7 +40,7 @@
           <MDBInput
             v-model="username"
             label="Username"
-          
+            validFeedback="Looks Good"
             type="text"
             tooltipFeedback
             pattern="^[-a-zA-Z0-9@\.+_]+$"
@@ -53,7 +55,7 @@
           <MDBInput
             v-model="password"
             label="Password"
-            
+            validFeedback="Looks Good"
             type="password"
             pattern="^.{6,}$"
             invalidFeedback="Please input your password (minimal 6 characters)"
@@ -65,7 +67,7 @@
           <MDBInput
             v-model="confirm_password"
             label="Confirm Password"
-            
+            validFeedback="Looks Good"
             type="password"
             pattern="^.{6,}$"
             invalidFeedback="Please input your password (minimal 6 characters)"
@@ -78,6 +80,7 @@
             color="primary"
             class="text.nowrap w-100"
             rounded
+            validFeedback="Looks Good"
             size="lg"
             style="background-color: rgb(50, 224, 196)"
             type="submit"

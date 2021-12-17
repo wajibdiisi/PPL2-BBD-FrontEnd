@@ -12,7 +12,7 @@
             class="w-50"
           />
         </MDBCol>
-        <MDBCol md="12" class="my-2">
+        <MDBCol md="12" class="my-3">
           <MDBInput
             v-model="name"
             label="Name"
@@ -24,7 +24,7 @@
             required
           />
         </MDBCol>
-        <MDBCol md="12" class="my-2">
+        <MDBCol md="12" class="my-3">
           <MDBInput
             v-model="email"
             label="Email"
@@ -36,7 +36,7 @@
             required
           />
         </MDBCol>
-         <MDBCol md="12" class="my-2">
+         <MDBCol md="12" class="my-3">
           <MDBInput
             v-model="username"
             label="Username"
@@ -51,7 +51,7 @@
           />
         </MDBCol>
       
-        <MDBCol md="12" class="my-2">
+        <MDBCol md="12" class="my-3">
           <MDBInput
             v-model="password"
             label="Password"
@@ -63,7 +63,7 @@
             tooltipFeedback
           />
         </MDBCol>
-         <MDBCol  md="12" class="my-2">
+         <MDBCol  md="12" class="my-3">
           <MDBInput
             v-model="confirm_password"
             label="Confirm Password"
@@ -75,7 +75,7 @@
             tooltipFeedback
           />
         </MDBCol>
-        <MDBCol md="12" class="my-2">
+        <MDBCol md="12" class="my-3">
           <MDBBtn
             color="primary"
             class="text.nowrap w-100"

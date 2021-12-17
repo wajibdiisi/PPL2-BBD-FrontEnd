@@ -701,7 +701,7 @@ export default {
       .get(uri_profile)
       .then((response) => {
         userProfile.value = response.data;
-        document.title = userProfile.value.name + '- Mytour'
+        document.title = userProfile.value.name + ' - Mytour'
       }).catch((err) => {
         if(err.response.status == 404){
           router.push('/404')

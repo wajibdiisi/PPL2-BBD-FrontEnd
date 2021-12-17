@@ -281,4 +281,7 @@ body {
 .photo-box {
   margin: 0 auto;
 }
+input:read-only {
+  background-color: white;
+}
 </style>

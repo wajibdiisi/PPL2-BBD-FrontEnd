@@ -30,18 +30,59 @@
             <MDBBadge notification color="danger" pill>1</MDBBadge>
           </MDBDropdownToggle>
           <MDBDropdownMenu>
-            <MDBDropdownItem href="#">
-              <img
-                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                class="rounded-circle"
-                alt="avatar"
-                width="40"
-                height="40"
-              />
-              Ahmad Irfan Fadholi Liked one of your Moment
-            </MDBDropdownItem>
-            <MDBDropdownItem href="#">Action</MDBDropdownItem>
-            <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+            <MDBDropdownItem tag="h6" header>Notifications (5)</MDBDropdownItem>
+            <MDBScrollbar height="285px">
+              <MDBDropdownItem href="#">
+                <img
+                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  class="rounded-circle"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                Ahmad Irfan Fadholi Liked one of your Moment
+              </MDBDropdownItem>
+              <MDBDropdownItem href="#">
+                <img
+                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  class="rounded-circle"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                Ahmad Irfan Fadholi Liked one of your Moment
+              </MDBDropdownItem>
+              <MDBDropdownItem href="#">
+                <img
+                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  class="rounded-circle"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                Ahmad Irfan Fadholi Liked one of your Moment
+              </MDBDropdownItem>
+              <MDBDropdownItem href="#">
+                <img
+                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  class="rounded-circle"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                Ahmad Irfan Fadholi Liked one of your Moment
+              </MDBDropdownItem>
+              <MDBDropdownItem href="#">
+                <img
+                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  class="rounded-circle"
+                  alt="avatar"
+                  width="40"
+                  height="40"
+                />
+                Ahmad Irfan Fadholi Liked one of your Moment
+              </MDBDropdownItem>
+            </MDBScrollbar>
             <MDBDropdownItem divider />
             <MDBRow class="d-flex justify-content-center">
               <MDBCol>
@@ -154,7 +195,8 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBToast
+  MDBToast,
+  MDBScrollbar
 } from "mdb-vue-ui-kit"
 import { ref } from "vue"
 import { computed, getCurrentInstance } from "vue"
@@ -184,7 +226,8 @@ export default {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
-    MDBToast
+    MDBToast,
+    MDBScrollbar
   },
   setup() {
     const config = {

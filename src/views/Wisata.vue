@@ -25,8 +25,7 @@
       </MDBCol>
       <MDBCol class="align-self-center" col="10" style="margin: 1vh">
         <MDBBtn
-          color="primary"
-          style="background-color: rgb(50, 224, 196)"
+          color="primary"          
           @click="collapse1 = !collapse1"
           aria-controls="collapsibleContent1"
           :aria-expanded="collapse1"
@@ -36,7 +35,6 @@
         </MDBBtn>
         <MDBBtn
           color="primary"
-          style="background-color: rgb(50, 224, 196)"
           @click="collapse2 = !collapse2"
           aria-controls="collapsibleContent2"
           :aria-expanded="collapse2"

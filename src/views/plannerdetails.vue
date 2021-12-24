@@ -36,8 +36,7 @@
                     color="primary"
                     aria-controls="exampleSideModal1"
                     class="text.nowrap"
-                    size="lg"
-                    style="background-color: rgb(50, 224, 196)"
+                    size="lg"                    
                     type="submit"
                     @click="exampleSideModal1 = true"
                   >

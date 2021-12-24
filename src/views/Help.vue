@@ -57,8 +57,7 @@
                   <MDBTabContent>
                     <MDBTabPane tabId="ex2-1">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>
@@ -84,8 +83,7 @@
                     </MDBTabPane>
                     <MDBTabPane tabId="ex2-2">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>
@@ -116,8 +114,7 @@
                     </MDBTabPane>
                     <MDBTabPane tabId="ex2-3">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>
@@ -179,8 +176,7 @@
                     </MDBTabPane>
                     <MDBTabPane tabId="ex2-4">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>
@@ -223,8 +219,7 @@
                     </MDBTabPane>
                     <MDBTabPane tabId="ex2-5">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>
@@ -265,8 +260,7 @@
                     </MDBTabPane>
                     <MDBTabPane tabId="ex2-6">
                       <MDBCard
-                        text="white"
-                        style="background-color: rgb(50, 224, 196)"
+                        text="black"
                         class="mb-3"
                       >
                         <MDBCardBody>

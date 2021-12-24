@@ -71,7 +71,7 @@
                   <MDBCol class="p-2">
                     <MDBBtn
                       v-if="isFavourited == false"
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      color="primary"
                       @click="add_favourite(data_wisata['slug'])"
                     >
                       <MDBIcon icon="heart" iconStyle="fas" class="pe-1" /> Add
@@ -79,7 +79,7 @@
                     </MDBBtn>
                     <MDBBtn
                       v-if="isFavourited == true"
-                      style="background-color: rgb(50, 224, 196); color: white"
+                      color="primary"
                       @click="remove_favourite(data_wisata['slug'])"
                     >
                       <MDBIcon icon="heart" iconStyle="fas" class="pe-1" />
@@ -695,10 +695,7 @@
                             >
                               <MDBBtn
                                 v-if="review.id_user._id == user.user?._id"
-                                style="
-                                  background-color: rgb(50, 224, 196);
-                                  color: white;
-                                "
+                                color="primary"
                                 @click="confirm_deletion()"
                               >
                                 <MDBIcon icon="star" iconStyle="fas" /> Remove
@@ -1005,10 +1002,7 @@
                       <MDBRow>
                         <MDBCol>
                           <MDBBtn
-                            style="
-                              background-color: rgb(50, 224, 196);
-                              color: white;
-                            "
+                            color="primary"
                             @click="add_discussion = true"
                           >
                             Add Discussion

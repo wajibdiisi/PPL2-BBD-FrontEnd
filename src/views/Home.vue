@@ -61,7 +61,7 @@
         Temukan pendapat orang yang pernah ke destinasi wisata yang akan anda
         kunjungi
       </p>
-      <div class="col-md-4" v-for="wisata in diskusi_wisata" :key="wisata._id">
+      <div class="col-md-4" v-for="wisata in diskusi_wisata" :key="wisata._id" style="max-height: 300px;">
         <MDBCard bg="dark" text="white" class="h-100">
           <div class="bg-image" v-mdb-ripple="{ color: 'light' }">
             <MDBCardImg :src="wisata.photos[0]" alt="..." overlay>
@@ -91,7 +91,7 @@
       <template v-if="momentCarousel.length">
         <div class="col-md-4">
           <MDBCarousel
-            class="img-thumbnail"
+            class="carousel-inner"
             v-model="carousel6"
             :items="momentCarousel"
             :indicators="false"
@@ -101,7 +101,7 @@
       <template v-if="momentCarousel2.length">
         <div class="col-md-4">
           <MDBCarousel
-            class="img-thumbnail"
+            class="carousel-inner"
             v-model="carousel7"
             :items="momentCarousel2"
             :indicators="false"
@@ -111,7 +111,7 @@
       <template v-if="momentCarousel3.length">
         <div class="col-md-4">
           <MDBCarousel
-            class="img-thumbnail"
+            class="carousel-inner"
             v-model="carousel8"
             :items="momentCarousel3"
             :indicators="false"
@@ -221,21 +221,24 @@ export default {
             momentCarousel.value.push({
               src: response.data[i].photo,
               alt: "..",
-              label: label
+              label: label,
+              interval: 5000
             })
           }
           if (2 < i <= 5) {
             momentCarousel2.value.push({
               src: response.data[i + 3].photo,
               alt: "..",
-              label: label
+              label: label,
+              interval: 5000
             })
           }
           if (5 < i <= 8) {
             momentCarousel3.value.push({
               src: response.data[i + 6].photo,
               alt: "..",
-              label: label
+              label: label,
+              interval: 5000
             })
           }
         }
@@ -329,6 +332,12 @@ body {
   color: white;
   font-weight: 700;
   text-align: center;
+}
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
 }
 * {
   font-family: "Montserrat", sans-serif;

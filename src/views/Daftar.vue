@@ -82,7 +82,6 @@
             rounded
             validFeedback="Looks Good"
             size="lg"
-            style="background-color: rgb(50, 224, 196)"
             type="submit"
           >
             Sign Up

@@ -37,7 +37,7 @@
             <MDBScrollbar height="285px" width="500px">
               <div v-for="notif in notification" :key="notif._id">
               <template v-if="notif.content =='comment'">
-              <MDBDropdownItem>
+              <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
                  class="rounded-circle"
@@ -59,7 +59,7 @@
               </MDBDropdownItem>
             </template>
             <template v-if="notif.content =='likeDiscussion'">
-              <MDBDropdownItem>
+              <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
                  class="rounded-circle"
@@ -81,7 +81,7 @@
               </MDBDropdownItem>
             </template>
             <template v-if="notif.content =='likeComment'">
-              <MDBDropdownItem>
+              <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
                  class="rounded-circle"
@@ -104,7 +104,7 @@
               </MDBDropdownItem>
             </template>
              <template v-if="notif.content =='likeReview'">
-              <MDBDropdownItem>
+              <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
                  class="rounded-circle"
@@ -126,7 +126,7 @@
               </MDBDropdownItem>
             </template>
              <template v-if="notif.content =='likeMoment'">
-              <MDBDropdownItem>
+              <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
                  class="rounded-circle"

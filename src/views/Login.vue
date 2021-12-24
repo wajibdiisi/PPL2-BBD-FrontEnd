@@ -54,7 +54,6 @@
                   class="text.nowrap"
                   rounded
                   size="lg"
-                  style="background-color: rgb(50, 224, 196)"
                   type="submit"
                   @click="login()"
                 >

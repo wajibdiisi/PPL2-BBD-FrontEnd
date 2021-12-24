@@ -222,7 +222,7 @@ export default {
               src: response.data[i].photo,
               alt: "..",
               label: label,
-              interval: 5000
+              interval: 86000
             })
           }
           if (2 < i <= 5) {
@@ -230,7 +230,7 @@ export default {
               src: response.data[i + 3].photo,
               alt: "..",
               label: label,
-              interval: 5000
+              interval: 86000
             })
           }
           if (5 < i <= 8) {
@@ -238,7 +238,7 @@ export default {
               src: response.data[i + 6].photo,
               alt: "..",
               label: label,
-              interval: 5000
+              interval: 86000
             })
           }
         }

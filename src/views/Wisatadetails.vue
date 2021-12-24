@@ -1881,7 +1881,7 @@ export default {
           })
       }
     }
-    function create_comment(comment_content, data) {
+    function create_comment(commentContent, data) {
       let uri_comment =
         process.env.VUE_APP_ROOT_API +
         "wisata/" +
@@ -1892,11 +1892,13 @@ export default {
       fetch_data
         .post(
           uri_comment,
-          { content: comment_content, id_discussion: data._id },
+          { content: commentContent, id_discussion: data._id },
           config
         )
         .then((response) => {
           if (response.status == 201) {
+            get_discussion(discussion_list)
+            comment_content.value = ""
             get_comment(modalData, data._id)
             Swal.fire({
               title: "Comment Created Successfully",

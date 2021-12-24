@@ -20,17 +20,42 @@
       <MDBNavbarItem to="/Aboutus"> About Us </MDBNavbarItem>
       <MDBNavbarItem to="/Help"> Help </MDBNavbarItem>
       <MDBNavbarNav right class="mb-2 mb-lg-0">
-        <template v-if="user.user">
-        <MDBNavbarItem :to="{
-                  name: 'Profile',
-                  params: { username: user.user.username },
-                }">
-          <MDBIcon icon="bell"></MDBIcon>
-          <template v-if="notification?.length">
-          <MDBBadge notification color="danger" pill>{{notification?.length}}</MDBBadge>
-          </template>
-        </MDBNavbarItem>
-        </template>
+        <MDBDropdown class="nav-item" v-model="dropdown4">
+          <MDBDropdownToggle
+            tag="a"
+            class="nav-link"
+            @click="dropdown4 = !dropdown4"
+          >
+            <MDBIcon icon="bell" />
+            <MDBBadge notification color="danger" pill>1</MDBBadge>
+          </MDBDropdownToggle>
+          <MDBDropdownMenu>
+            <MDBDropdownItem href="#">Action</MDBDropdownItem>
+            <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
+            <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
+            <MDBDropdownItem divider />
+            <MDBRow class="d-flex justify-content-center">
+              <MDBCol>
+                <p>Clear Notifications</p>
+              </MDBCol>
+            </MDBRow>
+          </MDBDropdownMenu>
+        </MDBDropdown>
+        <!--<template v-if="user.user">
+          <MDBNavbarItem
+            :to="{
+              name: 'Profile',
+              params: { username: user.user.username }
+            }"
+          >
+            <MDBIcon icon="bell"></MDBIcon>
+            <template v-if="notification?.length">
+              <MDBBadge notification color="danger" pill>
+                {{ notification?.length }}
+              </MDBBadge>
+            </template>
+          </MDBNavbarItem>
+        </template>-->
         <MDBNavbarItem>
           <MDBDropdown
             class="nav-item"
@@ -75,7 +100,7 @@
               <router-link
                 :to="{
                   name: 'Profile',
-                  params: { username: user.user.username },
+                  params: { username: user.user.username }
                 }"
               >
                 <MDBDropdownItem to="">Profile</MDBDropdownItem>
@@ -120,22 +145,22 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBToast,
-} from "mdb-vue-ui-kit";
-import { ref } from "vue";
-import { computed,getCurrentInstance } from "vue";
-import { useStore } from "vuex";
+  MDBToast
+} from "mdb-vue-ui-kit"
+import { ref } from "vue"
+import { computed, getCurrentInstance } from "vue"
+import { useStore } from "vuex"
 import authHeader from "../auth-header"
 export default {
   methods: {
     logout: function () {
       this.$store.dispatch("logout").then(() => {
-        this.$router.push("/");
-      });
+        this.$router.push("/")
+      })
     },
     clearToast: function () {
-      this.$store.dispatch("disableNotification");
-    },
+      this.$store.dispatch("disableNotification")
+    }
   },
   components: {
     MDBIcon,
@@ -150,26 +175,29 @@ export default {
     MDBDropdownToggle,
     MDBDropdownMenu,
     MDBDropdownItem,
-    MDBToast,
+    MDBToast
   },
   setup() {
     const config = {
-        headers: authHeader()
-      }
-    const store = useStore();
-    const collapse1 = ref(false);
-    const dropdown6 = ref(false);
-    const user = computed(() => store.getters.user);
-    const isLoggedIn = computed(() => store.getters.isLoggedIn);
-    const toast1 = ref(computed(() => store.getters.set_notification));
-    const toastMsg = computed(() => store.getters.notificationData);
-    const notification = ref();
-    const app = getCurrentInstance();
+      headers: authHeader()
+    }
+    const store = useStore()
+    const collapse1 = ref(false)
+    const dropdown6 = ref(false)
+    const user = computed(() => store.getters.user)
+    const isLoggedIn = computed(() => store.getters.isLoggedIn)
+    const toast1 = ref(computed(() => store.getters.set_notification))
+    const toastMsg = computed(() => store.getters.notificationData)
+    const notification = ref()
+    const app = getCurrentInstance()
+    const dropdown4 = ref(false)
     let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
-    if(localStorage.getItem('token') != null){
-      app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response) => {
-        notification.value = response.data
-    })
+    if (localStorage.getItem("token") != null) {
+      app.appContext.config.globalProperties.$http
+        .get(uri_notification, config)
+        .then((response) => {
+          notification.value = response.data
+        })
     }
     return {
       isLoggedIn,
@@ -177,10 +205,12 @@ export default {
       collapse1,
       toastMsg,
       dropdown6,
-      user,notification
-    };
-  },
-};
+      user,
+      notification,
+      dropdown4
+    }
+  }
+}
 </script>
 <style>
 li {

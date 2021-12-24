@@ -124,7 +124,6 @@
                       />
                       Review
                     </MDBBtn>
-                 
                   </MDBCol>
                 </MDBRow>
               </MDBCol>
@@ -203,10 +202,14 @@
                                 height: 35px;
                               "
                               @click="copyClipboard()"
-                              
                               ref="clipboard"
                             >
-                             <input type="text" hidden id="copyAlamat" :value="data_wisata['alamat']">
+                              <input
+                                type="text"
+                                hidden
+                                id="copyAlamat"
+                                :value="data_wisata['alamat']"
+                              />
                               <MDBIcon
                                 icon="copy"
                                 iconStyle="fas"
@@ -215,28 +218,28 @@
                               Copy
                             </MDBBtn>
                             <MDBBtn
-                      style="
-                        background-color: white;
-                        color: black;
-                        border: 1px solid black;
-                      "
-                      @click="
-                        redirect(
-                          'https://www.google.com/maps/dir/?api=1&destination=' +
-                            center['lat'] +
-                            ',' +
-                            center['lng']
-                        )
-                      "
-                    >
-                      <MDBIcon
-                        icon="directions"
-                        iconStyle="fas"
-                        style="color: rgb(50, 224, 196)"
-                        class="pe-1"
-                      />
-                      Direction
-                    </MDBBtn>
+                              style="
+                                background-color: white;
+                                color: black;
+                                border: 1px solid black;
+                              "
+                              @click="
+                                redirect(
+                                  'https://www.google.com/maps/dir/?api=1&destination=' +
+                                    center['lat'] +
+                                    ',' +
+                                    center['lng']
+                                )
+                              "
+                            >
+                              <MDBIcon
+                                icon="directions"
+                                iconStyle="fas"
+                                style="color: rgb(50, 224, 196)"
+                                class="pe-1"
+                              />
+                              Direction
+                            </MDBBtn>
                           </MDBCol>
                         </MDBRow>
                       </MDBRow>
@@ -667,16 +670,15 @@
                         <MDBCol md="2">
                           <MDBCol>
                             <router-link
-                                  :to="{
-                                    name: 'Profile',
-                                    params: { username: review.id_user.username }
-                                  }"
-                                >
-                                <p class="mb-0 ms-2" style="font-weight: 500">
-                              {{ review.id_user.name }}
-                            </p>
-                                </router-link>
-                            
+                              :to="{
+                                name: 'Profile',
+                                params: { username: review.id_user.username }
+                              }"
+                            >
+                              <p class="mb-0 ms-2" style="font-weight: 500">
+                                {{ review.id_user.name }}
+                              </p>
+                            </router-link>
                           </MDBCol>
                           <MDBCol>
                             <p
@@ -854,22 +856,25 @@
                             <MDBCol>
                               <p>
                                 <MDBTooltip v-model="tooltip1" tag="a">
-                                <template #reference>
-                                <a
-                                  role="button"
-                                  style="color: rgb(0, 0, 255)"
-                                  @click="likeMoment(modalDataMoment._id)"
-                                  ><MDBIcon
-                                    icon="thumbs-up"
-                                    iconStyle="fas"
-                                  />Like ({{
-                                    modalDataMoment.thumbs_up.length
-                                  }})
-                                </a>
-                                </template>
-                                <template #tip>
-                                  <div v-for="thumbs_user in modalDataMoment.thumbs_up" :key ="thumbs_user._id">
-                                    <span>{{thumbs_user.name}}</span>
+                                  <template #reference>
+                                    <a
+                                      role="button"
+                                      style="color: rgb(0, 0, 255)"
+                                      @click="likeMoment(modalDataMoment._id)"
+                                      ><MDBIcon
+                                        icon="thumbs-up"
+                                        iconStyle="fas"
+                                      />Like ({{
+                                        modalDataMoment.thumbs_up.length
+                                      }})
+                                    </a>
+                                  </template>
+                                  <template #tip>
+                                    <div
+                                      v-for="thumbs_user in modalDataMoment.thumbs_up"
+                                      :key="thumbs_user._id"
+                                    >
+                                      <span>{{ thumbs_user.name }}</span>
                                     </div>
                                   </template>
                                 </MDBTooltip>
@@ -977,13 +982,19 @@
                                 </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="time" iconStyle="fas" />
-                                  
-                                  {{ moment(discussion.created_at).fromNow() }} 
+
+                                  {{ moment(discussion.created_at).fromNow() }}
                                 </span>
                                 <span class="pe-2">
                                   <MDBIcon icon="user" iconStyle="fas" />
-                                  <template v-if="user.user?._id == discussion.id_user._id">
-                                  <span>This discussion is created by you</span>
+                                  <template
+                                    v-if="
+                                      user.user?._id == discussion.id_user._id
+                                    "
+                                  >
+                                    <span
+                                      >This discussion is created by you</span
+                                    >
                                   </template>
                                 </span>
                               </MDBCol>
@@ -1017,6 +1028,9 @@
                       <MDBModalBody>
                         <MDBRow class="p-5">
                           <MDBCol md="12">
+                            <MDBRow class="d-flex justify-content-end">
+                              <MDBBtnClose @click="discussionModal = false" />
+                            </MDBRow>
                             <MDBRow>
                               <h5>{{ modalData.title }}</h5>
                             </MDBRow>
@@ -1026,63 +1040,73 @@
                               </p>
                             </MDBRow>
                             <MDBRow>
-                              
                               <MDBCol class="mb-3">
                                 <MDBTooltip v-model="tooltip1" tag="a">
-                                <template #reference>
-                                <a
-                                  @click="likeDiscussion(modalData._id)"
-                                  class="m-1"
-                                  role="button"
-                                  style="color: rgb(0, 0, 255)"
-                                >
-                                  <MDBIcon
-                                    iconStyle="fas"
-                                    icon="thumbs-up"
-                                    size="xs"
-                                  ></MDBIcon>
-                                  Like ({{ modalData.thumbs_up.length }})
-                                </a>
-                                </template>
+                                  <template #reference>
+                                    <a
+                                      @click="likeDiscussion(modalData._id)"
+                                      class="m-1"
+                                      role="button"
+                                      style="color: rgb(0, 0, 255)"
+                                    >
+                                      <MDBIcon
+                                        iconStyle="fas"
+                                        icon="thumbs-up"
+                                        size="xs"
+                                      ></MDBIcon>
+                                      Like ({{ modalData.thumbs_up.length }})
+                                    </a>
+                                  </template>
 
-                              <template #tip>
-                                  <div v-for="thumbs_user in modalData.thumbs_up" :key="thumbs_user._id">
-                                    <span>{{thumbs_user.name}}</span>
+                                  <template #tip>
+                                    <div
+                                      v-for="thumbs_user in modalData.thumbs_up"
+                                      :key="thumbs_user._id"
+                                    >
+                                      <span>{{ thumbs_user.name }}</span>
                                     </div>
                                   </template>
                                 </MDBTooltip>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  Posted By <router-link
-                                  :to="{
-                                    name: 'Profile',
-                                    params: { username: modalData.id_user.username }
-                                  }"
-                                >{{ modalData.id_user.name }}
-                                </router-link>
+                                  Posted By
+                                  <router-link
+                                    :to="{
+                                      name: 'Profile',
+                                      params: {
+                                        username: modalData.id_user.username
+                                      }
+                                    }"
+                                    >{{ modalData.id_user.name }}
+                                  </router-link>
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="comment" iconStyle="fas" />
-                                  {{modalData.id_comments.length}} Comments
+                                  {{ modalData.id_comments.length }} Comments
                                 </span>
                                 <span class="me-2">
                                   <MDBIcon icon="clock" iconStyle="fas" />
                                   {{ moment(modalData.created_at).fromNow() }}
-                                  <template v-if="modalData.created_at != modalData.updated_at">
-                                    (Last Edited {{ moment(modalData.updated_at).fromNow() }})
-                                    </template>
+                                  <template
+                                    v-if="
+                                      modalData.created_at !=
+                                      modalData.updated_at
+                                    "
+                                  >
+                                    (Last Edited
+                                    {{
+                                      moment(modalData.updated_at).fromNow()
+                                    }})
+                                  </template>
                                 </span>
-                               
+
                                 <template
                                   v-if="modalData.id_user._id == user.user?._id"
                                 >
-                                <a
-                                    @click="
-                                      openEditDiscussion(modalData)
-                                    "
+                                  <a
+                                    @click="openEditDiscussion(modalData)"
                                     class="m-1"
                                     role="button"
-                                   
                                   >
                                     <MDBIcon
                                       iconStyle="fas"
@@ -1164,13 +1188,15 @@
                               <MDBCol md="2">
                                 <MDBRow>
                                   <p class="mb-0 ms-2" style="font-weight: 500">
-                                   <router-link
-                                  :to="{
-                                    name: 'Profile',
-                                    params: { username: comment.id_user.username }
-                                  }"
-                                >{{ comment.id_user.name }}
-                                </router-link>
+                                    <router-link
+                                      :to="{
+                                        name: 'Profile',
+                                        params: {
+                                          username: comment.id_user.username
+                                        }
+                                      }"
+                                      >{{ comment.id_user.name }}
+                                    </router-link>
                                   </p>
                                 </MDBRow>
                                 <MDBRow>
@@ -1190,20 +1216,21 @@
                                 </MDBCol>
                                 <MDBRow class="d-flex justify-content-evenly">
                                   <MDBCol class="mb-3">
-                                    
                                     <a
-                                  role="button"
-                                  style="color: rgb(0, 0, 255)"
-                                  @click="likeComment(comment.id_discussion,comment._id)"
-                                  ><MDBIcon
-                                    icon="thumbs-up"
-                                    iconStyle="fas"
-                                  />Like ({{
-                                    comment.thumbs_up.length
-                                  }})
-                                </a>
-                                   
-                          
+                                      role="button"
+                                      style="color: rgb(0, 0, 255)"
+                                      @click="
+                                        likeComment(
+                                          comment.id_discussion,
+                                          comment._id
+                                        )
+                                      "
+                                      ><MDBIcon
+                                        icon="thumbs-up"
+                                        iconStyle="fas"
+                                      />Like ({{ comment.thumbs_up.length }})
+                                    </a>
+
                                     <template
                                       v-if="
                                         comment.id_user._id == user.user?._id
@@ -1232,20 +1259,22 @@
                                 </MDBRow>
                               </MDBRow>
                             </MDBRow>
-                            <template v-if="listToShow < modalData.id_comments.length">
-                            <MDBBtn
-                              @click="listToShow += 5"
-                              style="
-                                background-color: white;
-                                color: primary;
-                                border: 1px solid black;
-                                width: 400px;
-                                height: 40px;
-                              "
-                              class="mt-2 align-content-end"
+                            <template
+                              v-if="listToShow < modalData.id_comments.length"
                             >
-                              Load More Comments
-                            </MDBBtn>
+                              <MDBBtn
+                                @click="listToShow += 5"
+                                style="
+                                  background-color: white;
+                                  color: primary;
+                                  border: 1px solid black;
+                                  width: 400px;
+                                  height: 40px;
+                                "
+                                class="mt-2 align-content-end"
+                              >
+                                Load More Comments
+                              </MDBBtn>
                             </template>
                           </MDBCol>
                         </MDBRow>
@@ -1311,7 +1340,7 @@
                         </MDBRow>
                       </MDBModalBody>
                     </MDBModal>
-                     <MDBModal
+                    <MDBModal
                       id="add_discussion"
                       tabindex="-1"
                       labelledby="add_discussion"
@@ -1443,7 +1472,8 @@ import moment from "moment"
 import Swal from "sweetalert2"
 import {
   MDBIcon,
-  MDBBtn,MDBTooltip,
+  MDBBtn,
+  MDBTooltip,
   MDBCol,
   MDBRow,
   MDBContainer,
@@ -1464,7 +1494,8 @@ import {
   MDBCardImg,
   MDBInput,
   MDBSelect,
-  MDBCarousel
+  MDBCarousel,
+  MDBBtnClose
 } from "mdb-vue-ui-kit"
 import { ref } from "vue"
 export default {
@@ -1483,7 +1514,8 @@ export default {
     Footer,
     MDBIcon,
     MDBBtn,
-    MDBCol,MDBTooltip,
+    MDBCol,
+    MDBTooltip,
     MDBRow,
     MDBContainer,
     MDBTabs,
@@ -1503,7 +1535,8 @@ export default {
     MDBCardImg,
     MDBInput,
     MDBCarousel,
-    MDBSelect
+    MDBSelect,
+    MDBBtnClose
   },
   setup() {
     const clipboard = ref()
@@ -1526,8 +1559,8 @@ export default {
     const selectedSortDiscussion = ref("")
     const selectedSortComment = ref("")
     const modalDataMoment = ref()
-    const tooltip1 = ref(false);
-    const tooltip2 = ref(false);
+    const tooltip1 = ref(false)
+    const tooltip2 = ref(false)
     const edit_discussion = ref(false)
     const { currentPage, lastPage, next, prev, offset, pageSize, total } =
       usePagination({
@@ -1573,7 +1606,7 @@ export default {
     })
     const discussion_content = ref({
       content: null,
-      title: null,
+      title: null
     })
     const comment_content = ref()
     const data_wisata = ref({
@@ -1677,7 +1710,6 @@ export default {
     function sum_rating(data) {
       var temp = 0
       for (var i = 0; i < data.value.length; i++) {
-      
         temp += data.value[i]
       }
       return temp / data.value?.length
@@ -1957,21 +1989,20 @@ export default {
         id +
         "/thumbs"
       fetch_data.post(uri_likeDiscussion, config, config).then(() => {
-
         getSpecificDiscussion(id, modalData)
       })
     }
-    function likeComment(id,id_comment) {
-
+    function likeComment(id, id_comment) {
       let uri_likeComment =
         process.env.VUE_APP_ROOT_API +
         "wisata/" +
         route.params.slug +
         "/discussion/" +
-        id + "/" + id_comment + 
+        id +
+        "/" +
+        id_comment +
         "/thumbs"
       fetch_data.post(uri_likeComment, config, config).then(() => {
-
         getSpecificDiscussion(id, modalData)
       })
     }
@@ -2111,40 +2142,42 @@ export default {
       currentPage.value = 1
       offset.value = 0
     }
-    function copyClipboard(){
-      let copyText = document.querySelector('#copyAlamat')
+    function copyClipboard() {
+      let copyText = document.querySelector("#copyAlamat")
       copyText.select()
-      copyText.setAttribute('type', 'text')
-      navigator.clipboard.writeText(copyText.value);
+      copyText.setAttribute("type", "text")
+      navigator.clipboard.writeText(copyText.value)
     }
 
-    function openEditDiscussion(data){
+    function openEditDiscussion(data) {
       edit_discussion.value = true
       discussion_content.value.title = data.title
-      discussion_content.value.content = data.content 
+      discussion_content.value.content = data.content
       discussion_content.value._id = data._id
     }
-    function editDiscussion(){
-        let uri_discussion =
+    function editDiscussion() {
+      let uri_discussion =
         process.env.VUE_APP_ROOT_API +
         "wisata/" +
         route.params.slug +
         "/discussion/" +
         discussion_content.value._id
-         fetch_data.patch(uri_discussion, discussion_content, config).then((response) => {
+      fetch_data
+        .patch(uri_discussion, discussion_content, config)
+        .then((response) => {
           get_discussion(discussion_list)
           discussion_content.value = {}
           discussionModal.value = false
           edit_discussion.value = false
           Swal.fire({
-          title: "Action Success",
-          text: response.data.msg,
-          icon: "success"
-        })
+            title: "Action Success",
+            text: response.data.msg,
+            icon: "success"
+          })
         })
     }
-    function deleteMoment(id){
-       Swal.fire({
+    function deleteMoment(id) {
+      Swal.fire({
         title: "Do you want to delete your Moment?",
         icon: "info",
         showCancelButton: true,
@@ -2156,22 +2189,22 @@ export default {
             headers: authHeader()
           }
           let uri_singleMoment = process.env.VUE_APP_ROOT_API + "moment/" + id
-          fetch_data
-            .delete(uri_singleMoment, config)
-            .then(() => {
-              Moment.value = false
-              Swal.fire("Moment Deleted", "", "success")
-               fetch_data.get(uri_moment).then((response) => {
-      moment_list.value = response.data
-    })
+          fetch_data.delete(uri_singleMoment, config).then(() => {
+            Moment.value = false
+            Swal.fire("Moment Deleted", "", "success")
+            fetch_data.get(uri_moment).then((response) => {
+              moment_list.value = response.data
             })
-         
+          })
         }
       })
-      
     }
     return {
-      mapLoaded,copyClipboard,openEditDiscussion,edit_discussion,editDiscussion,
+      mapLoaded,
+      copyClipboard,
+      openEditDiscussion,
+      edit_discussion,
+      editDiscussion,
       user,
       confirm_deletion,
       isFavourited,
@@ -2231,7 +2264,8 @@ export default {
       likeReview,
       getSpecificMoment,
       likeComment,
-      clipboard,tooltip1,
+      clipboard,
+      tooltip1,
       tooltip2,
       deleteMoment
     }

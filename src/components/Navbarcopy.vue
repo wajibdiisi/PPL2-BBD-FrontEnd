@@ -40,7 +40,7 @@
               <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
-                 class="rounded-circle"
+                 class="rounded-circle mx-2"
                   alt="avatar"
                   width="40"
                   height="40"
@@ -62,7 +62,7 @@
               <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
-                 class="rounded-circle"
+                 class="rounded-circle mx-2"
                   alt="avatar"
                   width="40"
                   height="40"
@@ -84,7 +84,7 @@
               <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
-                 class="rounded-circle"
+                 class="rounded-circle mx-2"
                   alt="avatar"
                   width="40"
                   height="40"
@@ -107,7 +107,7 @@
               <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
-                 class="rounded-circle"
+                 class="rounded-circle mx-2"
                   alt="avatar"
                   width="40"
                   height="40"
@@ -129,7 +129,7 @@
               <MDBDropdownItem style="margin-bottom: 1vh">
                 <img
                  :src="notif.ref_user.profilePicture"
-                 class="rounded-circle"
+                 class="rounded-circle mx-2"
                   alt="avatar"
                   width="40"
                   height="40"

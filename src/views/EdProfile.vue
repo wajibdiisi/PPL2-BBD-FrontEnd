@@ -96,8 +96,7 @@
                   <MDBBtn
                     size="lg"
                     type="submit"
-                                        color="primary"
-                    style="background-color: rgb(50, 224, 196)"
+                    color="primary"
                     >Update Profile
                   </MDBBtn>
                 </div>

@@ -79,11 +79,9 @@
                 <div style="margin-top: 2vh">
                   <MDBBtn size="lg" @click="router.back()"> Cancel </MDBBtn>
                   <MDBBtn
-                    size="lg"
-                    
+                    size="lg"                    
                     color="primary"
                     type="submit"
-                    style="background-color: rgb(50, 224, 196)"
                     >Upload Moment
                   </MDBBtn>
                 </div>

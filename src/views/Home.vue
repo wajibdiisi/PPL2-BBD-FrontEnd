@@ -1,7 +1,6 @@
 <template>
   <Navbar />
   <MDBContainer fluid style="margin-bottom: 1vh">
-
     <div class="text-center">
       <MDBCol col="12">
         <img
@@ -17,8 +16,8 @@
           :displayValue="displayValueTemplate"
           :itemContent="itemTemplate"
           @update="redirectAutoComplete(autocompleteTemplate)"
-          style="width: 22rem"
-          label="Cari Tempat Wisata"
+          style="width: 951px"
+          placeholder="Cari Tempat Wisata"
         />
       </div>
     </div>
@@ -186,56 +185,68 @@ export default {
     let uri_favourite = process.env.VUE_APP_ROOT_API + "wisata/most_favourited"
     let uri_wisataRandom = process.env.VUE_APP_ROOT_API + "wisata/random"
     let uri_momentRandom = process.env.VUE_APP_ROOT_API + "moment/random/moment"
-    app.appContext.config.globalProperties.$http.get(uri_wisata).then((response) => {
-      wisata_list.value = response.data
-      wisataAutoComplete.value = wisata_list.value.map((wisata) => wisata.slug)
-    
-    })
-    app.appContext.config.globalProperties.$http.get(uri_favourite).then((response)=> {
-      most_favourited.value = response.data
-    })
-    app.appContext.config.globalProperties.$http.get(uri_wisataRandom).then((response)=> {
-      diskusi_wisata.value = response.data
-    })
-    app.appContext.config.globalProperties.$http.get(uri_momentRandom).then((response)=> {
-      moment_wisata.value = response.data
-      for(let i = 0 ; i < response.data.length ; i++){
-        var label = ''
-        for(let j = 0 ; j < response.data[i].id_wisata.length ; j++){
-          if(response.data[i].id_wisata.length - 1 == 0)
-          label = label + response.data[i].id_wisata[j].nama
-          else if(response.data[i].id_wisata.length - j != 1)
-          label = label + response.data[i].id_wisata[j].nama + ' - '
-          else 
-          label = label + response.data[i].id_wisata[j].nama + ' '
+    app.appContext.config.globalProperties.$http
+      .get(uri_wisata)
+      .then((response) => {
+        wisata_list.value = response.data
+        wisataAutoComplete.value = wisata_list.value.map(
+          (wisata) => wisata.slug
+        )
+      })
+    app.appContext.config.globalProperties.$http
+      .get(uri_favourite)
+      .then((response) => {
+        most_favourited.value = response.data
+      })
+    app.appContext.config.globalProperties.$http
+      .get(uri_wisataRandom)
+      .then((response) => {
+        diskusi_wisata.value = response.data
+      })
+    app.appContext.config.globalProperties.$http
+      .get(uri_momentRandom)
+      .then((response) => {
+        moment_wisata.value = response.data
+        for (let i = 0; i < response.data.length; i++) {
+          var label = ""
+          for (let j = 0; j < response.data[i].id_wisata.length; j++) {
+            if (response.data[i].id_wisata.length - 1 == 0)
+              label = label + response.data[i].id_wisata[j].nama
+            else if (response.data[i].id_wisata.length - j != 1)
+              label = label + response.data[i].id_wisata[j].nama + " - "
+            else label = label + response.data[i].id_wisata[j].nama + " "
+          }
+
+          if (i <= 2) {
+            momentCarousel.value.push({
+              src: response.data[i].photo,
+              alt: "..",
+              label: label
+            })
+          }
+          if (2 < i <= 5) {
+            momentCarousel2.value.push({
+              src: response.data[i + 3].photo,
+              alt: "..",
+              label: label
+            })
+          }
+          if (5 < i <= 8) {
+            momentCarousel3.value.push({
+              src: response.data[i + 6].photo,
+              alt: "..",
+              label: label
+            })
+          }
         }
-    
-        if(i <= 2 ){
-          momentCarousel.value.push({
-          'src' : response.data[i].photo,
-          'alt' : "..",
-          'label' : label
-        })
-        }if(2 < i <= 5){
-          momentCarousel2.value.push({
-          'src' : response.data[i+3].photo,
-          'alt' : "..",
-          'label' : label
-        })
-        }if(5 < i <= 8){
-          momentCarousel3.value.push({
-          'src' : response.data[i+6].photo,
-          'alt' : "..",
-          'label' : label
-        })
-        }
-    }})
+      })
     function redirect(data) {
       router.push({ name: "WisataDetails", params: { slug: data } })
     }
     function redirectAutoComplete(data) {
-      if(wisataAutoComplete.value.includes(data)){
-      router.push({ name: "WisataDetails", params: { slug: data } })}
+      if (wisataAutoComplete.value.includes(data)) {
+        router.push({ name: "WisataDetails", params: { slug: data } })
+      }
     }
 
     const filterTemplate = async (value) => {
@@ -282,7 +293,8 @@ export default {
       redirect,
       filterTemplate,
       displayValueTemplate,
-      itemTemplate,redirectAutoComplete,
+      itemTemplate,
+      redirectAutoComplete,
       autocompleteTemplate
     }
   },

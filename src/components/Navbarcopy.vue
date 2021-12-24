@@ -20,7 +20,7 @@
       <MDBNavbarItem to="/Aboutus"> About Us </MDBNavbarItem>
       <MDBNavbarItem to="/Help"> Help </MDBNavbarItem>
       <MDBNavbarNav right class="mb-2 mb-lg-0">
-        <MDBDropdown class="nav-item" v-model="dropdown4">
+        <MDBDropdown offset="-100,10" class="nav-item" v-model="dropdown4">
           <MDBDropdownToggle
             tag="a"
             class="nav-link"
@@ -30,9 +30,18 @@
             <MDBBadge notification color="danger" pill>1</MDBBadge>
           </MDBDropdownToggle>
           <MDBDropdownMenu>
+            <MDBDropdownItem href="#">
+              <img
+                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                class="rounded-circle"
+                alt="avatar"
+                width="40"
+                height="40"
+              />
+              Ahmad Irfan Fadholi Liked one of your Moment
+            </MDBDropdownItem>
             <MDBDropdownItem href="#">Action</MDBDropdownItem>
             <MDBDropdownItem href="#">Another Action</MDBDropdownItem>
-            <MDBDropdownItem href="#">Something else here</MDBDropdownItem>
             <MDBDropdownItem divider />
             <MDBRow class="d-flex justify-content-center">
               <MDBCol>

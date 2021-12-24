@@ -20,6 +20,7 @@
       <MDBNavbarItem to="/Aboutus"> About Us </MDBNavbarItem>
       <MDBNavbarItem to="/Help"> Help </MDBNavbarItem>
       <MDBNavbarNav right class="mb-2 mb-lg-0">
+         <template v-if="isLoggedIn == true">
         <MDBDropdown offset="-100,10" class="nav-item" v-model="dropdown4">
           <MDBDropdownToggle
             tag="a"
@@ -27,70 +28,133 @@
             @click="dropdown4 = !dropdown4"
           >
             <MDBIcon icon="bell" />
-            <MDBBadge notification color="danger" pill>1</MDBBadge>
+            <template v-if="notification.length !== 0">
+            <MDBBadge notification color="danger" pill>{{notification.length}}</MDBBadge>
+            </template>
           </MDBDropdownToggle>
           <MDBDropdownMenu>
-            <MDBDropdownItem tag="h6" header>Notifications (5)</MDBDropdownItem>
-            <MDBScrollbar height="285px">
-              <MDBDropdownItem href="#">
+            <MDBDropdownItem tag="h6" header>Notifications ({{notification.length}})</MDBDropdownItem>
+            <MDBScrollbar height="285px" width="500px">
+              <div v-for="notif in notification" :key="notif._id">
+              <template v-if="notif.content =='comment'">
+              <MDBDropdownItem>
                 <img
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  class="rounded-circle"
+                 :src="notif.ref_user.profilePicture"
+                 class="rounded-circle"
                   alt="avatar"
                   width="40"
                   height="40"
                 />
-                Ahmad Irfan Fadholi Liked one of your Moment
+                 <router-link
+                              :to="{
+                                name: 'Profile',
+                                params: { username: notif.ref_user.username }
+                              }"
+                            >{{notif.ref_user.name}}</router-link> Commented on your Discussion about <router-link
+                              :to="{
+                                name: 'WisataDetails',
+                    params: { slug: notif.id_discussion.id_wisata.slug }
+                              }"
+                            >{{notif.id_discussion.id_wisata.nama }}</router-link>
               </MDBDropdownItem>
-              <MDBDropdownItem href="#">
+            </template>
+            <template v-if="notif.content =='likeDiscussion'">
+              <MDBDropdownItem>
                 <img
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  class="rounded-circle"
+                 :src="notif.ref_user.profilePicture"
+                 class="rounded-circle"
                   alt="avatar"
                   width="40"
                   height="40"
                 />
-                Ahmad Irfan Fadholi Liked one of your Moment
+                      <router-link
+                              :to="{
+                                name: 'Profile',
+                                params: { username: notif.ref_user.username }
+                              }"
+                            >{{notif.ref_user.name}}</router-link>Liked one of your Discussion about   <router-link
+                              :to="{
+                                name: 'WisataDetails',
+                    params: { slug: notif.id_discussion.id_wisata.slug }
+                              }"
+                            >{{notif.id_discussion.id_wisata.nama }}</router-link>
               </MDBDropdownItem>
-              <MDBDropdownItem href="#">
+            </template>
+            <template v-if="notif.content =='likeComment'">
+              <MDBDropdownItem>
                 <img
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  class="rounded-circle"
+                 :src="notif.ref_user.profilePicture"
+                 class="rounded-circle"
                   alt="avatar"
                   width="40"
                   height="40"
                 />
-                Ahmad Irfan Fadholi Liked one of your Moment
+                      <router-link
+                              :to="{
+                                name: 'Profile',
+                                params: { username: notif.ref_user.username }
+                              }"
+                            >{{notif.ref_user.name}}</router-link> Liked one of your Comment on a Discussion about <router-link
+                              :to="{
+                                name: 'WisataDetails',
+                    params: { slug: notif.id_discussion.id_wisata.slug }
+                              }"
+                            >{{notif.id_discussion.id_wisata.nama }}</router-link>
+                            
               </MDBDropdownItem>
-              <MDBDropdownItem href="#">
+            </template>
+             <template v-if="notif.content =='likeReview'">
+              <MDBDropdownItem>
                 <img
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  class="rounded-circle"
+                 :src="notif.ref_user.profilePicture"
+                 class="rounded-circle"
                   alt="avatar"
                   width="40"
                   height="40"
                 />
-                Ahmad Irfan Fadholi Liked one of your Moment
+                    <router-link
+                              :to="{
+                                name: 'Profile',
+                                params: { username: notif.ref_user.username }
+                              }"
+                            >{{notif.ref_user.name}}</router-link> Liked one of your Review about <router-link
+                              :to="{
+                                name: 'WisataDetails',
+                    params: { slug: notif.id_review.id_wisata.slug }
+                              }"
+                            >{{notif.id_review.id_wisata.nama }}</router-link>
               </MDBDropdownItem>
-              <MDBDropdownItem href="#">
+            </template>
+             <template v-if="notif.content =='likeMoment'">
+              <MDBDropdownItem>
                 <img
-                  src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
-                  class="rounded-circle"
+                 :src="notif.ref_user.profilePicture"
+                 class="rounded-circle"
                   alt="avatar"
                   width="40"
                   height="40"
                 />
-                Ahmad Irfan Fadholi Liked one of your Moment
+                    <router-link
+                              :to="{
+                                name: 'Profile',
+                                params: { username: notif.ref_user.username }
+                              }"
+                            >{{notif.ref_user.name}}</router-link> Liked one of your Moment
               </MDBDropdownItem>
+            </template>
+           </div>
             </MDBScrollbar>
             <MDBDropdownItem divider />
             <MDBRow class="d-flex justify-content-center">
               <MDBCol>
-                <p>Clear Notifications</p>
+              <p role="button" @click="deleteNotification('all')">
+          Clear all notification
+          </p>
               </MDBCol>
             </MDBRow>
           </MDBDropdownMenu>
         </MDBDropdown>
+        </template>
         <!--<template v-if="user.user">
           <MDBNavbarItem
             :to="{
@@ -199,11 +263,13 @@ import {
   MDBScrollbar
 } from "mdb-vue-ui-kit"
 import { ref } from "vue"
+import Swal from "sweetalert2"
 import { computed, getCurrentInstance } from "vue"
 import { useStore } from "vuex"
 import authHeader from "../auth-header"
 export default {
   methods: {
+
     logout: function () {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/")
@@ -240,7 +306,7 @@ export default {
     const isLoggedIn = computed(() => store.getters.isLoggedIn)
     const toast1 = ref(computed(() => store.getters.set_notification))
     const toastMsg = computed(() => store.getters.notificationData)
-    const notification = ref()
+    const notification = ref([])
     const app = getCurrentInstance()
     const dropdown4 = ref(false)
     let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
@@ -251,6 +317,43 @@ export default {
           notification.value = response.data
         })
     }
+    function get_notification(){
+      let uri_notification = process.env.VUE_APP_ROOT_API + "notification"
+      app.appContext.config.globalProperties.$http.get(uri_notification,config).then((response) => {
+        notification.value = response.data
+      })
+    }
+    function deleteNotification(id){
+      Swal.fire({
+        title: "Do you want to delete your notification?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Save"
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          let uri = ''
+      if(id == 'all'){
+      uri =  process.env.VUE_APP_ROOT_API + 'notification/remove/all'
+      }else{
+      uri = process.env.VUE_APP_ROOT_API + 'notification/' + id
+      }
+      app.appContext.config.globalProperties.$http.delete(uri,config).then((response) => {
+        if(response.status == 201){
+          get_notification()
+          Swal.fire({
+            title : 'Notification Deleted',
+            icon : 'success'
+          })
+        }
+      }).catch((err)=> {
+        console.log(err.status)
+      })
+          }
+      })
+      
+    }
+
     return {
       isLoggedIn,
       toast1,
@@ -259,7 +362,9 @@ export default {
       dropdown6,
       user,
       notification,
-      dropdown4
+      dropdown4,
+      get_notification,
+      deleteNotification
     }
   }
 }

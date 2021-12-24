@@ -68,8 +68,10 @@
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
             readonly
+            disabledPast
             required
-            format="DD, MMM, YYYY"
+            :max="momentJS().format('DD MMMM YYYY')"
+             format="DD MMMM YYYY"
             placeholder="DD, MMM, YYYY"
           />
           <MDBCardText class="fs-4"> Time </MDBCardText>
@@ -108,6 +110,7 @@ import Navbar from "../components/Navbarcopy.vue";
 import Footer from "../components/Footer copy.vue";
 import {  useRouter} from "vue-router"
 import Swal from 'sweetalert2'
+import momentJS from "moment"
 import { ref,getCurrentInstance } from "vue";
 import {
   MDBCol,
@@ -233,7 +236,9 @@ export default {
       }
     })
     const selectedWisata = ref([])
-    
+ 
+    console.log(momentJS().format("DD MMMM YYYY"))
+
     function createMoment(){
       let formData = new FormData();
       formData.append("file", file.value.files[0])
@@ -263,7 +268,8 @@ export default {
       checkForm,
       isValid,
         isValidated,
-        validate,router
+        validate,router,momentJS
+  
     };
   },
 };

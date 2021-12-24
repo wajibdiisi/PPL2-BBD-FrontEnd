@@ -86,7 +86,8 @@
             readonly
             invalidLabel="Invalid Date Format"
             label="Pilih Tanggal"
-        required
+          required
+         :max="momentJS().format('DD MMMM YYYY')"
             format="DD MMMM YYYY"
             placeholder="DD, MMM, YYYY"
           />
@@ -116,6 +117,7 @@ import Footer from "../components/Footer copy.vue";
 
 import { computed } from "vue";
 import { useStore } from "vuex";
+import momentJS from "moment"
 import {useRouter} from 'vue-router'
 import Swal from "sweetalert2";
 import { ref, getCurrentInstance } from "vue";
@@ -261,7 +263,8 @@ export default {
       autocompleteAsync,autocompleteAsyncKota,
       url,filterAsync,filterAsyncKota,
       input1,checkForm,router,
-      provinsi,displayValueAsync,displayValueAsyncKota
+      provinsi,displayValueAsync,displayValueAsyncKota,
+      momentJS
     };
   },
 };
